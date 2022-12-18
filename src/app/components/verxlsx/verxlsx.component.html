@@ -1,0 +1,87 @@
+<button pButton type="button" icon="pi pi-refresh" label="Actualizar " (click)="traerDatosExcel()"></button>
+<br><br>
+
+<p-table [value]="datosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="numero">Numero <p-sortIcon field="numero"></p-sortIcon></th>
+            <th pSortableColumn="nro_cp">Nro. CP <p-sortIcon field="nro_cp"></p-sortIcon></th>
+            <th pSortableColumn="nro_ctg">Nro Ctg <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+            <th pSortableColumn="finca">Finca Nº <p-sortIcon field="finca"></p-sortIcon></th>
+            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th pSortableColumn="AREA">Cultivo <p-sortIcon field="AREA"></p-sortIcon></th>
+            <th pSortableColumn="lotesilo">Lote / Silo <p-sortIcon field="lotesilo"></p-sortIcon></th>
+            <th pSortableColumn="transporte">Transporte <p-sortIcon field="transporte"></p-sortIcon></th>
+            <th pSortableColumn="distancia">Distancia <p-sortIcon field="distancia"></p-sortIcon></th>
+            <th pSortableColumn="pcio_flete">Imp. Transp. <p-sortIcon field="pcio_flete"></p-sortIcon></th>
+            <th pSortableColumn="remito">Nº Remito <p-sortIcon field="remito"></p-sortIcon></th>
+            <th pSortableColumn="kg_origen">Peso origen <p-sortIcon field="kg_origen"></p-sortIcon></th>
+            <th pSortableColumn="humedad1">Hum. Origen <p-sortIcon field="humedad1"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_orig">Peso neto orig. <p-sortIcon field="kg_neto_orig"></p-sortIcon></th>
+            <th pSortableColumn="destino">Destino <p-sortIcon field="destino"></p-sortIcon></th>
+            <th pSortableColumn="descarga"> Descarga <p-sortIcon field="descarga"></p-sortIcon></th>
+            <th pSortableColumn="kg_destino">Peso destino <p-sortIcon field="kg_destino"></p-sortIcon></th>
+            <th pSortableColumn="humedad2">Hum. Dest. <p-sortIcon field="humedad2"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_dest">Peso neto dest. <p-sortIcon field="kg_neto_dest"></p-sortIcon></th>
+            <th pSortableColumn="diferencia">Diferencia <p-sortIcon field="diferencia"></p-sortIcon></th>
+            <th pSortableColumn="romaneo">Romaneo <p-sortIcon field="romaneo"></p-sortIcon></th>
+            <th pSortableColumn="zaranda">Zaranda <p-sortIcon field="zaranda"></p-sortIcon></th>
+            <th pSortableColumn="volatil">Volatil <p-sortIcon field="volatil"></p-sortIcon></th>
+            <th pSortableColumn="cuerp_ext">C. Extraños <p-sortIcon field="cuerp_ext"></p-sortIcon></th>
+            <th pSortableColumn="tierra">Tierra <p-sortIcon field="tierra"></p-sortIcon></th>
+            <th pSortableColumn="quebrados">Quebrados <p-sortIcon field="quebrados"></p-sortIcon></th>
+            <th pSortableColumn="daniados">Dañados <p-sortIcon field="daniados"></p-sortIcon></th>
+            <th pSortableColumn="chamico">Chamico <p-sortIcon field="chamico"></p-sortIcon></th>
+            <th pSortableColumn="otros">Otros <p-sortIcon field="otros"></p-sortIcon></th>
+            <th pSortableColumn="factor">Factor <p-sortIcon field="factor"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto">Peso neto <p-sortIcon field="kg_neto"></p-sortIcon></th>
+            <th pSortableColumn="usuario">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>
+            <th pSortableColumn="fecha_carga">Fecha <p-sortIcon field="fecha_carga"></p-sortIcon></th>
+            <th pSortableColumn="hora_carga">Hora <p-sortIcon field="hora_carga"></p-sortIcon></th>
+            <th pSortableColumn="variedad">Variedad <p-sortIcon field="variedad"></p-sortIcon></th>
+            <th pSortableColumn="observar">Observaciones <p-sortIcon field="observar"></p-sortIcon></th>
+            <th pSortableColumn="origen">Origen <p-sortIcon field="origen"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-datosExcel>
+        <tr>
+            <td>{{datosExcel.numero}}</td>
+            <td>{{datosExcel.nro_cp}}</td>
+            <td>{{datosExcel.nro_ctg}}</td>
+            <td>{{datosExcel.finca}}</td>
+            <td>{{datosExcel.fecha}}</td>
+            <td>{{datosExcel.AREA}}</td>
+            <td>{{datosExcel.lotesilo}}</td>
+            <td>{{datosExcel.transporte}}</td>
+            <td>{{datosExcel.distancia}}</td>
+            <td>{{datosExcel.pcio_flete}}</td>
+            <td>{{datosExcel.remito}}</td>
+            <td>{{datosExcel.kg_origen}}</td>
+            <td>{{datosExcel.humedad1}}</td>
+            <td>{{datosExcel.kg_neto_orig}}</td>
+            <td>{{datosExcel.destino}}</td>
+            <td>{{datosExcel.descarga}}</td>
+            <td>{{datosExcel.kg_destino}}</td>
+            <td>{{datosExcel.humedad2}}</td>
+            <td>{{datosExcel.kg_neto_dest}}</td>
+            <td>{{datosExcel.diferencia}}</td>
+            <td>{{datosExcel.romaneo}}</td>
+            <td>{{datosExcel.zaranda}}</td>
+            <td>{{datosExcel.volatil}}</td>
+            <td>{{datosExcel.cuerp_ext}}</td>
+            <td>{{datosExcel.tierra}}</td>
+            <td>{{datosExcel.quebrados}}</td>
+            <td>{{datosExcel.daniados}}</td>
+            <td>{{datosExcel.chamico}}</td>
+            <td>{{datosExcel.otros}}</td>
+            <td>{{datosExcel.factor}}</td>
+            <td>{{datosExcel.kg_neto}}</td>
+            <td>{{datosExcel.usuario}}</td>
+            <td>{{datosExcel.fecha_carga}}</td>
+            <td>{{datosExcel.hora_carga}}</td>
+            <td>{{datosExcel.variedad}}</td>
+            <td>{{datosExcel.observar}}</td>
+            <td>{{datosExcel.origen}}</td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,35 @@
+<br>
+<h2 style="text-align: center;">Produccion</h2>
+<br>
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<p-table [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="numero">NUM <p-sortIcon field="numero"></p-sortIcon></th>
+            <th pSortableColumn="fecha">FECHA <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th pSortableColumn="remito">O.C. <p-sortIcon field="remito"></p-sortIcon></th>
+            <th pSortableColumn="nro_cp">C.P. <p-sortIcon field="nro_cp"></p-sortIcon></th>
+            <th pSortableColumn="nro_ctg">C.T.G. <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_orig">KG ORIGEN <p-sortIcon field="kg_neto_orig"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_dest">KG DESTINO <p-sortIcon field="kg_neto_dest"></p-sortIcon></th>
+            <th pSortableColumn="observar">OBS <p-sortIcon field="observar"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-produccion>
+        <tr>
+            <td>{{produccion.numero}}</td>
+            <td>{{produccion.fecha}}</td>
+            <td>{{produccion.remito}}</td>
+            <td>{{produccion.nro_cp}}</td>
+            <td>{{produccion.nro_ctg}}</td>
+            <td>{{produccion.kg_neto_orig}}</td>
+            <td>{{produccion.kg_neto_dest}}</td>
+            <td>{{produccion.observar}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+Rec. : {{produccion.length}}
