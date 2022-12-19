@@ -10,13 +10,20 @@ export class CrearRegistrosComponent implements OnInit {
 
   datosExcel: any = [];
 
-  displayBasic: Boolean = false;
+  displayBasic: Boolean = true;
+
+  datosAdicionales: any = {};
 
   constructor(
     private comunicacionService: ComunicacionService
   ) { }
 
   ngOnInit(): void {
+    const hoy = new Date();
+    this.datosAdicionales['fecha_carga'] = hoy.toISOString().slice(0, 10);
+    this.datosAdicionales['hora_carga'] = hoy.toLocaleTimeString()
+    
+
   }
 
   traerDatosExcel() {

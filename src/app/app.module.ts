@@ -18,7 +18,9 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {BadgeModule} from 'primeng/badge';
 import {TagModule} from 'primeng/tag';
 import {DialogModule} from 'primeng/dialog';
-
+import {InputTextModule} from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -32,6 +34,7 @@ import { ListaLotesComponent } from './components/lista-lotes/lista-lotes.compon
 import { CargarCrearComponent } from './components/cargar-crear/cargar-crear.component';
 import { VerXlsxCrearComponent } from './components/ver-xlsx-crear/ver-xlsx-crear.component';
 import { CrearRegistrosComponent } from './components/crear-registros/crear-registros.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -54,6 +57,7 @@ import { CrearRegistrosComponent } from './components/crear-registros/crear-regi
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
 
     //PRIMENG
@@ -67,7 +71,10 @@ import { CrearRegistrosComponent } from './components/crear-registros/crear-regi
     BadgeModule,
     TagModule,
     DialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextModule,
+    CheckboxModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
