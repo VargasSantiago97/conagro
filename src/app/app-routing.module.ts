@@ -9,6 +9,8 @@ import { ListaFleterosComponent } from './components/lista-fleteros/lista-fleter
 import { ListaLotesComponent } from './components/lista-lotes/lista-lotes.component';
 import { ListaProduccionComponent } from './components/lista-produccion/lista-produccion.component';
 import { ListaProveedoresComponent } from './components/lista-proveedores/lista-proveedores.component';
+import { PatentesComponent } from './components/patentes/patentes.component';
+import { PruebasComponent } from './components/pruebas/pruebas.component';
 import { VerCambiosComponent } from './components/ver-cambios/ver-cambios.component';
 import { VerXlsxCrearComponent } from './components/ver-xlsx-crear/ver-xlsx-crear.component';
 import { VerxlsxComponent } from './components/verxlsx/verxlsx.component';
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full'},
   { path: 'inicio', component: InicioComponent },
   { path: 'listProduccion', component: ListaProduccionComponent },
+  { path: 'pruebas', component: PruebasComponent },
   { path: 'listProveedores', component: ListaProveedoresComponent },
   { path: 'listFleteros', component: ListaFleterosComponent },
   { path: 'listDestinos', component: ListaDestinosComponent },
@@ -29,7 +32,8 @@ const routes: Routes = [
 
   { path: 'cargarCrear', component: CargarCrearComponent },
   { path: 'verXlsxCrear', component: VerXlsxCrearComponent },
-  { path: 'crearRegistros', component: CrearRegistrosComponent }
+  { path: 'crearRegistros', component: CrearRegistrosComponent },
+  { path: 'patentes', component: PatentesComponent }
 ];
 
 

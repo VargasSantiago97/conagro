@@ -35,6 +35,8 @@ import { CargarCrearComponent } from './components/cargar-crear/cargar-crear.com
 import { VerXlsxCrearComponent } from './components/ver-xlsx-crear/ver-xlsx-crear.component';
 import { CrearRegistrosComponent } from './components/crear-registros/crear-registros.component';
 import { FormsModule } from '@angular/forms';
+import { PruebasComponent } from './components/pruebas/pruebas.component';
+import { PatentesComponent } from './components/patentes/patentes.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { FormsModule } from '@angular/forms';
     ListaLotesComponent,
     CargarCrearComponent,
     VerXlsxCrearComponent,
-    CrearRegistrosComponent
+    CrearRegistrosComponent,
+    PruebasComponent,
+    PatentesComponent
   ],
   imports: [
     BrowserModule,

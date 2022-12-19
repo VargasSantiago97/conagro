@@ -23,6 +23,10 @@ export class ComunicacionService {
     return this.http.get(`${this.API_URI}/index.php?tabla=proveedores&op=getAll`);
   };
 
+  crearProveedor(data : any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=proveedores&op=create`, data);
+  };
+
   obtenerTodosDestinos() {
     return this.http.get(`${this.API_URI}/index.php?tabla=destinos&op=getAll`);
   };
@@ -37,5 +41,13 @@ export class ComunicacionService {
 
   traerDatosExcelCrear() {
     return this.http.get(`${this.API_URI}/excelCrear.php`);
+  };
+
+  obtenerTodosSecuencia() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=secuencia&op=getAll`);
+  };
+
+  editarSecuencia(data : any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=secuencia&op=update`, data);
   };
 }

@@ -1,0 +1,418 @@
+<br>
+<h2 style="text-align: center;">Patentes</h2>
+<br>
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Actualizar Datos SynAgro" (click)="obtenerTodosProveedores()"></button>
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Traer datos Excel" (click)="traerDatosExcel()"></button>
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Comparar" (click)="compararSynagro()"></button>
+<br><br>
+
+<p-table [value]="datosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nro_cp">Nro. CP <p-sortIcon field="nro_cp"></p-sortIcon></th>
+            <th pSortableColumn="nro_ctg">Nro Ctg <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+            <th pSortableColumn="transporte">Transporte <p-sortIcon field="transporte"></p-sortIcon></th>
+            <th pSortableColumn="synagro">Existe Synagro <p-sortIcon field="synagro"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-datosExcel>
+        <tr>
+            <td>{{datosExcel.nro_cp}}</td>
+            <td>{{datosExcel.nro_ctg}}</td>
+            <td>{{datosExcel.transporte}}</td>
+            <td [ngStyle]="{'background-color': datosExcel.synagro != 'No encontrado' ? '#ffffff' : 'rgb(161, 1, 1)'}">{{datosExcel.synagro}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div *ngIf="mostrarCrear">
+    <br><br><br>
+    <h2 style="text-align: center;">Patentes No Encontradas</h2>
+    <br>
+
+    <p-table [value]="patentesCrear" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="patente">Patente <p-sortIcon field="patente"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-patente>
+            <tr>
+                <td>{{patente}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br>
+
+    <button pButton type="button" style="margin: 5px;" label="Datos Adicionales" (click)="displayBasic=true"></button>
+
+    <button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Crear Patentes" (click)="crearPatentes()"></button>
+
+
+    
+    <h4>Logs:</h4>
+    <br><br>
+    <p-table [value]="logRegistros" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="registro">NUM <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="mensaje">ESTADO <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="codigo">COD. <p-sortIcon field="codigo"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.registro}}</td>
+                <td>{{registro.mensaje}}</td>
+                <td>{{registro.codigo}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+</div>
+
+
+
+
+<p-dialog header="Datos adicionales:" [(visible)]="displayBasic" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true"
+    [draggable]="true" [resizable]="true">
+            <br>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">actualiza_saldo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.actualiza_saldo">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">alicuota </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.alicuota">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">aplica_tercerizacion </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.aplica_tercerizacion">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">arranque </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.arranque">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">categoria_iibb </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.categoria_iibb">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">categoria_iva </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.categoria_iva">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cliente_tipo_co_id </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cliente_tipo_co_id">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_cuenta </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_cuenta">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_externo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_externo">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_formula_iibb </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_formula_iibb">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_localidad </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_localidad">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_proveedor </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_proveedor">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_provincia </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cod_provincia">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">codigo_cliente </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.codigo_cliente">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">codigo_postal </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.codigo_postal">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">coeficiente_iibb_cm </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.coeficiente_iibb_cm">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">contacto </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.contacto">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">contratista_campo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.contratista_campo">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">contratista_construccion </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.contratista_construccion">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cuenta_de_gasto </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cuenta_de_gasto">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cuit </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.cuit">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">desde_iibb </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.desde_iibb">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">dgr_contribuyente_tipo_id </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.dgr_contribuyente_tipo_id">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">domicilio </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.domicilio">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">email </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.email">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">fax </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.fax">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">fletero_campo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.fletero_campo">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">formula </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.formula">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">gln </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.gln">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">grupo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.grupo">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">hasta_iibb </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.hasta_iibb">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">id </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.id">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">id_contribuyente_tipo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.id_contribuyente_tipo">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">moneda </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.moneda">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">movimiento_origen_id </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.movimiento_origen_id">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">numero_cai </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.numero_cai">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">numero_retencion_ib </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.numero_retencion_ib">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">observaciones </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.observaciones">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">origen </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.origen">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">proveedor_campo </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.proveedor_campo">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">proveedor_construccion </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.proveedor_construccion">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">responsable_pago </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.responsable_pago">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">saldo_inicial </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.saldo_inicial">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">saldo_inicial_tag_2 </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.saldo_inicial_tag_2">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">sujeto_retencion </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.sujeto_retencion">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">telefono </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.telefono">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">tipo_corredor </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.tipo_corredor">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">tipo_retencion </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.tipo_retencion">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">vencimiento_cai </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="patentesBase.vencimiento_cai">      
+                    </div>                
+                </div>
+            </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>

@@ -10,9 +10,54 @@ export class CrearRegistrosComponent implements OnInit {
 
   datosExcel: any = [];
 
-  displayBasic: Boolean = true;
+  displayBasic: Boolean = false;
 
-  datosAdicionales: any = {};
+  datosAdicionales: any = {
+    cod_periodo: 4, //campaña
+    usuario: "SANTIAGO",
+    fecha_carga: "2022-12-18",
+
+    kg_neto_co: null,
+    destino: null,
+    precio: null,
+    gasto_flete: null,
+    patente_camion: null,
+    patente_acoplado: null,
+    nombre_chofer: null,
+    cuit_chofer: null,
+    cod_chofer: null,
+
+    tipo_grano: null,
+    cod_corredor: null,
+    cod_representante: null,
+    cod_asignador_cupo: null,
+    gasto_acondicionamiento: null,
+    gasto_comercializacion: null,
+
+    cod_cuentayorden1: null,
+    cod_cuentayorden2: null,
+
+    tipo: null,
+    id_pc: null,
+    proc_calle: null,
+    proc_nro: null,
+    proc_codpostal: null,
+    proc_localidad: null,
+    proc_depto: null,
+    proc_provincia: null,
+
+    fecha_cupo: null,
+
+    id_contrato: null,
+    id_contratista: null,
+    marca_importacion: null,
+    origen_importacion: null,
+    neto_afip: null,
+    tipo_transporte: "S",
+    id_stock_campo: null,
+
+    hora_carga: "12:00:00",
+  };
 
   constructor(
     private comunicacionService: ComunicacionService
@@ -22,7 +67,6 @@ export class CrearRegistrosComponent implements OnInit {
     const hoy = new Date();
     this.datosAdicionales['fecha_carga'] = hoy.toISOString().slice(0, 10);
     this.datosAdicionales['hora_carga'] = hoy.toLocaleTimeString()
-    
 
   }
 
@@ -37,16 +81,22 @@ export class CrearRegistrosComponent implements OnInit {
     );
   };
 
-  showBasicDialog(){
-    this.displayBasic = true;
+  mostrat(){
+    console.log(this.datosAdicionales)
   }
 
 }
 
 
 /* 
+
+
+
+
+
+//todos:
 "fecha": "2002-07-30",
-"lote": 229,
+"lote": 229, #CALCULAR
 "transporte": 47,
 "distancia": null,
 "pcio_flete": null,
@@ -55,7 +105,7 @@ export class CrearRegistrosComponent implements OnInit {
 "humedad1": 0.0,
 "kg_neto_orig": 29820.0000,
 "cod_dest": 133,
-"destino": null,
+"destino": null, #CALCULAR
 "kg_destino": 0.000,
 "humedad2": 0.0,
 "kg_neto_dest": 0.0000,
@@ -70,13 +120,13 @@ export class CrearRegistrosComponent implements OnInit {
 "chamico": 0.00,
 "otros": 0.00,
 "factor": 0.00,
-"kg_neto_co": null,
+"kg_neto_co": null, #CALCULAR(VER DE DONDE SALE)
 "observar": "Ale: 30300kg Descargó 550= 29750kg",
 "AREA": 2,
-"id": 5965713,
+"id": 5965713, #CALCULAR. AutoIncrementable?
 "finca": null,
-"tipo_origen": "L",
-"origen": null,
+"tipo_origen": "L", #CALCULAR
+"origen": null, #CALCULAR
 "usuario": "SEBADAV",
 "fecha_carga": "2022-10-06",
 "hora_carga": "16:31:35",
@@ -86,9 +136,9 @@ export class CrearRegistrosComponent implements OnInit {
 "gasto_acondicionamiento": null,
 "tipo": null,
 "id_pc": null,
-"numero": 3022,
-"kg_bruto_origen": 45120.0000,
-"kg_tara_origen": 15300,
+"numero": 3022, #VER COMO CONSEGUIRLO
+"kg_bruto_origen": 45120.0000, #CALCULAR
+"kg_tara_origen": 15300, #CALCULAR
 "patente_camion": null,
 "patente_acoplado": null,
 "nombre_chofer": null,
@@ -107,11 +157,11 @@ export class CrearRegistrosComponent implements OnInit {
 "proc_provincia": null,
 "fecha_cupo": null,
 "variedad": null,
-"cod_lote_actividad": 554,
+"cod_lote_actividad": 554, #CALCULAR
 "cod_periodo": 4,
 "id_contrato": null,
 "id_contratista": null,
-"cod_dest_descarga": 181,
+"cod_dest_descarga": 181, #CALCULAR
 "marca_importacion": null,
 "origen_importacion": null,
 "nro_ctg": "10105849361",

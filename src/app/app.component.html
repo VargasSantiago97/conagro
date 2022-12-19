@@ -1,6 +1,9 @@
 <p-menubar [model]="items">
     <!--input type="text" pInputText placeholder="Search">
     <button pButton label="Logout" icon="pi pi-power-off"></button-->
+    <ng-template pTemplate="end">
+        <img src="assets/showcase/images/logo.png" height="40" class="mr-2" routerLink="/inicio">
+    </ng-template>
 </p-menubar>
 
 <div class="contenedor">

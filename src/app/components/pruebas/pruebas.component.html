@@ -1,0 +1,172 @@
+<br>
+<h2 style="text-align: center;">Produccion</h2>
+<br>
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<button (click)="funcc()">PRUEBA</button>
+<input type="text" [(ngModel)]="produccion[4].cod_chofer">
+
+<p-table [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="fecha">fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th pSortableColumn="lote">lote <p-sortIcon field="lote"></p-sortIcon></th>
+            <th pSortableColumn="transporte">transporte <p-sortIcon field="transporte"></p-sortIcon></th>
+            <th pSortableColumn="distancia">distancia <p-sortIcon field="distancia"></p-sortIcon></th>
+            <th pSortableColumn="pcio_flete">pcio_flete <p-sortIcon field="pcio_flete"></p-sortIcon></th>
+            <th pSortableColumn="remito">remito <p-sortIcon field="remito"></p-sortIcon></th>
+            <th pSortableColumn="kg_origen">kg_origen <p-sortIcon field="kg_origen"></p-sortIcon></th>
+            <th pSortableColumn="humedad1">humedad1 <p-sortIcon field="humedad1"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_orig">kg_neto_orig <p-sortIcon field="kg_neto_orig"></p-sortIcon></th>
+            <th pSortableColumn="cod_dest">cod_dest <p-sortIcon field="cod_dest"></p-sortIcon></th>
+            <th pSortableColumn="destino">destino <p-sortIcon field="destino"></p-sortIcon></th>
+            <th pSortableColumn="kg_destino">kg_destino <p-sortIcon field="kg_destino"></p-sortIcon></th>
+            <th pSortableColumn="humedad2">humedad2 <p-sortIcon field="humedad2"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_dest">kg_neto_dest <p-sortIcon field="kg_neto_dest"></p-sortIcon></th>
+            <th pSortableColumn="diferencia">diferencia <p-sortIcon field="diferencia"></p-sortIcon></th>
+            <th pSortableColumn="romaneo">romaneo <p-sortIcon field="romaneo"></p-sortIcon></th>
+            <th pSortableColumn="zaranda">zaranda <p-sortIcon field="zaranda"></p-sortIcon></th>
+            <th pSortableColumn="volatil">volatil <p-sortIcon field="volatil"></p-sortIcon></th>
+            <th pSortableColumn="cuerp_ext">cuerp_ext <p-sortIcon field="cuerp_ext"></p-sortIcon></th>
+            <th pSortableColumn="tierra">tierra <p-sortIcon field="tierra"></p-sortIcon></th>
+            <th pSortableColumn="quebrados">quebrados <p-sortIcon field="quebrados"></p-sortIcon></th>
+            <th pSortableColumn="daniados">daniados <p-sortIcon field="daniados"></p-sortIcon></th>
+            <th pSortableColumn="chamico">chamico <p-sortIcon field="chamico"></p-sortIcon></th>
+            <th pSortableColumn="otros">otros <p-sortIcon field="otros"></p-sortIcon></th>
+            <th pSortableColumn="factor">factor <p-sortIcon field="factor"></p-sortIcon></th>
+            <th pSortableColumn="kg_neto_co">kg_neto_co <p-sortIcon field="kg_neto_co"></p-sortIcon></th>
+            <th pSortableColumn="observar">observar <p-sortIcon field="observar"></p-sortIcon></th>
+            <th pSortableColumn="AREA">AREA <p-sortIcon field="AREA"></p-sortIcon></th>
+            <th pSortableColumn="id">id <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="finca">finca <p-sortIcon field="finca"></p-sortIcon></th>
+            <th pSortableColumn="tipo_origen">tipo_origen <p-sortIcon field="tipo_origen"></p-sortIcon></th>
+            <th pSortableColumn="origen">origen <p-sortIcon field="origen"></p-sortIcon></th>
+            <th pSortableColumn="usuario">usuario <p-sortIcon field="usuario"></p-sortIcon></th>
+            <th pSortableColumn="fecha_carga">fecha_carga <p-sortIcon field="fecha_carga"></p-sortIcon></th>
+            <th pSortableColumn="hora_carga">hora_carga <p-sortIcon field="hora_carga"></p-sortIcon></th>
+            <th pSortableColumn="precio">precio <p-sortIcon field="precio"></p-sortIcon></th>
+            <th pSortableColumn="gasto_flete">gasto_flete <p-sortIcon field="gasto_flete"></p-sortIcon></th>
+            <th pSortableColumn="gasto_comercializacion">gasto_comercializacion <p-sortIcon field="gasto_comercializacion"></p-sortIcon></th>
+            <th pSortableColumn="gasto_acondicionamiento">gasto_acondicionamiento <p-sortIcon field="gasto_acondicionamiento"></p-sortIcon></th>
+            <th pSortableColumn="tipo">tipo <p-sortIcon field="tipo"></p-sortIcon></th>
+            <th pSortableColumn="id_pc">id_pc <p-sortIcon field="id_pc"></p-sortIcon></th>
+            <th pSortableColumn="numero">numero <p-sortIcon field="numero"></p-sortIcon></th>
+            <th pSortableColumn="kg_bruto_origen">kg_bruto_origen <p-sortIcon field="kg_bruto_origen"></p-sortIcon></th>
+            <th pSortableColumn="kg_tara_origen">kg_tara_origen <p-sortIcon field="kg_tara_origen"></p-sortIcon></th>
+            <th pSortableColumn="patente_camion">patente_camion <p-sortIcon field="patente_camion"></p-sortIcon></th>
+            <th pSortableColumn="patente_acoplado">patente_acoplado <p-sortIcon field="patente_acoplado"></p-sortIcon></th>
+            <th pSortableColumn="nombre_chofer">nombre_chofer <p-sortIcon field="nombre_chofer"></p-sortIcon></th>
+            <th pSortableColumn="cuit_chofer">cuit_chofer <p-sortIcon field="cuit_chofer"></p-sortIcon></th>
+            <th pSortableColumn="tipo_grano">tipo_grano <p-sortIcon field="tipo_grano"></p-sortIcon></th>
+            <th pSortableColumn="cod_cuentayorden1">cod_cuentayorden1 <p-sortIcon field="cod_cuentayorden1"></p-sortIcon></th>
+            <th pSortableColumn="cod_cuentayorden2">cod_cuentayorden2 <p-sortIcon field="cod_cuentayorden2"></p-sortIcon></th>
+            <th pSortableColumn="cod_corredor">cod_corredor <p-sortIcon field="cod_corredor"></p-sortIcon></th>
+            <th pSortableColumn="cod_representante">cod_representante <p-sortIcon field="cod_representante"></p-sortIcon></th>
+            <th pSortableColumn="cod_asignador_cupo">cod_asignador_cupo <p-sortIcon field="cod_asignador_cupo"></p-sortIcon></th>
+            <th pSortableColumn="proc_calle">proc_calle <p-sortIcon field="proc_calle"></p-sortIcon></th>
+            <th pSortableColumn="proc_nro">proc_nro <p-sortIcon field="proc_nro"></p-sortIcon></th>
+            <th pSortableColumn="proc_codpostal">proc_codpostal <p-sortIcon field="proc_codpostal"></p-sortIcon></th>
+            <th pSortableColumn="proc_localidad">proc_localidad <p-sortIcon field="proc_localidad"></p-sortIcon></th>
+            <th pSortableColumn="proc_depto">proc_depto <p-sortIcon field="proc_depto"></p-sortIcon></th>
+            <th pSortableColumn="proc_provincia">proc_provincia <p-sortIcon field="proc_provincia"></p-sortIcon></th>
+            <th pSortableColumn="fecha_cupo">fecha_cupo <p-sortIcon field="fecha_cupo"></p-sortIcon></th>
+            <th pSortableColumn="variedad">variedad <p-sortIcon field="variedad"></p-sortIcon></th>
+            <th pSortableColumn="cod_lote_actividad">cod_lote_actividad <p-sortIcon field="cod_lote_actividad"></p-sortIcon></th>
+            <th pSortableColumn="cod_periodo">cod_periodo <p-sortIcon field="cod_periodo"></p-sortIcon></th>
+            <th pSortableColumn="id_contrato">id_contrato <p-sortIcon field="id_contrato"></p-sortIcon></th>
+            <th pSortableColumn="id_contratista">id_contratista <p-sortIcon field="id_contratista"></p-sortIcon></th>
+            <th pSortableColumn="cod_dest_descarga">cod_dest_descarga <p-sortIcon field="cod_dest_descarga"></p-sortIcon></th>
+            <th pSortableColumn="marca_importacion">marca_importacion <p-sortIcon field="marca_importacion"></p-sortIcon></th>
+            <th pSortableColumn="origen_importacion">origen_importacion <p-sortIcon field="origen_importacion"></p-sortIcon></th>
+            <th pSortableColumn="nro_ctg">nro_ctg <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+            <th pSortableColumn="nro_cp">nro_cp <p-sortIcon field="nro_cp"></p-sortIcon></th>
+            <th pSortableColumn="neto_afip">neto_afip <p-sortIcon field="neto_afip"></p-sortIcon></th>
+            <th pSortableColumn="cod_chofer">cod_chofer <p-sortIcon field="cod_chofer"></p-sortIcon></th>
+            <th pSortableColumn="tipo_transporte">tipo_transporte <p-sortIcon field="tipo_transporte"></p-sortIcon></th>
+            <th pSortableColumn="id_stock_campo">id_stock_campo <p-sortIcon field="id_stock_campo"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-produccion>
+        <tr>
+            <td>{{produccion.fecha}}</td>
+            <td>{{produccion.lote}}</td>
+            <td>{{produccion.transporte}}</td>
+            <td>{{produccion.distancia}}</td>
+            <td>{{produccion.pcio_flete}}</td>
+            <td>{{produccion.remito}}</td>
+            <td>{{produccion.kg_origen}}</td>
+            <td>{{produccion.humedad1}}</td>
+            <td>{{produccion.kg_neto_orig}}</td>
+            <td>{{produccion.cod_dest}}</td>
+            <td>{{produccion.destino}}</td>
+            <td>{{produccion.kg_destino}}</td>
+            <td>{{produccion.humedad2}}</td>
+            <td>{{produccion.kg_neto_dest}}</td>
+            <td>{{produccion.diferencia}}</td>
+            <td>{{produccion.romaneo}}</td>
+            <td>{{produccion.zaranda}}</td>
+            <td>{{produccion.volatil}}</td>
+            <td>{{produccion.cuerp_ext}}</td>
+            <td>{{produccion.tierra}}</td>
+            <td>{{produccion.quebrados}}</td>
+            <td>{{produccion.daniados}}</td>
+            <td>{{produccion.chamico}}</td>
+            <td>{{produccion.otros}}</td>
+            <td>{{produccion.factor}}</td>
+            <td>{{produccion.kg_neto_co}}</td>
+            <td>{{produccion.observar}}</td>
+            <td>{{produccion.AREA}}</td>
+            <td>{{produccion.id}}</td>
+            <td>{{produccion.finca}}</td>
+            <td>{{produccion.tipo_origen}}</td>
+            <td>{{produccion.origen}}</td>
+            <td>{{produccion.usuario}}</td>
+            <td>{{produccion.fecha_carga}}</td>
+            <td>{{produccion.hora_carga}}</td>
+            <td>{{produccion.precio}}</td>
+            <td>{{produccion.gasto_flete}}</td>
+            <td>{{produccion.gasto_comercializacion}}</td>
+            <td>{{produccion.gasto_acondicionamiento}}</td>
+            <td>{{produccion.tipo}}</td>
+            <td>{{produccion.id_pc}}</td>
+            <td>{{produccion.numero}}</td>
+            <td>{{produccion.kg_bruto_origen}}</td>
+            <td>{{produccion.kg_tara_origen}}</td>
+            <td>{{produccion.patente_camion}}</td>
+            <td>{{produccion.patente_acoplado}}</td>
+            <td>{{produccion.nombre_chofer}}</td>
+            <td>{{produccion.cuit_chofer}}</td>
+            <td>{{produccion.tipo_grano}}</td>
+            <td>{{produccion.cod_cuentayorden1}}</td>
+            <td>{{produccion.cod_cuentayorden2}}</td>
+            <td>{{produccion.cod_corredor}}</td>
+            <td>{{produccion.cod_representante}}</td>
+            <td>{{produccion.cod_asignador_cupo}}</td>
+            <td>{{produccion.proc_calle}}</td>
+            <td>{{produccion.proc_nro}}</td>
+            <td>{{produccion.proc_codpostal}}</td>
+            <td>{{produccion.proc_localidad}}</td>
+            <td>{{produccion.proc_depto}}</td>
+            <td>{{produccion.proc_provincia}}</td>
+            <td>{{produccion.fecha_cupo}}</td>
+            <td>{{produccion.variedad}}</td>
+            <td>{{produccion.cod_lote_actividad}}</td>
+            <td>{{produccion.cod_periodo}}</td>
+            <td>{{produccion.id_contrato}}</td>
+            <td>{{produccion.id_contratista}}</td>
+            <td>{{produccion.cod_dest_descarga}}</td>
+            <td>{{produccion.marca_importacion}}</td>
+            <td>{{produccion.origen_importacion}}</td>
+            <td>{{produccion.nro_ctg}}</td>
+            <td>{{produccion.nro_cp}}</td>
+            <td>{{produccion.neto_afip}}</td>
+            <td>{{produccion.cod_chofer}}</td>
+            <td>{{produccion.tipo_transporte}}</td>
+            <td>{{produccion.id_stock_campo}}</td>
+        </tr>
+    </ng-template>
+</p-table>

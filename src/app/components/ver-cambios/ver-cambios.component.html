@@ -6,7 +6,8 @@
 <br>
 
 <h4>Datos Excel:</h4>
-<p-table [value]="datosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+<p-table [value]="datosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="numero">Numero <p-sortIcon field="numero"></p-sortIcon></th>
@@ -98,7 +99,8 @@
 <h4>Datos Synagro:</h4>
 <br>
 
-<p-table [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+<p-table [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="numero">NUM <p-sortIcon field="numero"></p-sortIcon></th>
@@ -132,7 +134,8 @@
 <h4>Datos A MOFIFICAR:</h4>
 <br>
 
-<p-table [value]="datosAModificar" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+<p-table [value]="datosAModificar" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
     <ng-template pTemplate="header">
         <tr>            
             <th pSortableColumn="numero">N° <p-sortIcon field="numero"></p-sortIcon></th>

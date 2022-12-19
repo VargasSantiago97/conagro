@@ -26,6 +26,7 @@ export class AppComponent {
               {label: 'Listar Proveedores. Solo Fleteros', routerLink: 'listFleteros'},
               {label: 'Listar Destinos', routerLink: 'listDestinos'},
               {label: 'Listar Lotes', routerLink: 'listLotes'},
+              {label: 'PRODUCCION PRUEBAS', routerLink: 'pruebas'},
             ]
         },
         {
@@ -57,6 +58,7 @@ export class AppComponent {
         {
             label: 'Crear Registros',
             items: [
+              {label: 'Patentes/Transportistas', routerLink: 'patentes'},
               {label: 'Creacion por importacion', routerLink: 'crearRegistros'}
             ]
         }

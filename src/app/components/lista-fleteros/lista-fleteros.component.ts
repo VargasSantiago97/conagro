@@ -20,7 +20,6 @@ export class ListaFleterosComponent implements OnInit {
   }
 
   obtenerTodosProveedores() {
-    console.log("e");
     this.comunicacionService.obtenerTodosProveedores().subscribe(
         (res: any) => {
           
