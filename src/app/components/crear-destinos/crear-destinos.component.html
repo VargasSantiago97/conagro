@@ -1,0 +1,241 @@
+<br>
+<h2 style="text-align: center;">Destinos/Clientes/Descarga</h2>
+<br>
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Actualizar Datos SynAgro" (click)="obtenerTodosDestinos()"></button>
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Traer datos Excel" (click)="traerDatosExcel()"></button>
+<button pButton type="button" style="margin: 5px;" icon="pi pi-refresh" label="Comparar" (click)="compararSynagro()"></button>
+<br><br>
+
+<p-table [value]="datosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+        <tr>
+            <th rowspan="2" pSortableColumn="nro_cp">Nro. CP <p-sortIcon field="nro_cp"></p-sortIcon></th>
+            <th rowspan="2" pSortableColumn="nro_ctg">Nro Ctg <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+            <th rowspan="2" pSortableColumn="destino">Destino<p-sortIcon field="destino"></p-sortIcon></th>
+            <th rowspan="2" pSortableColumn="descarga">Descarga<p-sortIcon field="descarga"></p-sortIcon></th>
+            <th rowspan="2" pSortableColumn="lotesilo">Silo<p-sortIcon field="lotesilo"></p-sortIcon></th>
+            <th colspan="3" style="text-align: center;">Existe Synagro </th>
+        </tr>
+        <tr>
+            <th pSortableColumn="synagro">Dest. <p-sortIcon field="synagro"></p-sortIcon></th>
+            <th pSortableColumn="synagro">Desc. <p-sortIcon field="synagro"></p-sortIcon></th>
+            <th pSortableColumn="synagro">Silo <p-sortIcon field="synagro"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-datosExcel>
+        <tr>
+            <td>{{datosExcel.nro_cp}}</td>
+            <td>{{datosExcel.nro_ctg}}</td>
+            <td>{{datosExcel.destino}}</td>
+            <td>{{datosExcel.descarga}}</td>
+            <td>
+                <div *ngIf="datosExcel.ls == 'S'">{{datosExcel.lotesilo}}</div>
+                <div *ngIf="datosExcel.ls == 'L'">-</div>
+            </td>
+            <td [ngStyle]="{'background-color': datosExcel.synagro.destino == 'No Encontrado' ? 'rgb(161, 1, 1)' : '#ffffff'}">{{datosExcel.synagro.destino}}</td>
+            <td [ngStyle]="{'background-color': datosExcel.synagro.descarga == 'No Encontrado' ? 'rgb(161, 1, 1)' : '#ffffff'}">{{datosExcel.synagro.descarga}}</td>
+            <td [ngStyle]="{'background-color': datosExcel.synagro.silo == 'No Encontrado' ? 'rgb(161, 1, 1)' : '#ffffff'}">{{datosExcel.synagro.silo}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div *ngIf="mostrarCrear">
+    <br><br><br><br>
+    <div class="container">
+        <hr>
+    </div>
+    <br>
+    <h2 style="text-align: center;">Destinos/Clientes/Silos NO Encontrados</h2>
+    <br>
+
+    <p-table [value]="destinosCrear" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nombre">Nuevo Destino <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th>Tipo Destino </th>
+                <th>Id grupo </th>
+                <th>Tipo merma </th>
+                <th>Planilla </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-destino>
+            <tr>
+                <td>{{destino.nombre}}</td>
+                <td>
+                    <p-radioButton name="id_tipo_destino" value="1" [(ngModel)]="destino.id_tipo_destino" inputId="1"></p-radioButton>
+                    <label for="1">Cliente</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <p-radioButton name="id_tipo_destino" value="2" [(ngModel)]="destino.id_tipo_destino" inputId="2"></p-radioButton>
+                    <label for="2">Silo</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <p-radioButton name="id_tipo_destino" value="3" [(ngModel)]="destino.id_tipo_destino" inputId="3"></p-radioButton>
+                    <label for="3">Acopio</label>
+                </td>
+                <td>
+                    <input style="padding: 3px; width: 100px;" type="text" pInputText placeholder="" [(ngModel)]="destino.id_grupo"> 
+                </td>
+                <td>
+                    <input style="padding: 3px; width: 100px;" type="text" pInputText placeholder="" [(ngModel)]="destino.tipo_merma"> 
+                </td>
+                <td>
+                    <input style="padding: 3px; width: 100px;" type="text" pInputText placeholder="" [(ngModel)]="destino.planilla"> 
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br>
+
+    <button pButton type="button" style="margin: 5px;" label="Datos Adicionales" (click)="displayBasic=true"></button>
+
+    <button pButton type="button" style="margin: 5px;" label="Crear Destinos" (click)="crearDestinos()"></button>
+
+    <br><br>
+    <div class="container">
+        <hr>
+    </div>
+    <br><br>
+    
+    <h4>Logs:</h4>
+    <br><br>
+    <p-table [value]="logRegistros" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="registro">NUM <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="mensaje">ESTADO <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="codigo">COD. <p-sortIcon field="codigo"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.registro}}</td>
+                <td>{{registro.mensaje}}</td>
+                <td>{{registro.codigo}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+</div>
+
+
+<p-dialog header="Datos adicionales:" [(visible)]="displayBasic" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true"
+    [draggable]="true" [resizable]="true">
+            <br>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">fecha_carga </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.fecha_carga">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">hora_carga </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.hora_carga">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">usuario </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.usuario">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">razon_social </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.razon_social">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cuit </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.cuit">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">situacion_iva </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.situacion_iva">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">direccion_fiscal </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.direccion_fiscal">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">localidad </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.localidad">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">departamento </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.departamento">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">provincia </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.provincia">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">pais </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.pais">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">nro_contrato </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.nro_contrato">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">precio </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.precio">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">id_cliente_contab </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.id_cliente_contab">      
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">cod_cliente </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.cod_cliente">      
+                    </div>                
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">tipo_formula </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="destinosBase.tipo_formula">      
+                    </div>                
+                </div>
+            </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>

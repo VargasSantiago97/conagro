@@ -1,0 +1,27 @@
+<br><br>
+<p-table [columns]="selectedColumns" [value]="cpe" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+    <ng-template pTemplate="caption">
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns"></p-multiSelect>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Socio</th>
+            <th>Nro C.T.G.</th>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
+                {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro let-columns="columns">
+        <tr>
+            <td>{{registro.socio}}</td>
+            <td>{{registro.cpe}}</td>
+            <td *ngFor="let col of columns" title="{{tituloCuit(registro[col.field])}}">
+                {{transformarDato(registro[col.field])}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<br><br><br>

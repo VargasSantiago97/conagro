@@ -1,0 +1,29 @@
+<br>
+<h2 style="text-align: center;">Lotes - Actividad</h2>
+<br>
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<p-table [value]="lotes" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="codigo">CODIGO <p-sortIcon field="codigo"></p-sortIcon></th>
+            <th pSortableColumn="cod_lote">LOTE <p-sortIcon field="cod_lote"></p-sortIcon></th>
+            <th pSortableColumn="cod_actividad">ACTIVIDAD <p-sortIcon field="cod_actividad"></p-sortIcon></th>
+            <th pSortableColumn="cod_periodo">CAMPAÑA <p-sortIcon field="cod_periodo"></p-sortIcon></th>
+            <th pSortableColumn="cod_establecimiento">ESTABLECIMIENTO <p-sortIcon field="cod_establecimiento"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-lote>
+        <tr>
+            <td>{{lote.codigo}}</td>
+            <td>{{lote.cod_lote}}</td>
+            <td>{{lote.cod_actividad}}</td>
+            <td>{{lote.cod_periodo}}</td>
+            <td>{{lote.cod_establecimiento}}</td>
+        </tr>
+    </ng-template>
+</p-table>

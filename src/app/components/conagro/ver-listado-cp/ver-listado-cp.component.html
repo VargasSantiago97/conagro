@@ -1,0 +1,71 @@
+<br><br>
+<p-table [value]="cpe" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="cpe">cpe <p-sortIcon field="cpe"></p-sortIcon></th>
+            <th pSortableColumn="estado">estado <p-sortIcon field="estado"></p-sortIcon></th>
+            <th pSortableColumn="fechaEmision">fechaEmision <p-sortIcon field="fechaEmision"></p-sortIcon></th>
+            <th pSortableColumn="fechaVencimiento">fechaVencimiento <p-sortIcon field="fechaVencimiento"></p-sortIcon></th>
+            <th pSortableColumn="procedenciaPlanta">procedenciaPlanta <p-sortIcon field="procedenciaPlanta"></p-sortIcon></th>
+            <th pSortableColumn="procedenciaCodLocalidad">procedenciaCodLocalidad <p-sortIcon field="procedenciaCodLocalidad"></p-sortIcon></th>
+            <th pSortableColumn="destinoCuit">destinoCuit <p-sortIcon field="destinoCuit"></p-sortIcon></th>
+            <th pSortableColumn="destinoPlanta">destinoPlanta <p-sortIcon field="destinoPlanta"></p-sortIcon></th>
+            <th pSortableColumn="destinoCodLocalidad">destinoCodLocalidad <p-sortIcon field="destinoCodLocalidad"></p-sortIcon></th>
+            <th pSortableColumn="destinatarioCuit">destinatarioCuit <p-sortIcon field="destinatarioCuit"></p-sortIcon></th>
+            <th pSortableColumn="transportistaCuit">transportistaCuit <p-sortIcon field="transportistaCuit"></p-sortIcon></th>
+            <th pSortableColumn="transportista2Cuit">transportista2Cuit <p-sortIcon field="transportista2Cuit"></p-sortIcon></th>
+            <th pSortableColumn="trenNroVagon">trenNroVagon <p-sortIcon field="trenNroVagon"></p-sortIcon></th>
+            <th pSortableColumn="trenNroOperativo">trenNroOperativo <p-sortIcon field="trenNroOperativo"></p-sortIcon></th>
+            <th pSortableColumn="numeroPrecinto">numeroPrecinto <p-sortIcon field="numeroPrecinto"></p-sortIcon></th>
+            <th pSortableColumn="dominios">dominios <p-sortIcon field="dominios"></p-sortIcon></th>
+            <th pSortableColumn="fletePagadorCuit">fletePagadorCuit <p-sortIcon field="fletePagadorCuit"></p-sortIcon></th>
+            <th pSortableColumn="grnCodigo">grnCodigo <p-sortIcon field="grnCodigo"></p-sortIcon></th>
+            <th pSortableColumn="pesoBruto">pesoBruto <p-sortIcon field="pesoBruto"></p-sortIcon></th>
+            <th pSortableColumn="pesoTara">pesoTara <p-sortIcon field="pesoTara"></p-sortIcon></th>
+            <th pSortableColumn="pesoCargaCalculado">pesoCargaCalculado <p-sortIcon field="pesoCargaCalculado"></p-sortIcon></th>
+            <th pSortableColumn="remitenteComPrimarioCuit">remitenteComPrimarioCuit <p-sortIcon field="remitenteComPrimarioCuit"></p-sortIcon></th>
+            <th pSortableColumn="intermediarioCuit">intermediarioCuit <p-sortIcon field="intermediarioCuit"></p-sortIcon></th>
+            <th pSortableColumn="corredorPrimarioCuit">corredorPrimarioCuit <p-sortIcon field="corredorPrimarioCuit"></p-sortIcon></th>
+            <th pSortableColumn="corredorSecundarioCuit">corredorSecundarioCuit <p-sortIcon field="corredorSecundarioCuit"></p-sortIcon></th>
+            <th pSortableColumn="transportistaCuit">transportistaCuit <p-sortIcon field="transportistaCuit"></p-sortIcon></th>
+            <th pSortableColumn="representanteCuit">representanteCuit <p-sortIcon field="representanteCuit"></p-sortIcon></th>
+            <th pSortableColumn="representanteRecibidorCuit">representanteRecibidorCuit <p-sortIcon field="representanteRecibidorCuit"></p-sortIcon></th>
+            <th pSortableColumn="intermediarioFleteCuit">intermediarioFleteCuit <p-sortIcon field="intermediarioFleteCuit"></p-sortIcon></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro>
+        <tr>
+            <td>{{registro.cpe}}</td>
+            <td>{{registro.estado}}</td>
+            <td>{{registro.fechaEmision}}</td>
+            <td>{{registro.fechaVencimiento}}</td>
+            <td>{{registro.procedenciaPlanta}}</td>
+            <td>{{registro.procedenciaCodLocalidad}}</td>
+            <td>{{registro.destinoCuit}}</td>
+            <td>{{registro.destinoPlanta}}</td>
+            <td>{{registro.destinoCodLocalidad}}</td>
+            <td>{{registro.destinatarioCuit}}</td>
+            <td>{{registro.transportistaCuit}}</td>
+            <td>{{registro.transportista2Cuit}}</td>
+            <td>{{registro.trenNroVagon}}</td>
+            <td>{{registro.trenNroOperativo}}</td>
+            <td>{{registro.numeroPrecinto}}</td>
+            <td>{{registro.dominios}}</td>
+            <td>{{registro.fletePagadorCuit}}</td>
+            <td>{{registro.grnCodigo}}</td>
+            <td>{{registro.pesoBruto}}</td>
+            <td>{{registro.pesoTara}}</td>
+            <td>{{registro.pesoCargaCalculado}}</td>
+            <td>{{registro.remitenteComPrimarioCuit}}</td>
+            <td>{{registro.intermediarioCuit}}</td>
+            <td>{{registro.corredorPrimarioCuit}}</td>
+            <td>{{registro.corredorSecundarioCuit}}</td>
+            <td>{{registro.transportistaCuit2}}</td>
+            <td>{{registro.representanteCuit}}</td>
+            <td>{{registro.representanteRecibidorCuit}}</td>
+            <td>{{registro.intermediarioFleteCuit}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<br><br><br>

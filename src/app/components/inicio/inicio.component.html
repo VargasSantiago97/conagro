@@ -1,28 +1,63 @@
-<h2>Opciones:</h2>
-<button class="botInicio" pButton type="button" label="Importar .XLSX (modificacion)" routerLink="/cargar"></button>
-<button class="botInicio" pButton type="button" label="Modificar Registros" routerLink="/verCambios"></button>
-<button class="botInicio" pButton type="button" label="Importar .XLSX (creacion)" routerLink="/cargarCrear"></button>
-<button class="botInicio" pButton type="button" label="Crear Registros" routerLink="/crearRegistros"></button>
+<h2>Iportar Excel:</h2>
+<button class="botInicio" pButton type="button" label="Importar .XLSX (p/ modificacion)" routerLink="/cargar"></button>
+<button class="botInicio" pButton type="button" label="Ver .XLSX (p/ modificacion)" routerLink="/verxlsx"></button>
+<button class="botInicio" pButton type="button" label="Importar .XLSX (p/ creacion)" routerLink="/cargarCrear"></button>
+<button class="botInicio" pButton type="button" label="Ver .XLSX (p/ creacion)" routerLink="/verXlsxCrear"></button>
 <br><br><br>
-<h2>Synagro:</h2>
+<h2>Ver Datos Synagro:</h2>
 <button class="botInicio" pButton type="button" label="Destinos" routerLink="/listDestinos"></button>
 <button class="botInicio" pButton type="button" label="Lotes" routerLink="/listLotes"></button>
 <button class="botInicio" pButton type="button" label="Proveedores" routerLink="/listProveedores"></button>
 <button class="botInicio" pButton type="button" label="Produccion" routerLink="/listProduccion"></button>
-
+<button class="botInicio" pButton type="button" label="Lote/Actividad" routerLink="/listLoteActividad"></button>
 <br><br><br>
-<h2>Modificacion:</h2>
+<h2>Realizar cambios:</h2>
+<button class="botInicio" pButton type="button" label="Modificar Registros" routerLink="/verCambios"></button>
+<button class="botInicio" pButton type="button" label="Crear Patentes" routerLink="/patentes"></button>
+<button class="botInicio" pButton type="button" label="Crear Destinos" routerLink="/crearDestinos"></button>
+<button class="botInicio" pButton type="button" label="Crear Registros" routerLink="/crearRegistros"></button>
 
-<p>AREA</p>
-<p>diferencia</p>
-<p>factor</p>
-<p>humedad1</p>
-<p>humedad2</p>
-<p>kg_destino</p>
-<p>kg_neto_dest</p>
-<p>kg_neto_orig</p>
-<p>kg_origen</p>
-<p>nro_cp</p>
-<p>nro_ctg</p>
-<p>remito</p>
-<p>observar</p>
+
+<br><br>
+<div class="container"><hr></div>
+<br><br>
+
+<div class="card">
+    <div class="container">
+        <p-divider align="center" type="dashed">
+            <b>Modificacion de registros</b>
+        </p-divider>
+
+        <p>Pasos para modificar datos de produccion en el synagro:</p>
+        <p><strong>1)</strong> Ir a "Produccion" y exportar los datos a archivo excel.</p>
+        <p><strong>2)</strong> Modificar los datos de interés SIN cambiar el formato de celdas.</p>
+        <p><strong>3)</strong> Mediante fórmulas calcular "Diferencia" y "Peso Neto Destino"</p>
+        <p><strong>4)</strong> Guardar el excel como un archivo ".XLSX"</p>
+
+            <p>AREA</p>
+            <p>diferencia</p>
+            <p>factor</p>
+            <p>humedad1</p>
+            <p>humedad2</p>
+            <p>kg_destino</p>
+            <p>kg_neto_dest</p>
+            <p>kg_neto_orig</p>
+            <p>kg_origen</p>
+            <p>nro_cp</p>
+            <p>nro_ctg</p>
+            <p>remito</p>
+            <p>observar</p>
+    </div>
+    <p-divider align="center" type="dashed">
+        <b>Creacion de nuevos registros</b>
+    </p-divider>
+
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+
+    <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur 
+        a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+        Donec vel volutpat ipsum. Integer nunc magna, posuere ut tincidunt eget, egestas vitae sapien. Morbi dapibus luctus odio.</p>
+</div>
+

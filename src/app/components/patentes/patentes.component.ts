@@ -123,7 +123,9 @@ export class PatentesComponent implements OnInit {
         e.synagro = "ok"
       } else {
         e.synagro = "No encontrado"
-        this.patentesCrear.push(e.transporte)
+        if(!this.patentesCrear.includes(e.transporte)){
+          this.patentesCrear.push(e.transporte)
+        }
         this.mostrarCrear = true
       }
     })

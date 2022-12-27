@@ -42,6 +42,8 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <th pSortableColumn="variedad">Variedad <p-sortIcon field="variedad"></p-sortIcon></th>
             <th pSortableColumn="observar">Observaciones <p-sortIcon field="observar"></p-sortIcon></th>
             <th pSortableColumn="origen">Origen <p-sortIcon field="origen"></p-sortIcon></th>
+            <th pSortableColumn="ls">L/S <p-sortIcon field="ls"></p-sortIcon></th>
+            <th pSortableColumn="cod_origen">Cod. Origen <p-sortIcon field="cod_origen"></p-sortIcon></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-datosExcel>
@@ -83,6 +85,8 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <td>{{datosExcel.variedad}}</td>
             <td>{{datosExcel.observar}}</td>
             <td>{{datosExcel.origen}}</td>
+            <td>{{datosExcel.ls}}</td>
+            <td>{{datosExcel.cod_origen}}</td>
         </tr>
     </ng-template>
 </p-table>

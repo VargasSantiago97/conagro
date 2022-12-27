@@ -10,7 +10,7 @@ export class InicioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    //console.log(('[JJE434, JKB593]').replace('[', '').replace(']', '').split(','))
   }
-
 
 }

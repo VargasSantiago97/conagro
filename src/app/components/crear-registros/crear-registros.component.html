@@ -1,8 +1,6 @@
 <h2>Crear registros:</h2>
 <br>
 <button style="margin: 5px;" pButton type="button" label="Traer Datos Excel" (click)="traerDatosExcel()"></button>
-<button style="margin: 5px;" pButton type="button" label="Traer Datos Synagro" (click)="mostrat()"></button>
-<!--button style="margin: 5px;" pButton type="button" label="Prueba" (click)="pruebaEdicion()"></button-->
 
 <br><br>
 <div class="container">
@@ -53,7 +51,7 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <th pSortableColumn="finca">Finca Nº <p-sortIcon field="finca"></p-sortIcon></th>
             <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
             <th pSortableColumn="AREA">Cultivo <p-sortIcon field="AREA"></p-sortIcon></th>
-            <th pSortableColumn="origen">Lote / Silo <p-sortIcon field="origen"></p-sortIcon></th>
+            <th pSortableColumn="lotesilo">Lote / Silo <p-sortIcon field="lotesilo"></p-sortIcon></th>
             <th pSortableColumn="transporte">Transporte <p-sortIcon field="transporte"></p-sortIcon></th>
             <th pSortableColumn="distancia">Distancia <p-sortIcon field="distancia"></p-sortIcon></th>
             <th pSortableColumn="pcio_flete">Imp. Transp. <p-sortIcon field="pcio_flete"></p-sortIcon></th>
@@ -70,20 +68,22 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <th pSortableColumn="romaneo">Romaneo <p-sortIcon field="romaneo"></p-sortIcon></th>
             <th pSortableColumn="zaranda">Zaranda <p-sortIcon field="zaranda"></p-sortIcon></th>
             <th pSortableColumn="volatil">Volatil <p-sortIcon field="volatil"></p-sortIcon></th>
-            <th pSortableColumn="c_extranos">C. Extraños <p-sortIcon field="c_extranos"></p-sortIcon></th>
+            <th pSortableColumn="cuerp_ext">C. Extraños <p-sortIcon field="cuerp_ext"></p-sortIcon></th>
             <th pSortableColumn="tierra">Tierra <p-sortIcon field="tierra"></p-sortIcon></th>
             <th pSortableColumn="quebrados">Quebrados <p-sortIcon field="quebrados"></p-sortIcon></th>
-            <th pSortableColumn="danados">Dañados <p-sortIcon field="danados"></p-sortIcon></th>
+            <th pSortableColumn="daniados">Dañados <p-sortIcon field="daniados"></p-sortIcon></th>
             <th pSortableColumn="chamico">Chamico <p-sortIcon field="chamico"></p-sortIcon></th>
             <th pSortableColumn="otros">Otros <p-sortIcon field="otros"></p-sortIcon></th>
             <th pSortableColumn="factor">Factor <p-sortIcon field="factor"></p-sortIcon></th>
             <th pSortableColumn="kg_neto">Peso neto <p-sortIcon field="kg_neto"></p-sortIcon></th>
             <th pSortableColumn="usuario">Usuario <p-sortIcon field="usuario"></p-sortIcon></th>
-            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
-            <th pSortableColumn="hora">Hora <p-sortIcon field="hora"></p-sortIcon></th>
+            <th pSortableColumn="fecha_carga">Fecha <p-sortIcon field="fecha_carga"></p-sortIcon></th>
+            <th pSortableColumn="hora_carga">Hora <p-sortIcon field="hora_carga"></p-sortIcon></th>
             <th pSortableColumn="variedad">Variedad <p-sortIcon field="variedad"></p-sortIcon></th>
             <th pSortableColumn="observar">Observaciones <p-sortIcon field="observar"></p-sortIcon></th>
             <th pSortableColumn="origen">Origen <p-sortIcon field="origen"></p-sortIcon></th>
+            <th pSortableColumn="ls">L/S <p-sortIcon field="ls"></p-sortIcon></th>
+            <th pSortableColumn="cod_origen">Cod. Origen <p-sortIcon field="cod_origen"></p-sortIcon></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-datosExcel>
@@ -94,7 +94,7 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <td>{{datosExcel.finca}}</td>
             <td>{{datosExcel.fecha}}</td>
             <td>{{datosExcel.AREA}}</td>
-            <td>{{datosExcel.origen}}</td>
+            <td>{{datosExcel.lotesilo}}</td>
             <td>{{datosExcel.transporte}}</td>
             <td>{{datosExcel.distancia}}</td>
             <td>{{datosExcel.pcio_flete}}</td>
@@ -111,25 +111,288 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <td>{{datosExcel.romaneo}}</td>
             <td>{{datosExcel.zaranda}}</td>
             <td>{{datosExcel.volatil}}</td>
-            <td>{{datosExcel.c_extranos}}</td>
+            <td>{{datosExcel.cuerp_ext}}</td>
             <td>{{datosExcel.tierra}}</td>
             <td>{{datosExcel.quebrados}}</td>
-            <td>{{datosExcel.danados}}</td>
+            <td>{{datosExcel.daniados}}</td>
             <td>{{datosExcel.chamico}}</td>
             <td>{{datosExcel.otros}}</td>
             <td>{{datosExcel.factor}}</td>
             <td>{{datosExcel.kg_neto}}</td>
             <td>{{datosExcel.usuario}}</td>
-            <td>{{datosExcel.fecha}}</td>
-            <td>{{datosExcel.hora}}</td>
+            <td>{{datosExcel.fecha_carga}}</td>
+            <td>{{datosExcel.hora_carga}}</td>
             <td>{{datosExcel.variedad}}</td>
             <td>{{datosExcel.observar}}</td>
             <td>{{datosExcel.origen}}</td>
+            <td>{{datosExcel.ls}}</td>
+            <td>{{datosExcel.cod_origen}}</td>
         </tr>
     </ng-template>
 </p-table>
 
 <br>
+
+<button style="margin: 5px;" pButton type="button" label="VERIFICAR DATOS" (click)="verificarDatos()" [disabled]="desactivarVerificar"></button>
+
+<br><br>
+
+<div *ngIf="erroresParaRegistrar.length">
+    <h2>Errores:</h2>
+    <p-table [value]="erroresParaRegistrar" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="error">Error <p-sortIcon field="error"></p-sortIcon></th>
+                <th pSortableColumn="linea">Fila Excel <p-sortIcon field="linea"></p-sortIcon></th>
+                <th>Solucion</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-error>
+            <tr>
+                <td>{{error.error}}</td>
+                <td>{{error.linea}}</td>
+                <td>
+                    <button style="padding: 2px;" *ngIf="error.error_tipo == 'patente'" [routerLink]="['/patentes']" pButton type="button" label="Click Aqui"></button>
+                    <button style="padding: 2px;" *ngIf="error.error_tipo == 'destino'" [routerLink]="['/crearDestinos']" pButton type="button" label="Click Aqui"></button>
+                    <button style="padding: 2px;" *ngIf="error.error_tipo == 'descarga'" [routerLink]="['/crearDestinos']" pButton type="button" label="Click Aqui"></button>
+                    <button style="padding: 2px;" *ngIf="error.error_tipo == 'origenSilo'" [routerLink]="['/crearDestinos']" pButton type="button" label="Click Aqui"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<br><br>
+
+<div *ngIf="advertenciasParaRegistrar.length">
+    <h2>Advertencias:</h2>
+    <p-table [value]="advertenciasParaRegistrar" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="advertencia">Advertencia <p-sortIcon field="advertencia"></p-sortIcon></th>
+                <th pSortableColumn="linea">Fila Excel <p-sortIcon field="linea"></p-sortIcon></th>
+                <th pSortableColumn="detalle">Detalle <p-sortIcon field="detalle"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-error>
+            <tr>
+                <td>{{error.advertencia}}</td>
+                <td>{{error.linea}}</td>
+                <td>{{error.detalle}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br><br><hr><br><br>
+</div>
+
+
+<!-- ################################################# -->
+<!-- ###########   MOSTRAR DATOS A CREAR   ########### -->
+<!-- ################################################# -->
+
+<div *ngIf="permitirTablaCrear">
+    <h2>Registros a crear:</h2>
+    <p-table [value]="datosProduccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="cod_periodo">Camp. <p-sortIcon field="cod_periodo"></p-sortIcon></th>
+                <th [style]="{'min-width': '90px'}" pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                <th pSortableColumn="remito">O.C. <p-sortIcon field="remito"></p-sortIcon></th>
+                <th pSortableColumn="nro_cp">C.P. <p-sortIcon field="nro_cp"></p-sortIcon></th>
+                <th pSortableColumn="nro_ctg">C.T.G. <p-sortIcon field="nro_ctg"></p-sortIcon></th>
+                <th pSortableColumn="AREA">Cult. <p-sortIcon field="AREA"></p-sortIcon></th>
+                <th pSortableColumn="tipo_origen">L/S <p-sortIcon field="tipo_origen"></p-sortIcon></th>
+                <th [style]="{'min-width': '200px'}" pSortableColumn="lotesilo">Lote/Silo <p-sortIcon field="lotesilo"></p-sortIcon></th>
+                <th [style]="{'min-width': '70px'}" pSortableColumn="patente">Transp. <p-sortIcon field="patente"></p-sortIcon></th>
+                <th pSortableColumn="kg_origen">kg_origen <p-sortIcon field="kg_origen"></p-sortIcon></th>
+                <th pSortableColumn="humedad1">humedad1 <p-sortIcon field="humedad1"></p-sortIcon></th>
+                <th pSortableColumn="kg_neto_orig">kg_neto_orig <p-sortIcon field="kg_neto_orig"></p-sortIcon></th>
+                <th pSortableColumn="kg_destino">kg_destino <p-sortIcon field="kg_destino"></p-sortIcon></th>
+                <th pSortableColumn="humedad2">humedad2 <p-sortIcon field="humedad2"></p-sortIcon></th>
+                <th pSortableColumn="kg_neto_dest">kg_neto_dest <p-sortIcon field="kg_neto_dest"></p-sortIcon></th>
+                <th pSortableColumn="diferencia">diferencia <p-sortIcon field="diferencia"></p-sortIcon></th>
+                <th pSortableColumn="destino">destino <p-sortIcon field="destino"></p-sortIcon></th>
+                <th pSortableColumn="cod_dest">cod_dest <p-sortIcon field="cod_dest"></p-sortIcon></th>
+                <th pSortableColumn="cod_dest_descarga">cod_dest_descarga <p-sortIcon field="cod_dest_descarga"></p-sortIcon></th>
+                <th pSortableColumn="cod_lote_actividad">cod_lote_actividad <p-sortIcon field="cod_lote_actividad"></p-sortIcon></th>
+                <th pSortableColumn="tipo">tipo <p-sortIcon field="tipo"></p-sortIcon></th>
+                <th pSortableColumn="tipo_grano">tipo_grano <p-sortIcon field="tipo_grano"></p-sortIcon></th>
+                <th pSortableColumn="factor">factor <p-sortIcon field="factor"></p-sortIcon></th>
+                <th pSortableColumn="variedad">variedad <p-sortIcon field="variedad"></p-sortIcon></th>
+                <th pSortableColumn="volatil">volatil <p-sortIcon field="volatil"></p-sortIcon></th>
+                <th pSortableColumn="zaranda">zaranda <p-sortIcon field="zaranda"></p-sortIcon></th>
+                <th pSortableColumn="romaneo">romaneo <p-sortIcon field="romaneo"></p-sortIcon></th>
+                <th pSortableColumn="tierra">tierra <p-sortIcon field="tierra"></p-sortIcon></th>
+                <th pSortableColumn="quebrados">quebrados <p-sortIcon field="quebrados"></p-sortIcon></th>
+                <th pSortableColumn="chamico">chamico <p-sortIcon field="chamico"></p-sortIcon></th>
+                <th pSortableColumn="cuerp_ext">cuerp_ext <p-sortIcon field="cuerp_ext"></p-sortIcon></th>
+                <th pSortableColumn="daniados">daniados <p-sortIcon field="daniados"></p-sortIcon></th>
+                <th pSortableColumn="otros">otros <p-sortIcon field="otros"></p-sortIcon></th>
+                <th pSortableColumn="finca">finca <p-sortIcon field="finca"></p-sortIcon></th>
+                <th pSortableColumn="kg_bruto_origen">kg_bruto_origen <p-sortIcon field="kg_bruto_origen"></p-sortIcon></th>
+                <th pSortableColumn="kg_tara_origen">kg_tara_origen <p-sortIcon field="kg_tara_origen"></p-sortIcon></th>
+                <th pSortableColumn="kg_neto_co">kg_neto_co <p-sortIcon field="kg_neto_co"></p-sortIcon></th>
+                <th pSortableColumn="cod_chofer">cod_chofer <p-sortIcon field="cod_chofer"></p-sortIcon></th>
+                <th pSortableColumn="cuit_chofer">cuit_chofer <p-sortIcon field="cuit_chofer"></p-sortIcon></th>
+                <th pSortableColumn="nombre_chofer">nombre_chofer <p-sortIcon field="nombre_chofer"></p-sortIcon></th>
+                <th pSortableColumn="patente_camion">patente_camion <p-sortIcon field="patente_camion"></p-sortIcon></th>
+                <th pSortableColumn="patente_acoplado">patente_acoplado <p-sortIcon field="patente_acoplado"></p-sortIcon></th>
+                <th pSortableColumn="pcio_flete">pcio_flete <p-sortIcon field="pcio_flete"></p-sortIcon></th>
+                <th pSortableColumn="precio">precio <p-sortIcon field="precio"></p-sortIcon></th>
+                <th pSortableColumn="gasto_flete">gasto_flete <p-sortIcon field="gasto_flete"></p-sortIcon></th>
+                <th pSortableColumn="tipo_transporte">tipo_transporte <p-sortIcon field="tipo_transporte"></p-sortIcon></th>
+                <th pSortableColumn="distancia">distancia <p-sortIcon field="distancia"></p-sortIcon></th>
+                <th pSortableColumn="proc_calle">proc_calle <p-sortIcon field="proc_calle"></p-sortIcon></th>
+                <th pSortableColumn="proc_codpostal">proc_codpostal <p-sortIcon field="proc_codpostal"></p-sortIcon></th>
+                <th pSortableColumn="proc_depto">proc_depto <p-sortIcon field="proc_depto"></p-sortIcon></th>
+                <th pSortableColumn="proc_localidad">proc_localidad <p-sortIcon field="proc_localidad"></p-sortIcon></th>
+                <th pSortableColumn="proc_nro">proc_nro <p-sortIcon field="proc_nro"></p-sortIcon></th>
+                <th pSortableColumn="proc_provincia">proc_provincia <p-sortIcon field="proc_provincia"></p-sortIcon></th>
+                <th pSortableColumn="id_contratista">id_contratista <p-sortIcon field="id_contratista"></p-sortIcon></th>
+                <th pSortableColumn="id_contrato">id_contrato <p-sortIcon field="id_contrato"></p-sortIcon></th>
+                <th pSortableColumn="cod_asignador_cupo">cod_asignador_cupo <p-sortIcon field="cod_asignador_cupo"></p-sortIcon></th>
+                <th pSortableColumn="cod_corredor">cod_corredor <p-sortIcon field="cod_corredor"></p-sortIcon></th>
+                <th pSortableColumn="cod_cuentayorden1">cod_cuentayorden1 <p-sortIcon field="cod_cuentayorden1"></p-sortIcon></th>
+                <th pSortableColumn="cod_cuentayorden2">cod_cuentayorden2 <p-sortIcon field="cod_cuentayorden2"></p-sortIcon></th>
+                <th pSortableColumn="cod_representante">cod_representante <p-sortIcon field="cod_representante"></p-sortIcon></th>
+                <th pSortableColumn="gasto_acondicionamiento">gasto_acondicionamiento <p-sortIcon field="gasto_acondicionamiento"></p-sortIcon></th>
+                <th pSortableColumn="gasto_comercializacion">gasto_comercializacion <p-sortIcon field="gasto_comercializacion"></p-sortIcon></th>
+                <th pSortableColumn="marca_importacion">marca_importacion <p-sortIcon field="marca_importacion"></p-sortIcon></th>
+                <th pSortableColumn="origen_importacion">origen_importacion <p-sortIcon field="origen_importacion"></p-sortIcon></th>
+                <th pSortableColumn="neto_afip">neto_afip <p-sortIcon field="neto_afip"></p-sortIcon></th>
+                <th pSortableColumn="fecha_cupo">fecha_cupo <p-sortIcon field="fecha_cupo"></p-sortIcon></th>
+                <th pSortableColumn="id_stock_campo">id_stock_campo <p-sortIcon field="id_stock_campo"></p-sortIcon></th>
+                <th pSortableColumn="id_pc">id_pc <p-sortIcon field="id_pc"></p-sortIcon></th>
+                <th pSortableColumn="usuario">usuario <p-sortIcon field="usuario"></p-sortIcon></th>
+                <th pSortableColumn="fecha_carga">fecha_carga <p-sortIcon field="fecha_carga"></p-sortIcon></th>
+                <th pSortableColumn="hora_carga">hora_carga <p-sortIcon field="hora_carga"></p-sortIcon></th>
+                <th pSortableColumn="observar">observar <p-sortIcon field="observar"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datoProduccion>
+            <tr>
+                <td>{{datoProduccion.cod_periodo}}</td>
+                <td>{{datoProduccion.fecha}}</td>
+                <td>{{datoProduccion.remito}}</td>
+                <td>{{datoProduccion.nro_cp}}</td>
+                <td>{{datoProduccion.nro_ctg}}</td>
+                <td>{{datoProduccion.AREA}}</td>
+                <td>{{datoProduccion.tipo_origen}}</td>
+                <td>{{datoProduccion.lotesilo}}</td>
+                <td>{{datoProduccion.patente}}</td>
+                <td>{{datoProduccion.kg_origen}}</td>
+                <td>{{datoProduccion.humedad1}}</td>
+                <td>{{datoProduccion.kg_neto_orig}}</td>
+                <td>{{datoProduccion.kg_destino}}</td>
+                <td>{{datoProduccion.humedad2}}</td>
+                <td>{{datoProduccion.kg_neto_dest}}</td>
+                <td>{{datoProduccion.diferencia}}</td>
+                <td>{{datoProduccion.destino}}</td>
+                <td>{{datoProduccion.cod_dest}}</td>
+                <td>{{datoProduccion.cod_dest_descarga}}</td>
+                <td>{{datoProduccion.cod_lote_actividad}}</td>
+                <td>{{datoProduccion.tipo}}</td>
+                <td>{{datoProduccion.tipo_grano}}</td>
+                <td>{{datoProduccion.factor}}</td>
+                <td>{{datoProduccion.variedad}}</td>
+                <td>{{datoProduccion.volatil}}</td>
+                <td>{{datoProduccion.zaranda}}</td>
+                <td>{{datoProduccion.romaneo}}</td>
+                <td>{{datoProduccion.tierra}}</td>
+                <td>{{datoProduccion.quebrados}}</td>
+                <td>{{datoProduccion.chamico}}</td>
+                <td>{{datoProduccion.cuerp_ext}}</td>
+                <td>{{datoProduccion.daniados}}</td>
+                <td>{{datoProduccion.otros}}</td>
+                <td>{{datoProduccion.finca}}</td>
+                <td>{{datoProduccion.kg_bruto_origen}}</td>
+                <td>{{datoProduccion.kg_tara_origen}}</td>
+                <td>{{datoProduccion.kg_neto_co}}</td>
+                <td>{{datoProduccion.cod_chofer}}</td>
+                <td>{{datoProduccion.cuit_chofer}}</td>
+                <td>{{datoProduccion.nombre_chofer}}</td>
+                <td>{{datoProduccion.patente_camion}}</td>
+                <td>{{datoProduccion.patente_acoplado}}</td>
+                <td>{{datoProduccion.pcio_flete}}</td>
+                <td>{{datoProduccion.precio}}</td>
+                <td>{{datoProduccion.gasto_flete}}</td>
+                <td>{{datoProduccion.tipo_transporte}}</td>
+                <td>{{datoProduccion.distancia}}</td>
+                <td>{{datoProduccion.proc_calle}}</td>
+                <td>{{datoProduccion.proc_codpostal}}</td>
+                <td>{{datoProduccion.proc_depto}}</td>
+                <td>{{datoProduccion.proc_localidad}}</td>
+                <td>{{datoProduccion.proc_nro}}</td>
+                <td>{{datoProduccion.proc_provincia}}</td>
+                <td>{{datoProduccion.id_contratista}}</td>
+                <td>{{datoProduccion.id_contrato}}</td>
+                <td>{{datoProduccion.cod_asignador_cupo}}</td>
+                <td>{{datoProduccion.cod_corredor}}</td>
+                <td>{{datoProduccion.cod_cuentayorden1}}</td>
+                <td>{{datoProduccion.cod_cuentayorden2}}</td>
+                <td>{{datoProduccion.cod_representante}}</td>
+                <td>{{datoProduccion.gasto_acondicionamiento}}</td>
+                <td>{{datoProduccion.gasto_comercializacion}}</td>
+                <td>{{datoProduccion.marca_importacion}}</td>
+                <td>{{datoProduccion.origen_importacion}}</td>
+                <td>{{datoProduccion.neto_afip}}</td>
+                <td>{{datoProduccion.fecha_cupo}}</td>
+                <td>{{datoProduccion.id_stock_campo}}</td>
+                <td>{{datoProduccion.id_pc}}</td>
+                <td>{{datoProduccion.usuario}}</td>
+                <td>{{datoProduccion.fecha_carga}}</td>
+                <td>{{datoProduccion.hora_carga}}</td>
+                <td>{{datoProduccion.observar}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br><br>
+
+    <button style="margin: 5px;" pButton type="button" label="Buscar Numero {{ultimoNumeroCreado != 0 ? ultimoNumeroCreado : ''}}" (click)="obtenerUltimoNumero()"></button>
+    <button style="margin: 5px;" pButton type="button" label="Buscar ID {{ultimoIDCreado != 0 ? ultimoIDCreado : ''}}" (click)="obtenerUltimoSecuencia()"></button>
+    <button style="margin: 5px;" pButton type="button" label="CREAR REGISTROS" (click)="confirmarCrearRegistros()" [disabled]="!(ultimoNumeroCreado && ultimoIDCreado)"></button>
+
+    <br><br><br><br>
+    <h4>Logs:</h4>
+    <br><br>
+    <p-table [value]="logRegistros" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="registro">NUM <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="mensaje">ESTADO <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="codigo">NUMERO <p-sortIcon field="codigo"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.registro}}</td>
+                <td>{{registro.mensaje}}</td>
+                <td>{{registro.codigo}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+<br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ################################################# -->
+<!-- ##################   MODALES   ################## -->
+<!-- ################################################# -->
 
 <p-dialog header="Datos adicionales:" [(visible)]="displayBasic" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true"
     [draggable]="true" [resizable]="true">

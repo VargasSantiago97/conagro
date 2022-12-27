@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 //PRIMENG
 import {ButtonModule} from 'primeng/button';
 import {MenubarModule} from 'primeng/menubar';
@@ -21,6 +22,14 @@ import {DialogModule} from 'primeng/dialog';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
+import {DividerModule} from 'primeng/divider';
+import {ChartModule} from 'primeng/chart';
+import {CalendarModule} from 'primeng/calendar';
+import {ChipsModule} from 'primeng/chips';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -37,6 +46,14 @@ import { CrearRegistrosComponent } from './components/crear-registros/crear-regi
 import { FormsModule } from '@angular/forms';
 import { PruebasComponent } from './components/pruebas/pruebas.component';
 import { PatentesComponent } from './components/patentes/patentes.component';
+import { ListaLoteActividadComponent } from './components/lista-lote-actividad/lista-lote-actividad.component';
+import { CrearDestinosComponent } from './components/crear-destinos/crear-destinos.component';
+import { VerProduccionComponent } from './components/analizar/ver-produccion/ver-produccion.component';
+import { CpComponent } from './components/vistas/cp/cp.component';
+import { ActualizarListadoCPComponent } from './components/conagro/actualizar-listado-cp/actualizar-listado-cp.component';
+import { VerListadoCPComponent } from './components/conagro/ver-listado-cp/ver-listado-cp.component';
+import { DatosGeneralesCPEComponent } from './components/conagro/datos-generales-cpe/datos-generales-cpe.component';
+import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-pdf/importar-datos-pdf.component';
 
 
 @NgModule({
@@ -55,13 +72,23 @@ import { PatentesComponent } from './components/patentes/patentes.component';
     VerXlsxCrearComponent,
     CrearRegistrosComponent,
     PruebasComponent,
-    PatentesComponent
+    PatentesComponent,
+    ListaLoteActividadComponent,
+    CrearDestinosComponent,
+    VerProduccionComponent,
+    CpComponent,
+    ActualizarListadoCPComponent,
+    VerListadoCPComponent,
+    DatosGeneralesCPEComponent,
+    ImportarDatosPDFComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+
+    PdfJsViewerModule,
 
 
     //PRIMENG
@@ -78,7 +105,15 @@ import { PatentesComponent } from './components/patentes/patentes.component';
     BrowserAnimationsModule,
     InputTextModule,
     CheckboxModule,
-    RadioButtonModule
+    RadioButtonModule,
+    SelectButtonModule,
+    CascadeSelectModule,
+    DividerModule,
+    ChartModule,
+    CalendarModule,
+    ChipsModule,
+    AutoCompleteModule,
+    MultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

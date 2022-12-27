@@ -18,6 +18,10 @@ export class ComunicacionService {
   editarProduccion(data : any){
     return this.http.post(`${this.API_URI}/index.php?tabla=produccion&op=update`, data);
   }
+  
+  crearProduccion(data : any){
+    return this.http.post(`${this.API_URI}/index.php?tabla=produccion&op=create`, data);
+  }
 
   obtenerTodosProveedores() {
     return this.http.get(`${this.API_URI}/index.php?tabla=proveedores&op=getAll`);
@@ -30,9 +34,17 @@ export class ComunicacionService {
   obtenerTodosDestinos() {
     return this.http.get(`${this.API_URI}/index.php?tabla=destinos&op=getAll`);
   };
+  
+  crearDestino(data : any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=destinos&op=create`, data);
+  };
 
   obtenerTodosLotes() {
     return this.http.get(`${this.API_URI}/index.php?tabla=lotes&op=getAll`);
+  };
+
+  obtenerTodosLoteActividad() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=lote_actividad&op=getAll`);
   };
 
   traerDatosExcel() {

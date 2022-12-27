@@ -26,7 +26,7 @@ export class ListaProduccionComponent implements OnInit {
           this.spinner = false;
         },
         err => {
-            console.log(err);
+          console.log(err);
         }
     );
   };

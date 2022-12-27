@@ -1,0 +1,81 @@
+<br>
+<div class="row">
+    <div class="col">
+        <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="socioSeleccionado">
+            <option *ngFor="let socio of socios" value="{{socio.nombre}}" title="{{socio.razon_social}}">{{socio.nombre}}</option>
+          </select>
+    </div>
+    <div class="col">
+        <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="tipoCpe">
+            <option value="74" active>CPE Automotor</option>
+          </select>
+    </div>
+    <div class="col">
+        <button pButton type="button" style="margin: 5px;" label="TRAER DATOS DE PDFs" (click)="traerDatosCpePDF()"></button>
+    </div>
+</div>
+
+<br><br>
+
+
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+
+<div *ngIf="registrosCpePDF.length">
+    <br>
+    <h2 style="text-align: center;">Datos A Importar</h2>
+    <br>
+
+    <p-table [value]="registrosCpePDF" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="cp">Num C.P. <p-sortIcon field="cp"></p-sortIcon></th>
+                <th pSortableColumn="ctg">Num. C.T.G. <p-sortIcon field="ctg"></p-sortIcon></th>
+                <th pSortableColumn="bruto">Peso Bruto Destino <p-sortIcon field="bruto"></p-sortIcon></th>
+                <th pSortableColumn="tara">Peso Tara <p-sortIcon field="tara"></p-sortIcon></th>
+                <th pSortableColumn="neto">Peso NETO Dest. <p-sortIcon field="neto"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.cp}}</td>
+                <td>{{registro.ctg}}</td>
+                <td>{{registro.bruto}}</td>
+                <td>{{registro.tara}}</td>
+                <td>{{registro.neto}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br><br><br>
+    <p>*Atencion: Los datos seran cargados y/o reemplazados de los anteriormente cargados (SIN Modificar nada en SynAgro)</p>
+
+    <div class="row">
+        <div class="col">
+            <button pButton type="button" style="margin: 5px;" label="CARGAR DATOS" (click)="cargarDatos()"></button>
+        </div>
+    </div>
+
+    <br><br><br><br>
+    <h4>Logs:</h4>
+    <br><br>
+    <p-table [value]="logRegistros" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="registro">NUM <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="mensaje">ESTADO <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="codigo">NUMERO <p-sortIcon field="codigo"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.registro}}</td>
+                <td>{{registro.mensaje}}</td>
+                <td>{{registro.codigo}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

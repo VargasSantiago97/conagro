@@ -26,6 +26,7 @@ export class AppComponent {
               {label: 'Listar Proveedores. Solo Fleteros', routerLink: 'listFleteros'},
               {label: 'Listar Destinos', routerLink: 'listDestinos'},
               {label: 'Listar Lotes', routerLink: 'listLotes'},
+              {label: 'Listar Lote - Actividad', routerLink: 'listLoteActividad'},
               {label: 'PRODUCCION PRUEBAS', routerLink: 'pruebas'},
             ]
         },
@@ -59,7 +60,22 @@ export class AppComponent {
             label: 'Crear Registros',
             items: [
               {label: 'Patentes/Transportistas', routerLink: 'patentes'},
-              {label: 'Creacion por importacion', routerLink: 'crearRegistros'}
+              {label: 'Destinos/Clientes', routerLink: 'crearDestinos'},
+              {separator:true},
+              {label: 'CREAR POR IMPORTACION', routerLink: 'crearRegistros'}
+            ]
+        },
+        {
+            label: 'CRUZAR DATOS',
+            items: [
+              {label: 'Ver Produccion', routerLink: 'verProduccion'},
+              {separator:true},
+              {label: "Actualizar CPE's (Excel)", routerLink: 'conagro/actualizarCP'},
+              {label: "Ver CPE's (Excel)", routerLink: 'conagro/verListadoCP'},
+              {separator:true},
+              {label: "Importar datos PDF", routerLink: 'conagro/importarPDF'},
+              {separator:true},
+              {label: "Datos Generales CPE", routerLink: 'conagro/datosGeneralesCPE'},
             ]
         }
     ];
