@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+declare var vars: any;
+
+var API_URI = vars.API_URI_CONAGRO
 
 @Component({
   selector: 'app-cp',
@@ -11,26 +14,20 @@ export class CpComponent implements OnInit {
   socio:any;
   cp:any;
 
+  link:any;
+
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, router: RouterLink
   ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.socio = params['socio'];
-      this.cp = params['cp'];
-      console.log(params)
+      this.cp = params['cp'].substring(8);
+
+      this.link = API_URI + "/pdf.php?socio=" + this.socio+ "&nro=" + this.cp;
     });
 
-  }
-
-  public openPdf() {
-    let url = "url to fetch pdf as byte array";
-    // url can be local url or remote http request to an api/pdf file. 
-    // E.g: let url = "assets/pdf-sample.pdf";
-    // E.g: https://github.com/intbot/ng2-pdfjs-viewer/tree/master/sampledoc/pdf-sample.pdf
-    // E.g: http://localhost:3000/api/GetMyPdf
-    // Please note, for remote urls to work, CORS should be enabled at the server. Read: https://enable-cors.org/server.html
   }
 
 }

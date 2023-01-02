@@ -76,6 +76,29 @@ export class AppComponent {
               {label: "Importar datos PDF", routerLink: 'conagro/importarPDF'},
               {separator:true},
               {label: "Datos Generales CPE", routerLink: 'conagro/datosGeneralesCPE'},
+              {
+                label: "Otros datos CPE",
+                items: [
+                  {
+                    label: 'Comparar',
+                    items: [
+                      {label: 'Cartas de porte NO Descargadas', routerLink: 'cargar'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
+                    ]
+                  },
+                ]
+              },
             ]
         }
     ];

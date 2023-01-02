@@ -11,16 +11,22 @@ export class VerProduccionComponent implements OnInit {
   spinnerProduccion: Boolean = true;
   spinnerDestinos: Boolean = true;
   spinnerLotes: Boolean = true;
+  spinnerProduccionOrigen: Boolean = true;
+  spinnerTransportistas: Boolean = true;
+  spinnerLoteActividad: Boolean = true;
 
   displayProduc: Boolean = false;
   displayData: any = [];
 
   datosCrudos: any = [];
+  transportistas: any = {};
 
   destinos: any = [];
   lotes: any = [];
 
+  //FILTROS
   produccion : any = [];
+  produccionOrigen: any = []
 
   dateRange: any = [];
   remitos: any = [];
@@ -42,7 +48,11 @@ export class VerProduccionComponent implements OnInit {
   selectedAREA: any = [];
   selectedPeriodo: any = [];
 
-  //tabla data
+  //TABLA
+  cols: any = []
+  selectedColumns: any = []
+
+  //Lista data
   dataTotalRegistros:any = 0;
   dataRegistrosSinDestino:any = 0;
   dataPorcentajeFaltaDestino:any = 0;
@@ -68,12 +78,33 @@ export class VerProduccionComponent implements OnInit {
   kg_sinDestinoData: any;
   kg_sinDestinoOptions: any;
 
+  graficoProduccionData: any;
+  graficoProduccionOptions: any;
+
+  graficoProporcionOrigenData: any;
+  graficoProporcionOrigenOptions: any;
+
+  graficoProporcionDestinoData: any;
+  graficoProporcionDestinoOptions: any;
+
+  //DICCIONARIOS DATOS
+  DICC_LoteActividad_Lote: any = {}
+  DICC_Lote_Nombre: any = {}
+  DICC_Destino_Nombre: any = {}
+
+  data:any = {}
+  chartOptions:any = {}
+
   constructor(private comunicacionService : ComunicacionService) { }
 
   ngOnInit(): void {
     this.obtenerTodosProduccion()
     this.obtenerTodosDestinos()
     this.obtenerTodosLotes()
+    this.obtenerTodosProduccionOrigen()
+    this.obtenerTodosTransportistas()
+    this.obtenerTodosLoteActividad()
+
 
     this.kg_totalesOptions = {
       plugins: {
@@ -140,6 +171,122 @@ export class VerProduccionComponent implements OnInit {
         }
       }
     };
+
+    this.graficoProduccionOptions = {
+      indexAxis: 'y',
+      plugins: {
+        legend: {
+          labels: {
+            color: '#495057'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Produccion',
+          fontSize: 30
+        }
+      },
+      scales: {
+          x: {
+              ticks: {
+                  color: '#495057'
+              },
+              grid: {
+                  color: '#ebedef'
+              }
+          },
+          y: {
+              ticks: {
+                  color: '#495057'
+              },
+              grid: {
+                  color: '#ebedef'
+              }
+          }
+      },
+    };
+
+    this.graficoProporcionOrigenOptions = {
+      plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        },
+        title: {
+          display: true,
+          text: 'PROPORCION ORIGEN',
+          fontSize: 20
+        }
+    }
+    }
+
+    this.graficoProporcionDestinoOptions = {
+      plugins: {
+        legend: {
+            labels: {
+                color: '#495057'
+            }
+        },
+        title: {
+          display: true,
+          text: 'PROPORCION DESTINO',
+          fontSize: 20
+        }
+    }
+    }
+
+    
+    this.cols = [
+      {field: "cod_periodo", header: "Campaña"},
+      {field: "fecha", header: "Fecha"},
+      {field: "AREA", header: "Cult."},
+      {field: "remito", header: "O.C."},
+      {field: "nro_cp", header: "C.P."},
+      {field: "nro_ctg", header: "C.T.G."},
+      {field: "transporte", header: "Transporte"},
+      {field: "tipo_origen", header: "Tipo Origen"},
+      {field: "origen", header: "Orig. S/C"},
+      {field: "lote", header: "Lote"},
+      {field: "superOrigen", header: "ORIGEN"},
+      {field: "cod_lote_actividad", header: "Cod. Lot/Act"},
+      {field: "cod_dest", header: "Destino"},
+      {field: "cod_dest_descarga", header: "Descarga"},
+      {field: "kg_bruto_origen", header: "Kg Bruto Origen"},
+      {field: "kg_tara_origen", header: "Kg Tara Origen"},
+      {field: "kg_origen", header: "Kg Origen"},
+      {field: "humedad1", header: "Humedad Origen"},
+      {field: "kg_neto_orig", header: "Kg Neto Origen"},
+      {field: "kg_destino", header: "Kg Destino"},
+      {field: "humedad2", header: "Humedad Destino"},
+      {field: "kg_neto_dest", header: "Kg Neto Destino"},
+      {field: "diferencia", header: "Diferencia"},
+      {field: "romaneo", header: "Romaneo"},
+      {field: "volatil", header: "Volatil"},
+      {field: "tierra", header: "Tierra"},
+      {field: "daniados", header: "Dañados"},
+      {field: "cuerp_ext", header: "Cuerp. Ext."},
+      {field: "quebrados", header: "Quebrados"},
+      {field: "chamico", header: "Chamico"},
+      {field: "zaranda", header: "Zaranda"},
+      {field: "factor", header: "Factor"},
+      {field: "observar", header: "Obs."},
+      {field: "variedad", header: "Variedad"},
+    ]
+    this.selectedColumns = [
+      {field: "fecha", header: "Fecha"},
+      {field: "remito", header: "O.C."},
+      {field: "nro_cp", header: "C.P."},
+      {field: "nro_ctg", header: "C.T.G."},
+      {field: "transporte", header: "Transporte"},
+      {field: "superOrigen", header: "ORIGEN"},
+      {field: "cod_dest", header: "Destino"},
+      {field: "cod_dest_descarga", header: "Descarga"},
+      {field: "kg_neto_orig", header: "Kg Neto Origen"},
+      {field: "kg_neto_dest", header: "Kg Neto Destino"},
+      {field: "diferencia", header: "Diferencia"},
+      {field: "observar", header: "Obs."},
+    ]
   }
   paraPruebas_BORRAR(){
     this.selectedPeriodo = ["4"]
@@ -147,20 +294,18 @@ export class VerProduccionComponent implements OnInit {
     this.filtrar()
   }
   ver(){
-    let dataa = new Date(this.datosCrudos[512].fecha)
-    console.log(this.datosCrudos[512].fecha)
-    dataa.setHours(dataa.getHours()+3);
-    console.log(dataa)
-    
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerLoteActividad", this.spinnerLoteActividad)
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerTransportistas", this.spinnerTransportistas)
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerProduccionOrigen", this.spinnerProduccionOrigen)
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerLotes", this.spinnerLotes)
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerDestinos", this.spinnerDestinos)
+    console.log("🚀 ~ file: ver-produccion.component.ts:263 ~ VerProduccionComponent ~ ver ~ spinnerProduccion", this.spinnerProduccion)
 
-    
-    console.log(dataa < this.dateRange[0])
-    console.log(this.dateRange[0])
   }
 
   //DATOS BACKEND - SYNAGRO
   obtenerTodosProduccion() {
-    this.spinnerDestinos = true
+    this.spinnerProduccion = true
     this.comunicacionService.obtenerTodosProduccion().subscribe(
         (res: any) => {
           this.datosCrudos = [ ...res]
@@ -172,11 +317,29 @@ export class VerProduccionComponent implements OnInit {
         }
     );
   };
+
+  obtenerTodosProduccionOrigen(){
+    this.spinnerProduccionOrigen = true
+    this.comunicacionService.obtenerTodosProduccionOrigen().subscribe(
+        (res: any) => {
+          this.produccionOrigen = [ ...res]
+          this.spinnerProduccionOrigen = false
+        },
+        err => {
+          console.log(err);
+        }
+    );
+  }
+
   obtenerTodosDestinos() {
-    this.spinnerProduccion = true
+    this.spinnerDestinos = true
     this.comunicacionService.obtenerTodosDestinos().subscribe(
         (res: any) => {
           this.destinos = [...res];
+          res.map((e:any) => {
+            this.DICC_Destino_Nombre[e.codigo] = e.nombre
+          })
+
           this.spinnerDestinos = false;
         },
         err => {
@@ -184,15 +347,50 @@ export class VerProduccionComponent implements OnInit {
         }
     );
   };
+
   obtenerTodosLotes() {
     this.spinnerLotes = true
     this.lotes = []
     this.comunicacionService.obtenerTodosLotes().subscribe(
         (res: any) => {
+          this.DICC_Lote_Nombre = {}
           res.map( (e:any) => {
             this.lotes.push({ ...e, nombre:e.descrip})
+            this.DICC_Lote_Nombre[e.codigo] = e.descrip
           })
           this.spinnerLotes = false;
+        },
+        err => {
+            console.log(err);
+        }
+    );
+  };
+
+  obtenerTodosTransportistas() {
+    this.spinnerTransportistas = true
+    this.comunicacionService.obtenerTodosProveedores().subscribe(
+        (res: any) => {
+          res.map( (e:any) => {
+            this.transportistas[e.cod_proveedor] = e
+          })
+          this.spinnerTransportistas = false;
+        },
+        err => {
+            console.log(err);
+        }
+    );
+  };
+
+  obtenerTodosLoteActividad() {
+    this.spinnerLoteActividad = true;
+    this.comunicacionService.obtenerTodosLoteActividad().subscribe(
+        (res: any) => {
+          this.DICC_LoteActividad_Lote = {};
+          res.map((e:any)=>{
+            this.DICC_LoteActividad_Lote[e.codigo] = e.cod_lote
+          })
+
+          this.spinnerLoteActividad = false;
         },
         err => {
             console.log(err);
@@ -228,6 +426,7 @@ export class VerProduccionComponent implements OnInit {
     this.descarga = null
   }
 
+  //AUTOCOMPLETADO
   filterDestino(event:any) {
     var valores_filtrar:any = this.destinos.filter((e:any)=>{ return e.id_tipo_destino == this.tipo_destino})
 
@@ -242,7 +441,7 @@ export class VerProduccionComponent implements OnInit {
     }
     this.destinosSuggestions = filtered;
   }
-  
+
   filterOrigen(event:any) {
     var valores_filtrar:any = []
     if(this.tipo_origen=="S"){
@@ -279,10 +478,52 @@ export class VerProduccionComponent implements OnInit {
     this.descargasSuggestions = filtered;
   }
 
-  //VER DATOS -> MODAL
+  //MODAL -> VER DATOS
   mostrarProduccion(numero:any){
     this.displayProduc = true;
-    this.displayData = this.datosCrudos.find( (e:any) => {return e.numero == numero})
+    this.displayData = { ... this.datosCrudos.find( (e:any) => {return e.numero == numero})}
+
+    let codigosAREA: any = {
+      '1': 'SOJA',
+      '2': 'MAIZ',
+      '3': 'TRIGO',
+      '4': 'GIRASOL',
+      '10': 'ALGODON'
+    }
+    let codigosTipoOrigen: any = {
+      'L': 'LOTE',
+      'S': 'SILO',
+      'M': 'MULTIPLE'
+    }
+
+    this.displayData.AREA = codigosAREA[this.displayData.AREA]
+    this.displayData.tipo_origen = codigosTipoOrigen[this.displayData.tipo_origen]
+
+    if(this.displayData.transporte){
+      this.displayData.transporte = this.transportistas[this.displayData.transporte].nombre
+    }
+    
+    if(this.displayData.tipo_origen == 'LOTE'){
+      this.displayData.origen = this.lotes.find( (e:any) => {return e.codigo == this.displayData.lote}).descrip
+    }else if (this.displayData.tipo_origen == 'SILO'){
+      this.displayData.origen = this.destinos.find( (e:any) => {return e.codigo == this.displayData.origen}).nombre
+    }else{
+      let datosOrigen = this.produccionOrigen.filter((e:any) => {return e.id_produccion == this.displayData.id})
+      this.displayData.origen = ''
+      datosOrigen.map((e:any) => {
+        if(e.tipo_origen == 'L'){
+          let codigoDeLote = this.DICC_LoteActividad_Lote[e.cod_lote_actividad] //codigo de lote
+          this.displayData.origen += "(L)" + this.DICC_Lote_Nombre[codigoDeLote] + ": " + e.kg_origen + "kg; - "
+        }else{
+          this.displayData.origen += "(S)" + this.DICC_Destino_Nombre[e.origen] + ": " + e.kg_origen + "kg; - "
+        }
+      })
+
+    }
+
+    this.displayData.cod_dest = this.destinos.find( (e:any) => {return e.codigo == this.displayData.cod_dest}).nombre
+    this.displayData.cod_dest_descarga = this.destinos.find( (e:any) => {return e.codigo == this.displayData.cod_dest_descarga}).nombre
+
   }
 
   //APLICAR FILTROS
@@ -293,8 +534,10 @@ export class VerProduccionComponent implements OnInit {
     var descargasPermitidos: any = []
 
     if(this.tipo_destino){
-      if(this.destino.codigo){
-        destinosPermitidos = [this.destino.codigo]
+      if(this.destino){
+        if(this.destino.codigo){
+          destinosPermitidos = [this.destino.codigo]
+        }
       }else{
         this.destinos.map( (dest:any) => {
           if(dest.id_tipo_destino == this.tipo_destino){
@@ -348,7 +591,30 @@ export class VerProduccionComponent implements OnInit {
 
       //TIPO ORIGEN
       if(this.tipo_origen){
-        coin_tipo_origen = this.tipo_origen == registro.tipo_origen
+        if(registro.tipo_origen=='M'){
+
+          let kg_origen_deSilo = 0;
+          let kg_origen_deLote = 0;
+
+          let datosOrigen = this.produccionOrigen.filter((e:any) => {return e.id_produccion == registro.id})
+
+          datosOrigen.map( (e:any) => {
+            if(e.tipo_origen == this.tipo_origen){
+              coin_tipo_origen = true
+            }
+            if(e.tipo_origen == 'L'){
+              kg_origen_deLote += parseFloat(e.kg_origen)
+            }else{
+              kg_origen_deSilo += parseFloat(e.kg_origen)
+            }
+          })
+
+          registro['kg_origen_S'] = kg_origen_deSilo;
+          registro['kg_origen_L'] = kg_origen_deLote;
+        }else{
+          coin_tipo_origen = this.tipo_origen == registro.tipo_origen
+        }
+
       }else{
         coin_tipo_origen = true;
       }
@@ -392,6 +658,15 @@ export class VerProduccionComponent implements OnInit {
       //C.T.G.
       if(this.nro_ctg.length){
         coin_nro_ctg = this.nro_ctg.includes(registro.nro_ctg)
+      }
+
+      //SUPER ORIGEN
+      if(registro.tipo_origen == "L"){
+        registro['superOrigen'] = this.DICC_Lote_Nombre[registro.lote]
+      } else if (registro.tipo_origen == "S"){
+        registro['superOrigen'] = this.DICC_Destino_Nombre[registro.origen]
+      } else {
+        registro['superOrigen'] = 'Multiple'
       }
 
 
@@ -465,16 +740,54 @@ export class VerProduccionComponent implements OnInit {
   }
 
   sumarTotales(){
-    var sumatoria_kg_origen = 0
-    var sumatoria_kg_neto_orig = 0
-    var sumatoria_kg_destino = 0
-    var sumatoria_kg_neto_dest = 0
+    var sumatoria_kg_origen = 0;
+    var sumatoria_kg_neto_orig = 0;
+    var sumatoria_kg_destino = 0;
+    var sumatoria_kg_neto_dest = 0;
+
+    let graficoLabels: any = [];
+    let graficoNetoOrigen: any = [];
+    let graficoNetoDestino: any = [];
+
+    let graficoProporcionOrigenLabels: any = [];
+    let graficoProporcionOrigenData: any = {};
+    let graficoProporcionDestinoLabels: any = [];
+    let graficoProporcionDestinoData: any = [];
 
     this.produccion.map( (registro:any) => {
-      sumatoria_kg_origen += parseFloat(registro.kg_origen) ? parseFloat(registro.kg_origen) : 0;
+      if(this.tipo_origen){
+        if(registro.tipo_origen == 'M'){
+          sumatoria_kg_origen += parseFloat(registro['kg_origen_'+this.tipo_origen]) ? parseFloat(registro['kg_origen_'+this.tipo_origen]) : 0;
+        }else{
+        sumatoria_kg_origen += parseFloat(registro.kg_origen) ? parseFloat(registro.kg_origen) : 0;
+        }
+      }else{
+        sumatoria_kg_origen += parseFloat(registro.kg_origen) ? parseFloat(registro.kg_origen) : 0;
+      }
+
       sumatoria_kg_neto_orig += parseFloat(registro.kg_neto_orig) ? parseFloat(registro.kg_neto_orig) : 0;
       sumatoria_kg_destino += parseFloat(registro.kg_destino) ? parseFloat(registro.kg_destino) : 0;
       sumatoria_kg_neto_dest += parseFloat(registro.kg_neto_dest) ? parseFloat(registro.kg_neto_dest) : 0;
+
+      //grafico registros
+      graficoLabels.push(registro.numero)
+      graficoNetoOrigen.push(registro.kg_neto_orig)
+      graficoNetoDestino.push(registro.kg_neto_dest)
+
+      //grafico proporcional
+      if(!graficoProporcionOrigenLabels.includes(registro.superOrigen)){
+        graficoProporcionOrigenLabels.push(registro.superOrigen);
+        graficoProporcionOrigenData[registro.superOrigen] = parseFloat(registro.kg_neto_orig) ? parseFloat(registro.kg_neto_orig) : 0;
+      }else{
+        graficoProporcionOrigenData[registro.superOrigen] += parseFloat(registro.kg_neto_orig) ? parseFloat(registro.kg_neto_orig) : 0;
+      }
+      
+      if(!graficoProporcionDestinoLabels.includes(registro.cod_dest)){
+        graficoProporcionDestinoLabels.push(registro.cod_dest);
+        graficoProporcionDestinoData[registro.cod_dest] = parseFloat(registro.kg_neto_dest) ? parseFloat(registro.kg_neto_dest) : 0;
+      }else{
+        graficoProporcionDestinoData[registro.cod_dest] += parseFloat(registro.kg_neto_dest) ? parseFloat(registro.kg_neto_dest) : 0;
+      }
     })
 
     this.kg_totalesData = {
@@ -489,6 +802,52 @@ export class VerProduccionComponent implements OnInit {
             label: 'KG NETO',
             backgroundColor: '#FFA726',
             data: [sumatoria_kg_neto_orig, sumatoria_kg_neto_dest, sumatoria_kg_neto_orig-sumatoria_kg_neto_dest]
+          }
+      ]
+    };
+
+    this.graficoProduccionData = {
+      labels: graficoLabels,
+      datasets: [
+          {
+              label: 'KG NETO ORIGEN',
+              backgroundColor: '#42A5F5',
+              data: graficoNetoOrigen
+          },
+          {
+            label: 'KG NETO DESTINO',
+            backgroundColor: '#FFA726',
+            data: graficoNetoDestino
+          }
+      ]
+    };
+
+    let graficoProporcionDestinoDataEnviar:any = [];
+    let graficoProporcionDestinoLabelsEnviar:any = [];
+    let graficoProporcionOrigenDataEnviar: any = [];
+
+    graficoProporcionOrigenLabels.map( (e:any) => {
+      graficoProporcionOrigenDataEnviar.push(graficoProporcionOrigenData[e]);
+    })
+    graficoProporcionDestinoLabels.map( (e:any) => {
+      graficoProporcionDestinoDataEnviar.push(graficoProporcionDestinoData[e]);
+      graficoProporcionDestinoLabelsEnviar.push(this.DICC_Destino_Nombre[e]);
+    })
+
+    this.graficoProporcionOrigenData = {
+      labels: graficoProporcionOrigenLabels,
+      datasets: [
+          {
+              data: graficoProporcionOrigenDataEnviar,
+          }
+      ]
+    };
+
+    this.graficoProporcionDestinoData = {
+      labels: graficoProporcionDestinoLabelsEnviar,
+      datasets: [
+          {
+              data: graficoProporcionDestinoDataEnviar,
           }
       ]
     };
@@ -526,6 +885,34 @@ export class VerProduccionComponent implements OnInit {
           }
       ]
   };
+  }
+
+  mostrarTransformarDato(dato:any, tipoDato:any){
+    if(tipoDato == 'transporte'){
+      if(dato){
+        if(this.transportistas[dato]){
+          if(this.transportistas[dato].nombre){
+            return this.transportistas[dato].nombre
+          }
+        }
+      }
+    }
+    if(tipoDato == 'cod_dest'){
+      if(dato){
+        return this.destinos.find( (e:any) => {return e.codigo == dato}).nombre
+      }
+    }
+    if(tipoDato == 'cod_dest_descarga'){
+      if(dato){
+        return this.destinos.find( (e:any) => {return e.codigo == dato}).nombre
+      }
+    }
+
+    return dato
+  }
+
+  graficoSeleccion(dato:any){
+    this.mostrarProduccion(this.graficoProduccionData.labels[dato.element.index])
   }
 }
 

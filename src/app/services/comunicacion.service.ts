@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as vars from 'globals';
+declare var vars: any;
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,10 @@ export class ComunicacionService {
 
   obtenerTodosProduccion() {
     return this.http.get(`${this.API_URI}/index.php?tabla=produccion&op=getAll`);
+  };
+
+  obtenerTodosProduccionOrigen() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=produccion_origen&op=getAll`);
   };
 
   editarProduccion(data : any){

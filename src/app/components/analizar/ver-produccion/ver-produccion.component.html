@@ -1,4 +1,4 @@
-<div style="text-align: center;" *ngIf="spinnerProduccion || spinnerDestinos || spinnerLotes">
+<div style="text-align: center;" *ngIf="spinnerProduccion || spinnerDestinos || spinnerLotes || spinnerProduccionOrigen || spinnerTransportistas || spinnerLoteActividad">
     <p-progressSpinner></p-progressSpinner>
 </div>
 <br>
@@ -75,8 +75,6 @@
                 &nbsp;&nbsp;&nbsp;
                 <p-radioButton name="tipo_origen" value="S" [(ngModel)]="tipo_origen" inputId="origS"></p-radioButton>
                 <label for="origS">Silo</label>
-                <p-radioButton name="tipo_origen" value="M" [(ngModel)]="tipo_origen" inputId="origM"></p-radioButton>
-                <label for="origM">Mult.</label>
             </div>
             <div *ngIf="tipo_origen">
                 <p-autoComplete [(ngModel)]="origen" [showEmptyMessage]="true" [suggestions]="origenes" (completeMethod)="filterOrigen($event)" field="nombre" [minLength]="1"></p-autoComplete>
@@ -123,39 +121,34 @@
 <button pButton type="button" style="margin: 5px;" icon="pi pi-filter" label="Filtrar" (click)="filtrar()"></button>
 <br><br>
 
-<p-table [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
-currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000,5000,10000]">
-    <ng-template pTemplate="header">
+<p-table [columns]="selectedColumns" [value]="produccion" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+    <ng-template pTemplate="caption">
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} columnas seleccionadas" [style]="{'min-width': '300px'}" placeholder="Choose Columns"></p-multiSelect>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
         <tr>
-            <th pSortableColumn="numero">NUM <p-sortIcon field="numero"></p-sortIcon></th>
-            <th pSortableColumn="fecha">FECHA <p-sortIcon field="fecha"></p-sortIcon></th>
-            <th pSortableColumn="remito">O.C. <p-sortIcon field="remito"></p-sortIcon></th>
-            <th pSortableColumn="nro_cp">C.P. <p-sortIcon field="nro_cp"></p-sortIcon></th>
-            <th pSortableColumn="nro_ctg">C.T.G. <p-sortIcon field="nro_ctg"></p-sortIcon></th>
-            <th pSortableColumn="kg_neto_orig">KG ORIGEN <p-sortIcon field="kg_neto_orig"></p-sortIcon></th>
-            <th pSortableColumn="kg_neto_dest">KG DESTINO <p-sortIcon field="kg_neto_dest"></p-sortIcon></th>
-            <th pSortableColumn="origen">Origen <p-sortIcon field="origen"></p-sortIcon></th>
-            <th pSortableColumn="lote">Lote <p-sortIcon field="lote"></p-sortIcon></th>
-            <th pSortableColumn="observar">OBS <p-sortIcon field="observar"></p-sortIcon></th>
+            <th pSortableColumn="numero">Num <p-sortIcon field="numero"></p-sortIcon></th>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
+                {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+            </th>
             <th>Acc.</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-produccion>
+    <ng-template pTemplate="body" let-registro let-columns="columns">
         <tr>
-            <td>{{produccion.numero}}</td>
-            <td>{{produccion.fecha}}</td>
-            <td>{{produccion.remito}}</td>
-            <td>{{produccion.nro_cp}}</td>
-            <td>{{produccion.nro_ctg}}</td>
-            <td>{{produccion.kg_neto_orig}}</td>
-            <td>{{produccion.kg_neto_dest}}</td>
-            <td>{{produccion.origen}}</td>
-            <td>{{produccion.lote}}</td>
-            <td>{{produccion.observar}}</td>
-            <td><i class="icono pi pi-eye" (click)="mostrarProduccion(produccion.numero)"></i></td>
+            <td>{{registro.numero}}</td>
+            <td *ngFor="let col of columns">
+                {{mostrarTransformarDato(registro[col.field], col.field)}}
+            </td>
+            <td><i class="icono pi pi-eye" (click)="mostrarProduccion(registro.numero)"></i></td>
         </tr>
     </ng-template>
 </p-table>
+
+
+
 
 <br><br>
 
@@ -338,6 +331,28 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
     </div>
 </div>
 
+<div class="card">
+    <p-chart type="bar" [data]="graficoProduccionData" [options]="graficoProduccionOptions" [height]="(20*dataTotalRegistros+100)+'px'" (onDataSelect)="graficoSeleccion($event)"></p-chart>
+</div>
+
+<div class="card">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <p-chart type="doughnut" [data]="graficoProporcionOrigenData" [options]="graficoProporcionOrigenOptions"  [style]="{'width': '20%'}"></p-chart>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <p-chart type="doughnut" [data]="graficoProporcionDestinoData" [options]="graficoProporcionDestinoOptions"  [style]="{'width': '20%'}"></p-chart>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+
 
 
 
@@ -349,65 +364,99 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
 
 
 <!-- MODALES -->
-<p-dialog header="Datos adicionales:" [(visible)]="displayProduc" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true"
+<p-dialog header="Datos produccion N°: {{displayData.numero}}" [(visible)]="displayProduc" [modal]="true" [style]="{width: '90vw'}" [maximizable]="true"
     [draggable]="true" [resizable]="true">
             <br>
             <div class="formgrid grid">
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">AREA </span>
+                        <span class="p-inputgroup-addon">Cult.  </span>
                         <input type="text" pInputText placeholder="" [(ngModel)]="displayData.AREA">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">chamico </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.chamico">
+                        <span class="p-inputgroup-addon">Fecha </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.fecha">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_asignador_cupo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_asignador_cupo">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_chofer </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_chofer">
+                        <span class="p-inputgroup-addon">Rem./O.C.: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.remito">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_corredor </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_corredor">
+                        <span class="p-inputgroup-addon">C.P.: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.nro_cp">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_cuentayorden1 </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_cuentayorden1">
+                        <span class="p-inputgroup-addon">C.T.G.: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.nro_ctg">
                     </div>                
                 </div>
             </div>
             <div class="formgrid grid">
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_cuentayorden2 </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_cuentayorden2">
+                        <span class="p-inputgroup-addon">Transporte </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.transporte">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_dest </span>
+                        <span class="p-inputgroup-addon">Tipo orgien </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tipo_origen">
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Origen </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.origen">
+                    </div>                
+                </div>
+            </div>
+            <br>
+            <div class="formgrid grid">
+                <h5>KG ORIGEN:</h5>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Bruto: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_bruto_origen">
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Tara: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_tara_origen">
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Neto Origen: </span>
+                        <input type="text" style="font-weight: bold" pInputText placeholder="" [(ngModel)]="displayData.kg_neto_orig">
+                    </div>                
+                </div>
+            </div>
+            <br>
+            <div class="formgrid grid">
+                <h5>DESTINO:</h5>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Dest./Cliente </span>
                         <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_dest">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_dest_descarga </span>
+                        <span class="p-inputgroup-addon">Descarga </span>
                         <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_dest_descarga">
                     </div>                
                 </div>
@@ -415,440 +464,29 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
             <div class="formgrid grid">
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_lote_actividad </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_lote_actividad">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_periodo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_periodo">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cod_representante </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cod_representante">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cuerp_ext </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cuerp_ext">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">cuit_chofer </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.cuit_chofer">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">daniados </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.daniados">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">destino </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.destino">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">diferencia </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.diferencia">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">distancia </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.distancia">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">factor </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.factor">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">fecha </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.fecha">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">fecha_carga </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.fecha_carga">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">fecha_cupo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.fecha_cupo">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">finca </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.finca">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">gasto_acondicionamiento </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.gasto_acondicionamiento">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">gasto_comercializacion </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.gasto_comercializacion">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">gasto_flete </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.gasto_flete">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">hora_carga </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.hora_carga">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">humedad1 </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.humedad1">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">humedad2 </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.humedad2">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">id </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.id">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">id_contratista </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.id_contratista">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">id_contrato </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.id_contrato">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">id_pc </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.id_pc">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">id_stock_campo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.id_stock_campo">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_bruto_origen </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_bruto_origen">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_destino </span>
+                        <span class="p-inputgroup-addon">Kg Destino: </span>
                         <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_destino">
                     </div>                
                 </div>
-            </div>
-            <div class="formgrid grid">
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_neto_co </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_neto_co">
+                        <span class="p-inputgroup-addon">Kg Neto Destino </span>
+                        <input type="text" style="font-weight: bold" pInputText placeholder="" [(ngModel)]="displayData.kg_neto_dest">
                     </div>                
                 </div>
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_neto_dest </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_neto_dest">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_neto_orig </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_neto_orig">
+                        <span class="p-inputgroup-addon">Diferencia </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.diferencia">
                     </div>                
                 </div>
             </div>
+            <br>
             <div class="formgrid grid">
                 <div class="field col">
                     <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_origen </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_origen">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">kg_tara_origen </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.kg_tara_origen">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">lote </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.lote">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">marca_importacion </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.marca_importacion">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">neto_afip </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.neto_afip">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">nombre_chofer </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.nombre_chofer">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">nro_cp </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.nro_cp">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">nro_ctg </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.nro_ctg">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">numero </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.numero">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">observar </span>
+                        <span class="p-inputgroup-addon">Obs </span>
                         <input type="text" pInputText placeholder="" [(ngModel)]="displayData.observar">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">origen </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.origen">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">origen_importacion </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.origen_importacion">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">otros </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.otros">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">patente_acoplado </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.patente_acoplado">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">patente_camion </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.patente_camion">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">pcio_flete </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.pcio_flete">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">precio </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.precio">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_calle </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_calle">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_codpostal </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_codpostal">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_depto </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_depto">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_localidad </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_localidad">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_nro </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_nro">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">proc_provincia </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.proc_provincia">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">quebrados </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.quebrados">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">remito </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.remito">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">romaneo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.romaneo">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">tierra </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tierra">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">tipo </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tipo">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">tipo_grano </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tipo_grano">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">tipo_origen </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tipo_origen">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">tipo_transporte </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.tipo_transporte">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">transporte </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.transporte">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">usuario </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.usuario">
-                    </div>                
-                </div>
-            </div>
-            <div class="formgrid grid">
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">variedad </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.variedad">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">volatil </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.volatil">
-                    </div>                
-                </div>
-                <div class="field col">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">zaranda </span>
-                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.zaranda">
                     </div>                
                 </div>
             </div>

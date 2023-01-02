@@ -1,14 +1,133 @@
+<div style="text-align: center;" *ngIf="spinnerCpeExcel || spinnerCpeDescarga || spinnerCuits || spinnerSocios || spinnerProduccionSynagro">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<br>
+<h2 style="text-align: center;">Datos Generales de C.P.E.</h2>
+<br>
+<button pButton type="button" style="margin: 5px;" icon="pi pi-filter" label="VER FILTROS" (click)="displayModalFiltros=true"></button>
 <br><br>
-<p-table [columns]="selectedColumns" [value]="cpe" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+<!-- div class="card" style="padding: 20px;">
+    
+    <div class="formgrid grid">
+        <div class="field col">
+            <div class="field">
+                <label for="range">Desde/Hasta</label>
+                <p-calendar [(ngModel)]="dateRange" [showIcon]="true" selectionMode="range" [readonlyInput]="false" inputId="range"></p-calendar>
+            </div>
+            <div class="field">
+                <p-chips [(ngModel)]="remitos" placeholder="Remitos"></p-chips>
+            </div>
+            <div class="field">
+                <p-chips [(ngModel)]="nro_cp" placeholder="Cartas de Porte"></p-chips>
+            </div>
+            <div class="field">
+                <p-chips [(ngModel)]="nro_ctg" placeholder="CTG"></p-chips>
+            </div>
+        </div>
+        <div class="field col">
+            <h5 (dblclick)="todosPeriodo()">CAMPAÑA</h5>
+            <div class="field-checkbox">
+                <p-checkbox name="periodo" value="2" [(ngModel)]="selectedPeriodo" inputId="camp2"></p-checkbox>
+                <label for="camp2">19-20</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="periodo" value="3" [(ngModel)]="selectedPeriodo" inputId="camp3"></p-checkbox>
+                <label for="camp3">20-21</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="periodo" value="4" [(ngModel)]="selectedPeriodo" inputId="camp4"></p-checkbox>
+                <label for="camp4">21-22</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="periodo" value="5" [(ngModel)]="selectedPeriodo" inputId="camp5"></p-checkbox>
+                <label for="camp5">22-23</label>
+            </div>
+        </div>
+        <div class="field col">
+            <h5 (dblclick)="todosCultivo()">Cultivo</h5>
+            <div class="field-checkbox">
+                <p-checkbox name="AREA" value="1" [(ngModel)]="selectedAREA" inputId="cultS"></p-checkbox>
+                <label for="cultS">SOJA</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="AREA" value="2" [(ngModel)]="selectedAREA" inputId="cultM"></p-checkbox>
+                <label for="cultM">MAIZ</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="AREA" value="3" [(ngModel)]="selectedAREA" inputId="cultT"></p-checkbox>
+                <label for="cultT">TRIGO</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="AREA" value="4" [(ngModel)]="selectedAREA" inputId="cultG"></p-checkbox>
+                <label for="cultG">GIRASOL</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="AREA" value="10" [(ngModel)]="selectedAREA" inputId="cultA"></p-checkbox>
+                <label for="cultA">ALGODON</label>
+            </div>
+        </div>
+        <div class="field col">
+            <h5 (dblclick)="todosOrigen()">Origen</h5>
+            <div class="field-checkbox">
+                <p-radioButton name="tipo_origen" value="L" [(ngModel)]="tipo_origen" inputId="origL"></p-radioButton>
+                <label for="origL">Lote</label>
+                &nbsp;&nbsp;&nbsp;
+                <p-radioButton name="tipo_origen" value="S" [(ngModel)]="tipo_origen" inputId="origS"></p-radioButton>
+                <label for="origS">Silo</label>
+                <p-radioButton name="tipo_origen" value="M" [(ngModel)]="tipo_origen" inputId="origM"></p-radioButton>
+                <label for="origM">Mult.</label>
+            </div>
+            <div *ngIf="tipo_origen">
+                <p-autoComplete [(ngModel)]="origen" [showEmptyMessage]="true" [suggestions]="origenes" (completeMethod)="filterOrigen($event)" field="nombre" [minLength]="1"></p-autoComplete>
+            </div>
+        </div>
+        <div class="field col">
+            <h5 (dblclick)="todosDestino()">Destino</h5>
+            <div class="field-checkbox">
+                <p-radioButton name="tipo_destino" value="1" [(ngModel)]="tipo_destino" inputId="dest1"></p-radioButton>
+                <label for="dest1">Cliente</label>
+                &nbsp;&nbsp;&nbsp;
+                <p-radioButton name="tipo_destino" value="2" [(ngModel)]="tipo_destino" inputId="dest2"></p-radioButton>
+                <label for="dest2">Silo</label>
+                &nbsp;&nbsp;&nbsp;
+                <p-radioButton name="tipo_destino" value="3" [(ngModel)]="tipo_destino" inputId="dest3"></p-radioButton>
+                <label for="dest3">Acopio</label>
+            </div>
+            <div *ngIf="tipo_destino">
+                <p-autoComplete [(ngModel)]="destino" [showEmptyMessage]="true" [suggestions]="destinosSuggestions" (completeMethod)="filterDestino($event)" field="nombre" [minLength]="1"></p-autoComplete>
+            </div>
+            <br><br>
+            <h5 (dblclick)="todosDescarga()">Descarga </h5>
+            <div class="field-checkbox">
+                <p-radioButton name="tipo_descarga" value="1" [(ngModel)]="tipo_descarga" inputId="desc1"></p-radioButton>
+                <label for="desc1">Cliente</label>
+                &nbsp;&nbsp;&nbsp;
+                <p-radioButton name="tipo_descarga" value="2" [(ngModel)]="tipo_descarga" inputId="desc2"></p-radioButton>
+                <label for="desc2">Silo</label>
+                &nbsp;&nbsp;&nbsp;
+                <p-radioButton name="tipo_descarga" value="3" [(ngModel)]="tipo_descarga" inputId="desc3"></p-radioButton>
+                <label for="desc3">Acopio</label>
+            </div>
+            <div *ngIf="tipo_descarga">
+                <p-autoComplete [(ngModel)]="descarga" [showEmptyMessage]="true" [suggestions]="descargasSuggestions" (completeMethod)="filterDescarga($event)" field="nombre" [minLength]="1"></p-autoComplete>
+            </div>
+        </div>
+    </div>
+</div!-->
+
+<br><br>
+<p-table [columns]="selectedColumns" [value]="datosTabla" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
     <ng-template pTemplate="caption">
         <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-            selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns"></p-multiSelect>
+            selectedItemsLabel="{0} columnas seleccionadas" [style]="{'min-width': '300px'}" placeholder="Choose Columns"></p-multiSelect>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th>Socio</th>
-            <th>Nro C.T.G.</th>
+            <th pSortableColumn="socio">Socio <p-sortIcon field="socio"></p-sortIcon></th>
+            <th pSortableColumn="grnCodigo">Grano <p-sortIcon field="grnCodigo"></p-sortIcon></th>
+            <th pSortableColumn="ctg">Nro C.T.G. <p-sortIcon field="ctg"></p-sortIcon></th>
+            <th pSortableColumn="cpe">Nro C.P. <p-sortIcon field="cpe"></p-sortIcon></th>
             <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
                 {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
             </th>
@@ -16,12 +135,414 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
     </ng-template>
     <ng-template pTemplate="body" let-registro let-columns="columns">
         <tr>
-            <td>{{registro.socio}}</td>
-            <td>{{registro.cpe}}</td>
+            <td>{{sociosId[registro.socio]}}</td>
+            <td>{{tablasGranos[registro.grnCodigo]}}</td>
+            <td>{{registro.ctg}}</td>
+            <td>
+                <a *ngIf="registro.cpe" href="{{API_URI}}/pdf.php?socio={{sociosId[registro.socio]}}&nro={{registro.cpe.substring(8)}}" target="_blank">{{registro.cpe}}</a>
+                <p *ngIf="!registro.cpe">{{registro.cpe}}</p>
+            </td>
             <td *ngFor="let col of columns" title="{{tituloCuit(registro[col.field])}}">
-                {{transformarDato(registro[col.field])}}
+                {{transformarDato(registro[col.field], col.field)}}
             </td>
         </tr>
     </ng-template>
 </p-table>
-<br><br><br>
+<br><br>
+
+<div class="col">
+    <div class="container m-0 row content-center">
+        <ul class="list-group" style="width: 90%;">
+            <li class="list-group-item">
+                <div style="text-align: center; font-style: italic;">Datos Generales:</div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (Excel) Peso Bruto: ({{contadorSumados.pesoBruto}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoBruto, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.pesoBruto}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoBruto/contadorSumados.pesoBruto, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (Excel) Peso Tara: ({{contadorSumados.pesoTara}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoTara, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.pesoTara}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoTara/contadorSumados.pesoTara, 0)}}</strong>
+                    </div>
+                </div>
+            </li>        
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (Excel) Peso Carga: ({{contadorSumados.pesoCargaCalculado}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoCargaCalculado, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.pesoCargaCalculado}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.pesoCargaCalculado/contadorSumados.pesoCargaCalculado, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (PDF Destino) Kgs. Bruto: ({{contadorSumados.kg_destino}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_destino, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.kg_destino}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_destino/contadorSumados.kg_destino, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (PDF Destino) Kgs. Tara: ({{contadorSumados.kg_tara_dest}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_tara_dest, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.kg_tara_dest}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_tara_dest/contadorSumados.kg_tara_dest, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (PDF Destino) Kgs. Neto: ({{contadorSumados.kg_neto_dest}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_neto_dest, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.kg_neto_dest}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.kg_neto_dest/contadorSumados.kg_neto_dest, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (Synagro) Kgs. Neto ORIGEN: ({{contadorSumados.synagro_kg_neto_orig}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.synagro_kg_neto_orig, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.synagro_kg_neto_orig}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.synagro_kg_neto_orig/contadorSumados.synagro_kg_neto_orig, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="grid">
+                    <div class="col-4" style="text-align: right;">
+                        (Synagro) Kgs. Neto DESTINO: ({{contadorSumados.synagro_kg_neto_dest}})
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.synagro_kg_neto_dest, 0)}}</strong>
+                    </div>
+                    <div class="col-3" style="text-align: right;">
+                        (Sin Reg.: {{contadorNoSumados.synagro_kg_neto_dest}}). PROMEDIO:
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <strong>{{mostrarNumero(totales.synagro_kg_neto_dest/contadorSumados.synagro_kg_neto_dest, 0)}}</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<br>
+
+
+
+
+
+<!-- MODAL FILTROS -->
+
+<p-dialog header="Datos adicionales:" [(visible)]="displayModalFiltros" [modal]="true" [style]="{width: '85vw', height: '90vw'}" [maximizable]="true"
+    [draggable]="true" [resizable]="true">
+    <br>
+    <h5>Titular C.P.E.:</h5>
+    <div class="formgrid grid">
+        <div class="field col">
+            <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="socioSeleccionado">
+                <option *ngFor="let socio of socios" value="{{socio.id}}">{{socio.nombre}}</option>
+            </select>          
+        </div>
+        <div class="field col">
+            <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="tipoCpe">
+                <option value="74" active>CPE Automotor</option>
+            </select>               
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="formgrid grid">
+        <div class="field col">
+            <label for="range_emi"><h5>Fecha Emision:&nbsp;&nbsp;&nbsp;</h5></label>
+            <p-calendar [(ngModel)]="dateRangeEmision" [showIcon]="true" dateFormat="yy/mm/dd" selectionMode="range" [readonlyInput]="false" inputId="range_emi"></p-calendar>
+        </div>
+        <div class="field col">
+            <label for="range_vto"><h5>Fecha Vencimiento:&nbsp;&nbsp;&nbsp;</h5></label>
+            <p-calendar [(ngModel)]="dateRangeVto" [showIcon]="true" dateFormat="yy/mm/dd" selectionMode="range" [readonlyInput]="false" inputId="range_vto"></p-calendar>
+        </div>
+    </div>
+    <hr>
+
+    <div class="formgrid grid">
+        <div style="text-align: center;" class="field col">
+            <label for="range">DESTINO:</label>
+            <p-listbox [options]="destino" [(ngModel)]="sel_destino" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">DESTINATARIO:</label>
+            <p-listbox [options]="destinatario" [(ngModel)]="sel_destinatario" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">TRANSPORTISTA:</label>
+            <p-listbox [options]="transportista" [(ngModel)]="sel_transportista" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div style="text-align: center;" class="field col">
+            <label for="range">REMITENTE COM. PRIM.:</label>
+            <p-listbox [options]="remitenteprimario" [(ngModel)]="sel_remitenteprimario" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">CORREDOR PRIMARIO:</label>
+            <p-listbox [options]="corredorprimario" [(ngModel)]="sel_corredorprimario" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">CORREDOR SECUNDARIO:</label>
+            <p-listbox [options]="corredorsecundario" [(ngModel)]="sel_corredorsecundario" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <div style="text-align: center;" class="field col">
+            <label for="range">INTERMEDIARIO:</label>
+            <p-listbox [options]="intermediario" [(ngModel)]="sel_intermediario" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">REPRESENTANTE:</label>
+            <p-listbox [options]="representante" [(ngModel)]="sel_representante" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">REPRESENTANTE RECIBIDOR:</label>
+            <p-listbox [options]="representanterecibidor" [(ngModel)]="sel_representanterecibidor" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                        <div>{{country.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+    </div>
+    <hr>
+    <div class="formgrid grid">
+        <label for="range_emi"><h5>Otras opciones:&nbsp;&nbsp;&nbsp;</h5></label>
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <h5>Cartas de Porte con Datos PDF</h5>
+            <div class="field-checkbox">
+                <p-checkbox name="con_sin_pdf" value="con_descarga" [(ngModel)]="selectedPDFDescarga" inputId="cd"></p-checkbox>
+                <label for="cd">Con Descarga</label>
+            </div>
+            <div class="field-checkbox">
+                <p-checkbox name="con_sin_pdf" value="sin_descarga" [(ngModel)]="selectedPDFDescarga" inputId="sd"></p-checkbox>
+                <label for="sd">Sin Descarga</label>
+            </div>
+      </div>
+      <div class="field col">
+          <h5>Datos en Synagro</h5>
+          <div class="field-checkbox">
+              <p-checkbox name="con_sin_synagro" value="con_synagro" [(ngModel)]="selectedSynagro" inputId="cs"></p-checkbox>
+              <label for="cs">Con Datos</label>
+          </div>
+          <div class="field-checkbox">
+              <p-checkbox name="con_sin_synagro" value="sin_synagro" [(ngModel)]="selectedSynagro" inputId="ss"></p-checkbox>
+              <label for="ss">Sin Datos</label>
+          </div>
+          <div *ngIf="selectedSynagro.includes('con_synagro')" class="field-checkbox">
+              <p-checkbox name="con_sin_synagro" value="distinto_cero" [(ngModel)]="selectedSynagro" inputId="s_dc"></p-checkbox>
+              <label for="s_dc">Distintos de cero</label>
+          </div>
+          <div *ngIf="selectedSynagro.includes('con_synagro')" class="field-checkbox">
+              <p-checkbox name="con_sin_synagro" value="igual_cero" [(ngModel)]="selectedSynagro" inputId="s_ic"></p-checkbox>
+              <label for="s_ic">Igual a cero</label>
+          </div>
+    </div>
+    <div class="field col">
+        <h5>Grano</h5>
+        <div class="field-checkbox">
+            <p-checkbox name="grano" value="19" [(ngModel)]="selectedGranos" inputId="gm"></p-checkbox>
+            <label for="gm">Maiz</label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="grano" value="23" [(ngModel)]="selectedGranos" inputId="gs"></p-checkbox>
+            <label for="gs">Soja</label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="grano" value="103" [(ngModel)]="selectedGranos" inputId="gtp"></p-checkbox>
+            <label for="gtp">Trigo Pan</label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="grano" value="104" [(ngModel)]="selectedGranos" inputId="gsf"></p-checkbox>
+            <label for="gsf">Sorgo Forrajero</label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="grano" value="2" [(ngModel)]="selectedGranos" inputId="gg"></p-checkbox>
+            <label for="gg">Girasol</label>
+        </div>
+    </div>
+    <div class="field col">
+        <h5>Estado</h5>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="AC" [(ngModel)]="selectedEstados" inputId="est_AC"></p-checkbox>
+            <label for="est_AC">Activa </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="BR" [(ngModel)]="selectedEstados" inputId="est_BR"></p-checkbox>
+            <label for="est_BR">Borrador </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="CF" [(ngModel)]="selectedEstados" inputId="est_CF"></p-checkbox>
+            <label for="est_CF">Activa con confirmacion de arribo </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="CO" [(ngModel)]="selectedEstados" inputId="est_CO"></p-checkbox>
+            <label for="est_CO">Activa con contingencia </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="CN" [(ngModel)]="selectedEstados" inputId="est_CN"></p-checkbox>
+            <label for="est_CN">Confirmada </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="AP" [(ngModel)]="selectedEstados" inputId="est_AP"></p-checkbox>
+            <label for="est_AP">Anulada por el productor </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="PA" [(ngModel)]="selectedEstados" inputId="est_PA"></p-checkbox>
+            <label for="est_PA">Pendiente de Aceptacion por el Productor </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="AN" [(ngModel)]="selectedEstados" inputId="est_AN"></p-checkbox>
+            <label for="est_AN">Anulada </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="RE" [(ngModel)]="selectedEstados" inputId="est_RE"></p-checkbox>
+            <label for="est_RE">Rechazada </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="DE" [(ngModel)]="selectedEstados" inputId="est_DE"></p-checkbox>
+            <label for="est_DE">Desactivada </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="DD" [(ngModel)]="selectedEstados" inputId="est_DD"></p-checkbox>
+            <label for="est_DD">Descargado en destino </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="PE" [(ngModel)]="selectedEstados" inputId="est_PE"></p-checkbox>
+            <label for="est_PE">Pendiente de emisión </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="IN" [(ngModel)]="selectedEstados" inputId="est_IN"></p-checkbox>
+            <label for="est_IN">Inactiva </label>
+        </div>
+        <div class="field-checkbox">
+            <p-checkbox name="estado" value="PO" [(ngModel)]="selectedEstados" inputId="est_PO"></p-checkbox>
+            <label for="est_PO">Pendiente de Aceptacion por el Origen </label>
+        </div>
+    </div>
+</div>
+    <hr>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-filter" (click)="cerrarModal()" label="Filtrar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

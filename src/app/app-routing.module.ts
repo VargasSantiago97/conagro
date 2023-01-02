@@ -49,13 +49,13 @@ const routes: Routes = [
 
   { path: 'ver/cp', component: CpComponent },
 
-
   //CONAGRO
   
   { path: 'conagro/actualizarCP', component: ActualizarListadoCPComponent },
   { path: 'conagro/verListadoCP', component: VerListadoCPComponent },
   { path: 'conagro/datosGeneralesCPE', component: DatosGeneralesCPEComponent },
   { path: 'conagro/importarPDF', component: ImportarDatosPDFComponent },
+  { path: 'conagro/datosGeneralesCPE/ver/cp', component: CpComponent },
 
 ];
 

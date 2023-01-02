@@ -30,6 +30,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {ChipsModule} from 'primeng/chips';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {ListboxModule} from 'primeng/listbox';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -90,7 +91,6 @@ import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-p
 
     PdfJsViewerModule,
 
-
     //PRIMENG
     ButtonModule,
     MenubarModule,
@@ -113,7 +113,8 @@ import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-p
     CalendarModule,
     ChipsModule,
     AutoCompleteModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ListboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

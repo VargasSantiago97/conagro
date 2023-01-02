@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as vars from 'globals';
+declare var vars: any;
 import { ComunicacionConagroService } from 'src/app/services/comunicacion-conagro.service';
 
 @Component({
