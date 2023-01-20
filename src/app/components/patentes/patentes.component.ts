@@ -180,7 +180,7 @@ export class PatentesComponent implements OnInit {
     this.comunicacionService.crearProveedor(e).subscribe(
       (res: any) => {
 
-        this.logRegistros.push({registro: e.nombre, mensaje:'EXITO - Edicion Realizada', ok:true, codigo: e.cod_proveedor});
+        this.logRegistros.push({registro: e.nombre, mensaje:'EXITO - Creado correctamente', ok:true, codigo: e.cod_proveedor});
 
         this.enviarCrearPatente();
       },

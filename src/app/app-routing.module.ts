@@ -4,9 +4,14 @@ import { VerProduccionComponent } from './components/analizar/ver-produccion/ver
 import { CargarCrearComponent } from './components/cargar-crear/cargar-crear.component';
 import { CargarComponent } from './components/cargar/cargar.component';
 import { ActualizarListadoCPComponent } from './components/conagro/actualizar-listado-cp/actualizar-listado-cp.component';
+import { CompararComponent } from './components/conagro/comparar/comparar.component';
+import { CorredoresSinSynagroComponent } from './components/conagro/corredores-sin-synagro/corredores-sin-synagro.component';
 import { DatosGeneralesCPEComponent } from './components/conagro/datos-generales-cpe/datos-generales-cpe.component';
 import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-pdf/importar-datos-pdf.component';
 import { VerListadoCPComponent } from './components/conagro/ver-listado-cp/ver-listado-cp.component';
+import { CargarDescargasComponent } from './components/corredores/cargar-descargas/cargar-descargas.component';
+import { CorredoresComponent } from './components/corredores/corredores/corredores.component';
+import { DescargasComponent } from './components/corredores/descargas/descargas.component';
 import { CrearDestinosComponent } from './components/crear-destinos/crear-destinos.component';
 import { CrearRegistrosComponent } from './components/crear-registros/crear-registros.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -56,6 +61,15 @@ const routes: Routes = [
   { path: 'conagro/datosGeneralesCPE', component: DatosGeneralesCPEComponent },
   { path: 'conagro/importarPDF', component: ImportarDatosPDFComponent },
   { path: 'conagro/datosGeneralesCPE/ver/cp', component: CpComponent },
+
+  { path: 'conagro/corredores/corredores', component: CorredoresComponent },
+  { path: 'conagro/corredores/descargas', component: DescargasComponent },
+  { path: 'conagro/corredores/cargar_descargas', component: CargarDescargasComponent },
+  { path: 'conagro/corredoresSinSynagro', component: CorredoresSinSynagroComponent },
+
+  
+  { path: 'conagro/comparar', component: CompararComponent },
+
 
 ];
 

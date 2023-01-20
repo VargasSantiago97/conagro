@@ -87,6 +87,7 @@ export class CrearDestinosComponent implements OnInit {
 
   compararSynagro(){
     this.destinosCrear = []
+    var destinosCrearVerificar:any = []
 
     this.datosExcel.map( (e:any) => {
       if(this.destinos.includes(e.destino)){
@@ -94,8 +95,9 @@ export class CrearDestinosComponent implements OnInit {
       }
       else {
         e.synagro['destino'] = "No Encontrado"
-        if(!this.destinosCrear.includes(e.destino)){
+        if(!destinosCrearVerificar.includes(e.destino)){
           this.destinosCrear.push({nombre: e.destino, id_tipo_destino:1, id_grupo:0, tipo_merma:1, planilla: 'Granos'})
+          destinosCrearVerificar.push(e.destino)
         }
         this.mostrarCrear = true
       }
@@ -106,8 +108,9 @@ export class CrearDestinosComponent implements OnInit {
       }
       else {
         e.synagro['descarga'] = "No Encontrado"
-        if(!this.destinosCrear.includes(e.descarga)){
+        if(!destinosCrearVerificar.includes(e.descarga)){
           this.destinosCrear.push({nombre: e.descarga, id_tipo_destino:3, id_grupo:0, tipo_merma:1, planilla: 'Granos'})
+          destinosCrearVerificar.push(e.descarga)
         }
         this.mostrarCrear = true
       }
@@ -119,8 +122,9 @@ export class CrearDestinosComponent implements OnInit {
         }
         else {
           e.synagro['silo'] = "No Encontrado"
-          if(!this.destinosCrear.includes(e.lotesilo)){
+          if(!destinosCrearVerificar.includes(e.lotesilo)){
             this.destinosCrear.push({nombre: e.lotesilo, id_tipo_destino:2, id_grupo:0, tipo_merma:1, planilla: 'Granos'})
+            destinosCrearVerificar.push(e.lotesilo)
           }
           this.mostrarCrear = true
         }
@@ -189,7 +193,7 @@ export class CrearDestinosComponent implements OnInit {
     this.comunicacionService.crearDestino(e).subscribe(
       (res: any) => {
 
-        this.logRegistros.push({registro: e.nombre, mensaje:'EXITO - Edicion Realizada', ok:true, codigo: e.codigo});
+        this.logRegistros.push({registro: e.nombre, mensaje:'EXITO - Creado correctamente', ok:true, codigo: e.codigo});
 
         this.enviarCrearDestino();
       },

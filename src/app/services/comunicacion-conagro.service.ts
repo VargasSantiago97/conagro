@@ -8,6 +8,7 @@ declare var vars: any;
 export class ComunicacionConagroService {
 
   API_URI = vars.API_URI_CONAGRO;
+  PRUEBA = 15;
 
   constructor(private http: HttpClient) { }
 
@@ -52,5 +53,50 @@ export class ComunicacionConagroService {
   modificarCpeDescarga(data:any) {
     return this.http.post(`${this.API_URI}/index.php?tabla=cpe_descarga&op=update`, data);
   };
+
+  //corredores
+  obtenerTodosCorredores() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=corredores&op=getAll`);
+  };
+  crearCorredores(data:any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=corredores&op=create`, data);
+  };
+  modificarCorredores(data:any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=corredores&op=update`, data);
+  };
+
+  //corredores descargas
+  obtenerTodosCorredoresDescargas() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=corredores_descarga&op=getAll`);
+  };
+  crearCorredoresDescargas(data:any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=corredores_descarga&op=create`, data);
+  };
+  modificarCorredoresDescargas(data:any) {
+    return this.http.post(`${this.API_URI}/index.php?tabla=corredores_descarga&op=update`, data);
+  };
+
+
+  obtenerExcelDescargasCorredores() {
+    return this.http.get(`${this.API_URI}/excelDescargas.php`);
+  };
+
+
+
+
+
+
+
+
+  no() {
+    return this.http.get(`${this.API_URI}/no.php`);
+  };
+
+  setValue(ent:any){
+    this.PRUEBA = ent;
+  }
+  getValue(){
+    return this.PRUEBA
+  }
 
 }

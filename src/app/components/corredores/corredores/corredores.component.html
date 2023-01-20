@@ -1,0 +1,61 @@
+<br>
+<div style="text-align: center;" *ngIf="spinner">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<br>
+<p-table [value]="corredores" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">id <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="nombre">nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th pSortableColumn="razon_social">razon_social <p-sortIcon field="razon_social"></p-sortIcon></th>
+            <th pSortableColumn="cuit">cuit <p-sortIcon field="cuit"></p-sortIcon></th>
+            <th>Acc. </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-corredor>
+        <tr>
+            <td>{{corredor.id}}</td>
+            <td>{{corredor.nombre}}</td>
+            <td>{{corredor.razon_social}}</td>
+            <td>{{corredor.cuit}}</td>
+            <td><i class="icono pi pi-eye" (click)="mostrarCorredor(corredor.id)"></i></td>
+        </tr>
+    </ng-template>
+</p-table>
+<br><br>
+<button style="margin: 5px;" pButton type="button" label="Agregar Nuevo" (click)="mostrarCorredor(0)"></button>
+
+
+
+
+
+<p-dialog header="Corredor" [(visible)]="displayModalCorredor" [modal]="true" [style]="{width: '85vw'}" [maximizable]="true"
+    [draggable]="true" [resizable]="true">
+    <hr>
+
+    <div class="formgrid grid">
+        <div class="field col">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">Nombre </span>
+                <input type="text" pInputText placeholder="" [(ngModel)]="corredorSeleccionado.nombre">
+            </div>                
+        </div>
+        <div class="field col">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">Razon Social </span>
+                <input type="text" pInputText placeholder="" [(ngModel)]="corredorSeleccionado.razon_social">
+            </div>                
+        </div>
+        <div class="field col">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">CUIT </span>
+                <input type="text" pInputText placeholder="" [(ngModel)]="corredorSeleccionado.cuit">
+            </div>                
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="guardarCorredor()" label="Guardar" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

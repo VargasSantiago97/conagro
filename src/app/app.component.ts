@@ -77,26 +77,22 @@ export class AppComponent {
               {separator:true},
               {label: "Datos Generales CPE", routerLink: 'conagro/datosGeneralesCPE'},
               {
-                label: "Otros datos CPE",
+                label: "Corredores",
                 items: [
-                  {
-                    label: 'Comparar',
-                    items: [
-                      {label: 'Cartas de porte NO Descargadas', routerLink: 'cargar'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                      {label: 'Cartas de porte que NO estan en synagro', routerLink: 'verxlsx'},
-                    ]
-                  },
+                  {label: 'Corredores', routerLink: 'conagro/corredores/corredores'},
+                  {label: 'Importar Descargas', routerLink: 'conagro/corredores/cargar_descargas'},
+                  {label: 'Ver datos "Descargas"', routerLink: 'conagro/corredores/descargas'},
+                ]
+              },
+              {
+                label: "Comparar",
+                items: [
+                  {label: 'TODO', routerLink: 'conagro/comparar'},
+                  {label: 'CPE que no estan en Synagro', routerLink: 'cargar', disabled: true},
+                  {label: 'Registros synagro sin CPE', routerLink: 'cargar', disabled: true},
+                  {label: 'planilla ALE que no están en synagro', routerLink: 'cargar', disabled: true},
+                  {label: 'Registros synagro que no estan en planilla ALE', routerLink: 'cargar', disabled: true},
+                  {label: 'Registros CORREDORES que no están en synagro', routerLink: 'conagro/corredoresSinSynagro'},
                 ]
               },
             ]

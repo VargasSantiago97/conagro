@@ -31,6 +31,8 @@ import {ChipsModule} from 'primeng/chips';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ListboxModule} from 'primeng/listbox';
+import {SplitterModule} from 'primeng/splitter';
+import {KnobModule} from 'primeng/knob';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -55,6 +57,11 @@ import { ActualizarListadoCPComponent } from './components/conagro/actualizar-li
 import { VerListadoCPComponent } from './components/conagro/ver-listado-cp/ver-listado-cp.component';
 import { DatosGeneralesCPEComponent } from './components/conagro/datos-generales-cpe/datos-generales-cpe.component';
 import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-pdf/importar-datos-pdf.component';
+import { CorredoresComponent } from './components/corredores/corredores/corredores.component';
+import { DescargasComponent } from './components/corredores/descargas/descargas.component';
+import { CargarDescargasComponent } from './components/corredores/cargar-descargas/cargar-descargas.component';
+import { CompararComponent } from './components/conagro/comparar/comparar.component';
+import { CorredoresSinSynagroComponent } from './components/conagro/corredores-sin-synagro/corredores-sin-synagro.component';
 
 
 @NgModule({
@@ -81,7 +88,12 @@ import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-p
     ActualizarListadoCPComponent,
     VerListadoCPComponent,
     DatosGeneralesCPEComponent,
-    ImportarDatosPDFComponent
+    ImportarDatosPDFComponent,
+    CorredoresComponent,
+    DescargasComponent,
+    CargarDescargasComponent,
+    CompararComponent,
+    CorredoresSinSynagroComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +126,9 @@ import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-p
     ChipsModule,
     AutoCompleteModule,
     MultiSelectModule,
-    ListboxModule
+    ListboxModule,
+    SplitterModule,
+    KnobModule
   ],
   providers: [],
   bootstrap: [AppComponent]

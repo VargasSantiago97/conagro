@@ -1,0 +1,65 @@
+
+<br>
+<div style="text-align: center;" *ngIf="spinnerDatos || spinnerCorredores || spinnerSocios">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<button style="margin: 5px;" pButton type="button" label="FILTROS" (click)="displayModalFiltros = true"></button>
+<br>
+<br>
+<p-table [columns]="selectedColumns" [value]="corredoresDescarga" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+    <ng-template pTemplate="caption">
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} columnas seleccionadas" [style]="{'min-width': '300px'}" placeholder="Choose Columns"></p-multiSelect>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.field}}">
+                {{col.header}} <p-sortIcon field="{{col.field}}"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns" title="{{registro[col.field]}}">
+                {{registro[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<br><br>
+
+
+
+
+<p-dialog header="Corredor" [(visible)]="displayModalFiltros" [modal]="true" [style]="{width: '85vw'}" [maximizable]="true"
+    [draggable]="true" [resizable]="true">
+    <hr>
+
+    <div class="formgrid grid">
+        <div style="text-align: center;" class="field col">
+            <label for="range">SOCIO:</label>
+            <p-listbox [options]="filtro_socios" [(ngModel)]="filtro_sel_socios" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-socios pTemplate="item">
+                    <div class="socios-item">
+                        <div>{{socios.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+        <div style="text-align: center;" class="field col">
+            <label for="range">CORREDOR:</label>
+            <p-listbox [options]="filtro_corredor" [(ngModel)]="filtro_sel_corredor" [metaKeySelection]="false" [checkbox]="true" [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'height':'250px'}" [style]="{'width':'90%'}">
+                <ng-template let-corredor pTemplate="item">
+                    <div class="corredor-item">
+                        <div>{{corredor.name}}</div>
+                    </div>
+                </ng-template>
+            </p-listbox>
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button (click)="filtrar()" label="FILTRAR" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

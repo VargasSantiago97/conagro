@@ -368,11 +368,14 @@ export class CrearRegistrosComponent implements OnInit {
   crearRegistro(data : any){
     this.comunicacionService.crearProduccion(data).subscribe(
       (res: any) => {
-        this.logRegistros.push({registro: this.creandoRegistro, mensaje:'EXITO - Creado correctamente', ok:true, codigo: data.numero});
+        this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'EXITO - Creado correctamente', ok:true, codigo: data.numero});
         this.crearRegistros();
       },
       err => {
           console.log(err);
+          console.log("\n\nIntentando nuevamente...");
+          this.creandoRegistro--;
+          this.crearRegistros();
           this.logRegistros.push({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.numero});
       }
     );

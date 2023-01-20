@@ -66,4 +66,5 @@ export class ComunicacionService {
   editarSecuencia(data : any) {
     return this.http.post(`${this.API_URI}/index.php?tabla=secuencia&op=update`, data);
   };
+
 }

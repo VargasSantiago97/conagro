@@ -42,7 +42,7 @@ export class ImportarDatosPDFComponent implements OnInit {
     this.comunicacionConagroService.obtenerTodosCpeDescarga().subscribe(
       (res:any) => {
         res.map( (cpe:any) => {
-          this.cpeRegistro[cpe.nro_ctg] = cpe.id
+          this.cpeRegistro[cpe.nro_ctg] = cpe
         })
       },
       (err:any) => {
@@ -87,8 +87,20 @@ export class ImportarDatosPDFComponent implements OnInit {
       this.creandoRegistro++;
 
       if(this.cpeRegistro[datoAEnviar['nro_ctg']]){
-        datoAEnviar['id'] = this.cpeRegistro[datoAEnviar['nro_ctg']]
-        this.modificarRegistro(datoAEnviar);
+        datoAEnviar['id'] = this.cpeRegistro[datoAEnviar['nro_ctg']].id
+
+        if( datoAEnviar['nro_cp'] == this.cpeRegistro[datoAEnviar['nro_ctg']].nro_cp &&
+            datoAEnviar['nro_ctg'] == this.cpeRegistro[datoAEnviar['nro_ctg']].nro_ctg &&
+            datoAEnviar['kg_destino'] == this.cpeRegistro[datoAEnviar['nro_ctg']].kg_destino &&
+            datoAEnviar['kg_tara'] == this.cpeRegistro[datoAEnviar['nro_ctg']].kg_tara &&
+            datoAEnviar['kg_neto_dest'] == this.cpeRegistro[datoAEnviar['nro_ctg']].kg_neto_dest
+        ){
+          this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'NO MODIFICADO - No hubo cambios', ok:'ok', codigo: datoAEnviar['nro_ctg']});
+          this.crearRegistros()
+        }else{
+          this.modificarRegistro(datoAEnviar);
+        }
+
         //this.crearRegistros() //PARA CARGA INICIAL COMENTAR EL DE ARRIBA Y DESCOMENTAR ESTE
       }else{
         this.crearRegistro(datoAEnviar);
@@ -104,11 +116,13 @@ export class ImportarDatosPDFComponent implements OnInit {
         this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'EXITO - Creado correctamente', ok:res.mensaje, codigo: data.cpe});
         setTimeout(() => {
           this.crearRegistros();
-        }, 100);
+        }, 200);
       },
       err => {
           console.log(err);
           this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+          console.log('\nIntentando nuevamente...')
+          this.crearRegistros();
       }
     );
   }
@@ -119,11 +133,16 @@ export class ImportarDatosPDFComponent implements OnInit {
         this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'EXITO - MODIFICADO correctamente', ok:res.mensaje, codigo: data.cpe});
         setTimeout(() => {
           this.crearRegistros();
-        }, 100);
+        }, 200);
       },
       err => {
           console.log(err);
           this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+          this.creandoRegistro--;
+          console.log('\nIntentando nuevamente...')
+          setTimeout(() => {
+            this.crearRegistros();
+          }, 1000);
       }
     );
   }

@@ -108,11 +108,16 @@ export class ActualizarListadoCPComponent implements OnInit {
         this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'EXITO - Creado correctamente', ok:res.mensaje, codigo: data.cpe});
         setTimeout(() => {
           this.crearRegistros();
-        }, 100);
+        }, 10);
       },
       err => {
-          console.log(err);
-          this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+        console.log(err);
+        this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+
+        setTimeout(() => {
+          this.creandoRegistro--;
+          this.crearRegistros();
+        }, 1000);
       }
     );
   }
@@ -123,11 +128,16 @@ export class ActualizarListadoCPComponent implements OnInit {
         this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'EXITO - MODIFICADO correctamente', ok:res.mensaje, codigo: data.cpe});
         setTimeout(() => {
           this.crearRegistros();
-        }, 100);
+        }, 10);
       },
       err => {
-          console.log(err);
-          this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+        console.log(err);
+        this.logRegistros.unshift({registro: this.creandoRegistro, mensaje:'ERROR! Error conectando a backend. Ver Consola', ok:false, codigo: data.cpe});
+
+        setTimeout(() => {
+          this.creandoRegistro--;
+          this.crearRegistros();
+        }, 1000);
       }
     );
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComunicacionService } from 'src/app/services/comunicacion.service';
+import { ComunicacionConagroService } from 'src/app/services/comunicacion-conagro.service';
 
 @Component({
   selector: 'app-pruebas',
@@ -9,35 +9,32 @@ import { ComunicacionService } from 'src/app/services/comunicacion.service';
 export class PruebasComponent implements OnInit {
 
 
+  value1:any = 0;
+
   produccion: any = [];
   spinner: Boolean = true;
 
   constructor(
-    private comunicacionService: ComunicacionService
+    private comunicacionService: ComunicacionConagroService
   ) { }
 
   ngOnInit(): void {
-    this.obtenerTodosProduccion()
+    this.obtenerNumero()
   }
 
-  obtenerTodosProduccion() {
-    this.comunicacionService.obtenerTodosProduccion().subscribe(
-        (res: any) => {
-          //res.map( (e:any) => { if(e.origen) this.produccion.push(e) } )
-          this.produccion = [...res];
-          this.spinner = false;
-        },
-        err => {
-            console.log(err);
-        }
-    );
+  obtenerNumero() {
   };
 
   funcc(){
-    this.produccion[4].cod_chofer == "" ? this.produccion[4].cod_chofer = null : null
-    console.log(
-      this.produccion[4].cod_chofer
-    )
+    setInterval( () => {
+      this.value1 = this.comunicacionService.getValue();
+    }, 20)
   }
+  
+  funccc(){
+    this.comunicacionService.setValue(10);
+  }
+
+
 
 }

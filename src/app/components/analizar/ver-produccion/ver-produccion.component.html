@@ -490,6 +490,27 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
                     </div>                
                 </div>
             </div>
+            <br><hr><br>
+            <div class="formgrid grid">
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">USUARIO: </span>
+                        <input type="text" pInputText placeholder="" [(ngModel)]="displayData.usuario">
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">FECHA: </span>
+                        <input type="text" style="font-weight: bold" pInputText placeholder="" [(ngModel)]="displayData.fecha_carga">
+                    </div>                
+                </div>
+                <div class="field col">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">Hora: </span>
+                        <input type="text" style="font-weight: bold" pInputText placeholder="" [(ngModel)]="displayData.hora_carga">
+                    </div>                
+                </div>
+            </div>
         <ng-template pTemplate="footer">
             <p-button icon="pi pi-check" (click)="displayProduc=false" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>

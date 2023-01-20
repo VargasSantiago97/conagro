@@ -1,0 +1,8 @@
+.icono {
+    font-size: 22px; 
+    color: rgb(0, 132, 255); 
+    background-color: rgb(255, 255, 255); 
+    padding: 5px; 
+    border-radius: 10px; 
+    cursor: pointer;
+}
