@@ -8,6 +8,8 @@ import { CompararComponent } from './components/conagro/comparar/comparar.compon
 import { CorredoresSinSynagroComponent } from './components/conagro/corredores-sin-synagro/corredores-sin-synagro.component';
 import { DatosGeneralesCPEComponent } from './components/conagro/datos-generales-cpe/datos-generales-cpe.component';
 import { ImportarDatosPDFComponent } from './components/conagro/importar-datos-pdf/importar-datos-pdf.component';
+import { MovimientosProduccionResumenComponent } from './components/conagro/movimientos-produccion-resumen/movimientos-produccion-resumen.component';
+import { MovimientosProduccionComponent } from './components/conagro/movimientos-produccion/movimientos-produccion.component';
 import { VerListadoCPComponent } from './components/conagro/ver-listado-cp/ver-listado-cp.component';
 import { CargarDescargasComponent } from './components/corredores/cargar-descargas/cargar-descargas.component';
 import { CorredoresComponent } from './components/corredores/corredores/corredores.component';
@@ -69,6 +71,11 @@ const routes: Routes = [
 
   
   { path: 'conagro/comparar', component: CompararComponent },
+
+  { path: 'conagro/movimientosProduccion', component: MovimientosProduccionComponent },
+  { path: 'conagro/movimientosProduccionResumen', component: MovimientosProduccionResumenComponent },
+
+
 
 
 ];

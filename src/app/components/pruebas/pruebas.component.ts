@@ -32,7 +32,7 @@ export class PruebasComponent implements OnInit {
   }
   
   funccc(){
-    this.comunicacionService.setValue(10);
+    this.comunicacionService.getValue();
   }
 
 

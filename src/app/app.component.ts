@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { ComunicacionConagroService } from './services/comunicacion-conagro.service';
 
 
 @Component({
@@ -10,9 +11,19 @@ import {MenuItem} from 'primeng/api';
 export class AppComponent {
   items: MenuItem[] = [];
   title = 'conagro';
+  displayBasic = true;
 
+  constructor(
+    private comunicacionService: ComunicacionConagroService
+  ) { }
+
+  abrirDialog(){
+    this.abrirDialogg()
+  }
 
   ngOnInit() {
+    this.comunicacionService.setValue(this.abrirDialog)
+
     this.items = [
         {
             label: 'Inicio',
@@ -69,6 +80,8 @@ export class AppComponent {
             label: 'CRUZAR DATOS',
             items: [
               {label: 'Ver Produccion', routerLink: 'verProduccion'},
+              {label: 'Origen->Destino', routerLink: 'conagro/movimientosProduccion'},
+              {label: 'Origen->Destino [RES]', routerLink: 'conagro/movimientosProduccionResumen'},
               {separator:true},
               {label: "Actualizar CPE's (Excel)", routerLink: 'conagro/actualizarCP'},
               {label: "Ver CPE's (Excel)", routerLink: 'conagro/verListadoCP'},
@@ -99,4 +112,10 @@ export class AppComponent {
         }
     ];
   }
+
+  abrirDialogg(){
+    this.displayBasic = true
+  }
+
+
 }

@@ -9,6 +9,7 @@ export class ComunicacionConagroService {
 
   API_URI = vars.API_URI_CONAGRO;
   PRUEBA = 15;
+  PRUEBA_MODAL: any = false;
 
   constructor(private http: HttpClient) { }
 
@@ -93,10 +94,13 @@ export class ComunicacionConagroService {
   };
 
   setValue(ent:any){
-    this.PRUEBA = ent;
+    this.PRUEBA_MODAL = ent;
+    console.log(this.PRUEBA_MODAL)
   }
   getValue(){
-    return this.PRUEBA
+    console.log('a')
+
+    this.PRUEBA_MODAL()
   }
 
 }

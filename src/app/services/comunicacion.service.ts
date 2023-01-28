@@ -19,6 +19,10 @@ export class ComunicacionService {
     return this.http.get(`${this.API_URI}/index.php?tabla=produccion_origen&op=getAll`);
   };
 
+  obtenerTodosEstablecimiento() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=establecimiento&op=getAll`);
+  };
+
   editarProduccion(data : any){
     return this.http.post(`${this.API_URI}/index.php?tabla=produccion&op=update`, data);
   }

@@ -33,6 +33,10 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {ListboxModule} from 'primeng/listbox';
 import {SplitterModule} from 'primeng/splitter';
 import {KnobModule} from 'primeng/knob';
+import {TreeModule} from 'primeng/tree';
+import {CardModule} from 'primeng/card';
+
+
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -62,6 +66,8 @@ import { DescargasComponent } from './components/corredores/descargas/descargas.
 import { CargarDescargasComponent } from './components/corredores/cargar-descargas/cargar-descargas.component';
 import { CompararComponent } from './components/conagro/comparar/comparar.component';
 import { CorredoresSinSynagroComponent } from './components/conagro/corredores-sin-synagro/corredores-sin-synagro.component';
+import { MovimientosProduccionComponent } from './components/conagro/movimientos-produccion/movimientos-produccion.component';
+import { MovimientosProduccionResumenComponent } from './components/conagro/movimientos-produccion-resumen/movimientos-produccion-resumen.component';
 
 
 @NgModule({
@@ -93,7 +99,9 @@ import { CorredoresSinSynagroComponent } from './components/conagro/corredores-s
     DescargasComponent,
     CargarDescargasComponent,
     CompararComponent,
-    CorredoresSinSynagroComponent
+    CorredoresSinSynagroComponent,
+    MovimientosProduccionComponent,
+    MovimientosProduccionResumenComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +136,10 @@ import { CorredoresSinSynagroComponent } from './components/conagro/corredores-s
     MultiSelectModule,
     ListboxModule,
     SplitterModule,
-    KnobModule
+    KnobModule,
+    TreeModule,
+    CardModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
