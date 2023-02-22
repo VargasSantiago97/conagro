@@ -71,4 +71,22 @@ export class ComunicacionService {
     return this.http.post(`${this.API_URI}/index.php?tabla=secuencia&op=update`, data);
   };
 
+
+  obtenerTodosArticulos() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=articulos&op=getAll`);
+  };
+
+  obtenerTodosStockCampo() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=stock_campo&op=getAll`);
+  };
+
+  obtenerTodosStockItem() {
+    return this.http.get(`${this.API_URI}/index.php?tabla=stock_item&op=getAll`);
+  };
+
+  editarStockItem(data : any){
+    return this.http.post(`${this.API_URI}/index.php?tabla=stock_item&op=update`, data);
+  }
+
+
 }

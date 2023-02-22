@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VerProduccionComponent } from './components/analizar/ver-produccion/ver-produccion.component';
+import { ArticulosComponent } from './components/articulos/articulos.component';
 import { CargarCrearComponent } from './components/cargar-crear/cargar-crear.component';
 import { CargarComponent } from './components/cargar/cargar.component';
 import { ActualizarListadoCPComponent } from './components/conagro/actualizar-listado-cp/actualizar-listado-cp.component';
@@ -74,6 +75,9 @@ const routes: Routes = [
 
   { path: 'conagro/movimientosProduccion', component: MovimientosProduccionComponent },
   { path: 'conagro/movimientosProduccionResumen', component: MovimientosProduccionResumenComponent },
+
+
+  { path: 'articulos', component: ArticulosComponent },
 
 
 

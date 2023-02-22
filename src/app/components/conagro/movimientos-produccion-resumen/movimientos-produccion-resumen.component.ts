@@ -44,32 +44,33 @@ export class MovimientosProduccionResumenComponent implements OnInit {
   cols: any = [];
   selectedColumns: any = [];
 
+  //MODIFICACION PARA HACER TABLA RESUMEN:
+  dataParaMostrarTabla: any = []
   constructor(private comunicacionService : ComunicacionService) { }
 
   ngOnInit(): void {
 
     this.cols = [
-      {field: "cod_dest", header: "Cod. Dest."},
-      {field: "tipo_dest", header: "Tipo Dest."},
-      {field: "nombre_dest", header: "Destino"},
-      {field: "cod_lote_actividad", header: "Cod. Lot/Act"},
-      {field: "cod_lote", header: "Cod. Lote"},
-      {field: "nombre_lote", header: "Lote"},
-      {field: "cod_establecimiento", header: "Cod. Est."},
-      {field: "nombre_establecimiento", header: "Establec."},
-      {field: "kg_neto_orig", header: "Kg Neto Origen"},
-      {field: "lote", header: "Cod. Lote"},
-      {field: "tipo_origen", header: "Tipo Origen"}
+      {field: "cod_establecimiento", header: "Cod"},
+      {field: "nombre_establecimiento", header: "Nombre"},
+      {field: "total_kgs", header: "TOTAL KGS"},
+      {field: "lote_cliente", header: "LOTE A CLIENTE"},
+      {field: "lote_silo", header: "LOTE A BOLSON"},
+      {field: "lote_acopio", header: "LOTE A ACOPIO"},
+      {field: "desde_silo", header: "DESDE BOLSON"},
+      {field: "diferencia", header: "DIF (a - de bolson)"},
+      {field: "porcentaje_diferencia", header: "%"},
     ];
     this.selectedColumns = [
-      {field: "nombre_establecimiento", header: "Establec."},
-      {field: "nombre_lote", header: "Lote"},
-      {field: "cod_lote_actividad", header: "Cod. Lot/Act"},
-
-      {field: "tipo_dest", header: "Tipo Dest."},
-      {field: "nombre_dest", header: "Destino"},
-
-      {field: "kg_neto_orig", header: "Kg Neto Origen"},
+      {field: "cod_establecimiento", header: "Cod"},
+      {field: "nombre_establecimiento", header: "Nombre"},
+      {field: "total_kgs", header: "TOTAL KGS"},
+      {field: "lote_cliente", header: "LOTE A CLIENTE"},
+      {field: "lote_acopio", header: "LOTE A ACOPIO"},
+      {field: "lote_silo", header: "LOTE A BOLSON"},
+      {field: "desde_silo", header: "DESDE BOLSON"},
+      {field: "diferencia", header: "DIF (a - de bolson)"},
+      {field: "porcentaje_diferencia", header: "%"},
     ];
 
 
@@ -168,6 +169,7 @@ export class MovimientosProduccionResumenComponent implements OnInit {
   crearObjetoCrudo(){
     this.dataCruda = [];
     this.dataKilos = [];
+    this.dataSilos = [];
     this.dataPorCampos = {};
     this.dataTabla = [];
 
@@ -206,9 +208,29 @@ export class MovimientosProduccionResumenComponent implements OnInit {
               lote: registro.lote,
               tipo_origen: 'L'
             })
+          } else if(e.tipo_origen == 'S'){
+            if(this.dataSilos.some((f:any)=>{return f.cod_silo == e.origen})){
+              //sumamos
+              var dataSilo = this.dataSilos.find((f:any) => { return f.cod_silo == e.origen })
+              dataSilo.kg_descarga += parseFloat(e.kg_origen)
+             }else{
+                //creamos
+                this.dataSilos.push({
+                  cod_silo: e.origen,
+                  nombre: this.DIC_destinos[e.origen].nombre,
+                  kg_carga: 0,
+                  kg_descarga: parseFloat(e.kg_origen)
+                })
+              }
           }
         })
-      }else if (registro.tipo_origen == 'L'){
+      }
+      
+      
+      
+      
+
+      else if (registro.tipo_origen == 'L'){
         this.dataKilos.push({
           numero: registro.numero,
           id: registro.id,
@@ -241,14 +263,14 @@ export class MovimientosProduccionResumenComponent implements OnInit {
         var dataSilo = this.dataSilos.find((e:any) => { return e.cod_silo == registro.origen })
         dataSilo.kg_descarga += parseFloat(registro.kg_neto_orig)
        }else{
-        //creamos
-        this.dataSilos.push({
-          cod_silo: registro.origen,
-          nombre: this.DIC_destinos[registro.origen].nombre,
-          kg_carga: 0,
-          kg_descarga: parseFloat(registro.kg_neto_orig)
-        })
-       }
+          //creamos
+          this.dataSilos.push({
+            cod_silo: registro.origen,
+            nombre: this.DIC_destinos[registro.origen].nombre,
+            kg_carga: 0,
+            kg_descarga: parseFloat(registro.kg_neto_orig)
+          })
+        }
       }
     })
 
@@ -270,7 +292,6 @@ export class MovimientosProduccionResumenComponent implements OnInit {
             kg_carga: parseFloat(registro.kg_neto_dest),
             kg_descarga: 0
           })
-          console.log(registro)
         }
       }
     })
@@ -402,7 +423,7 @@ export class MovimientosProduccionResumenComponent implements OnInit {
     */
 
 
-    console.log(this.dataTabla)
+    this.dataParaMostrar();
 
 
 
@@ -452,6 +473,13 @@ export class MovimientosProduccionResumenComponent implements OnInit {
         return '[Sin dato]'
       }
     }
+    if(tipo == 'kilosDescargaSiloCalculo'){
+      if(this.dataSilos.some((e:any)=>{ return e.cod_silo == dato })){
+        return this.dataSilos.find((e:any)=>{ return e.cod_silo == dato }).kg_descarga;
+      }else{
+        return 0
+      }
+    }
     if(tipo == 'diferenciaSilo'){
       if(this.dataSilos.some((e:any)=>{ return e.cod_silo == dato })){
         var datosSilo = this.dataSilos.find((e:any)=>{ return e.cod_silo == dato })
@@ -465,10 +493,71 @@ export class MovimientosProduccionResumenComponent implements OnInit {
       }
     }
 
-
+    if(tipo == 'total_kgs' || tipo == 'lote_silo' || tipo == 'desde_silo' || tipo == 'diferencia' || tipo == 'porcentaje_diferencia' || tipo == 'lote_cliente' || tipo == 'lote_acopio'){
+      return dato ? dato.toLocaleString('es-AR') : '-';
+    }
 
     return dato;
   }
+
+  dataParaMostrar(){
+    this.dataParaMostrarTabla = [];
+    
+    this.dataTabla.map((registro:any)=>{
+      var elemento = {
+        cod_establecimiento: registro.cod_establecimiento,
+        nombre_establecimiento: registro.nombre_establecimiento,
+        total_kgs: registro.total_kgs,
+        lote_cliente: 0,
+        lote_silo: 0,
+        lote_acopio: 0,
+        desde_silo: 0,
+        diferencia: 0,
+        porcentaje_diferencia: 0
+      }
+
+
+      //sumar salida de lote a cliente
+      registro.datos.map((lote:any)=>{
+        lote.datos.map((tipoDest:any)=>{
+          if(tipoDest.tipo_dest=='1'){
+            elemento.lote_cliente += tipoDest.total_kgs
+          }
+        })
+      })
+
+      //sumar salida de lote a silo
+      registro.datos.map((lote:any)=>{
+        lote.datos.map((tipoDest:any)=>{
+          if(tipoDest.tipo_dest=='2'){
+            elemento.lote_silo += tipoDest.total_kgs
+          }
+        })
+      })
+
+      //sumar salida de lote a acopio
+      registro.datos.map((lote:any)=>{
+        lote.datos.map((tipoDest:any)=>{
+          if(tipoDest.tipo_dest=='3'){
+            elemento.lote_acopio += tipoDest.total_kgs
+          }
+        })
+      })
+
+      //sumar salida de silos
+      registro.silos.map((cod_silo:any)=>{
+        elemento.desde_silo += this.transformarDatoMostrar(cod_silo, 'kilosDescargaSiloCalculo')
+      })
+
+      elemento.diferencia = elemento.lote_silo - elemento.desde_silo
+      elemento.porcentaje_diferencia = elemento.diferencia/elemento.lote_silo*100
+
+      this.dataParaMostrarTabla.push(elemento)
+    })
+
+  }
+  
+
 
 }
 

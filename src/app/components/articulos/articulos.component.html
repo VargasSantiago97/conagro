@@ -1,0 +1,108 @@
+
+
+<div style="text-align: center;" *ngIf="spinnerArticulos || spinnerStockCampo || spinnerStockItem">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+
+<p-fileUpload *ngIf="!registrosExcel.length" name="demo[]" url="{{API_URI}}/uploadPrecios.php" (onUpload)="onUpload($event)" accept=".xlsx" >
+    <ng-template pTemplate="content">
+    </ng-template>
+</p-fileUpload>
+
+<br><br>
+
+<div *ngIf="registrosExcel.length">
+    <br>
+    <h2 style="text-align: center;">Datos A Importar</h2>
+    <br>
+
+    <p-table [value]="registrosExcel" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">id <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="cod_articulo">cod_articulo <p-sortIcon field="cod_articulo"></p-sortIcon></th>
+                <th pSortableColumn="descripcion">descripcion <p-sortIcon field="descripcion"></p-sortIcon></th>
+                <th pSortableColumn="precio">precio <p-sortIcon field="precio"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.id}}</td>
+                <td>{{registro.cod_articulo}}</td>
+                <td>{{registro.descripcion}}</td>
+                <td>{{registro.precio}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br><br><br>
+
+    <div class="row">
+        <div class="col">
+            <div class="field col">
+                <label for="range_emi"><h5>Fecha:&nbsp;&nbsp;&nbsp;</h5></label>
+                <p-calendar [(ngModel)]="dateRange" [showIcon]="true" dateFormat="yy/mm/dd" selectionMode="range" [readonlyInput]="false" inputId="range_emi"></p-calendar>
+            </div>
+        </div>
+
+        <div class="col">
+            <button pButton type="button" style="margin: 5px;" label="BUSCAR REMITOS" (click)="buscarRemitos()"></button>
+        </div>
+    </div>
+
+    <br><br><br><br>
+    <h4>Remitos:</h4>
+    <br><br>
+    <p-table [value]="remitosFiltrados" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="remito_nro">Remito N <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="fecha_ingreso">Fecha <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="motivo">Motivo <p-sortIcon field="codigo"></p-sortIcon></th>
+                <th pSortableColumn="id_proveedor">Proveedor <p-sortIcon field="id_proveedor"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.id}}</td>
+                <td>{{registro.remito_nro}}</td>
+                <td>{{registro.fecha_ingreso}}</td>
+                <td>{{registro.motivo}}</td>
+                <td>{{registro.id_proveedor}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br><br>
+    <div class="col">
+        <button pButton type="button" style="margin: 5px;" label="CARGAR PRECIOS" (click)="actualizarPrecios()"></button>
+    </div>
+</div>
+
+
+<div *ngIf="itemsAEditar.length">
+    <br>
+    <h2 style="text-align: center;">Logs</h2>
+    <br>
+
+    <p-table [value]="logRegistros" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="registro">NUM <p-sortIcon field="registro"></p-sortIcon></th>
+                <th pSortableColumn="mensaje">ESTADO <p-sortIcon field="mensaje"></p-sortIcon></th>
+                <th pSortableColumn="codigo">NUMERO <p-sortIcon field="codigo"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+            <tr>
+                <td>{{registro.registro}}</td>
+                <td>{{registro.mensaje}}</td>
+                <td>{{registro.codigo}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br>
+
+</div>

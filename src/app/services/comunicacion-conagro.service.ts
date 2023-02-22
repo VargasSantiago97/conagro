@@ -82,6 +82,10 @@ export class ComunicacionConagroService {
     return this.http.get(`${this.API_URI}/excelDescargas.php`);
   };
 
+  obtenerExcelPrecios() {
+    return this.http.get(`${this.API_URI}/excelPrecios.php`);
+  };
+
 
 
 
@@ -101,6 +105,16 @@ export class ComunicacionConagroService {
     console.log('a')
 
     this.PRUEBA_MODAL()
+  }
+  obtenerServidorExterno(){
+    return this.http.get(`https://nortesemillas.000webhostapp.com/api/index.php?tabla=clientes_prueba&op=getAll`);
+  }
+  modificarServidorExterno(data:any){
+    console.log(btoa(JSON.stringify(data)))
+    return this.http.get(`https://nortesemillas.000webhostapp.com/api/index.php?tabla=clientes_prueba&op=update&data=${btoa(JSON.stringify(data))}`);
+  }
+  crearServidorExterno(data:any){
+    return this.http.post(`https://nortesemillas.000webhostapp.com/api/index.php?tabla=clientes_prueba&op=create`, data);
   }
 
 }

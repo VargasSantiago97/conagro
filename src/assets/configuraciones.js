@@ -1,4 +1,6 @@
 var vars = {
-    API_URI: 'http://192.168.50.174',
-    API_URI_CONAGRO: 'http://127.0.0.1/api'
+    //API_URI: 'http://192.168.50.136',
+    API_URI: 'http://SYNAGRO',
+    API_URI_CONAGRO: 'http://localhost/api'
+    //API_URI_CONAGRO: 'http://192.168.50.141/api'
 }

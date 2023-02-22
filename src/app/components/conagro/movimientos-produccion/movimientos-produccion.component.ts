@@ -169,6 +169,7 @@ export class MovimientosProduccionComponent implements OnInit {
   crearObjetoCrudo(){
     this.dataCruda = [];
     this.dataKilos = [];
+    this.dataSilos = [];
     this.dataPorCampos = {};
     this.dataTabla = [];
 
@@ -207,6 +208,20 @@ export class MovimientosProduccionComponent implements OnInit {
               lote: registro.lote,
               tipo_origen: 'L'
             })
+          }  else if(e.tipo_origen == 'S'){
+            if(this.dataSilos.some((f:any)=>{return f.cod_silo == e.origen})){
+              //sumamos
+              var dataSilo = this.dataSilos.find((f:any) => { return f.cod_silo == e.origen })
+              dataSilo.kg_descarga += parseFloat(e.kg_origen)
+             }else{
+                //creamos
+                this.dataSilos.push({
+                  cod_silo: e.origen,
+                  nombre: this.DIC_destinos[e.origen].nombre,
+                  kg_carga: 0,
+                  kg_descarga: parseFloat(e.kg_origen)
+                })
+              }
           }
         })
       }else if (registro.tipo_origen == 'L'){
@@ -241,6 +256,7 @@ export class MovimientosProduccionComponent implements OnInit {
         //sumamos
         var dataSilo = this.dataSilos.find((e:any) => { return e.cod_silo == registro.origen })
         dataSilo.kg_descarga += parseFloat(registro.kg_neto_orig)
+
        }else{
         //creamos
         this.dataSilos.push({

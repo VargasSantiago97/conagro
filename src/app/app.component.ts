@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import {MenuItem} from 'primeng/api';
-import { ComunicacionConagroService } from './services/comunicacion-conagro.service';
-
 
 @Component({
   selector: 'app-root',
@@ -11,18 +9,8 @@ import { ComunicacionConagroService } from './services/comunicacion-conagro.serv
 export class AppComponent {
   items: MenuItem[] = [];
   title = 'conagro';
-  displayBasic = true;
-
-  constructor(
-    private comunicacionService: ComunicacionConagroService
-  ) { }
-
-  abrirDialog(){
-    this.abrirDialogg()
-  }
 
   ngOnInit() {
-    this.comunicacionService.setValue(this.abrirDialog)
 
     this.items = [
         {
@@ -108,14 +96,13 @@ export class AppComponent {
                   {label: 'Registros CORREDORES que no están en synagro', routerLink: 'conagro/corredoresSinSynagro'},
                 ]
               },
+              {
+                label: "Articulos",
+                routerLink: 'articulos'
+              },
             ]
         }
     ];
   }
-
-  abrirDialogg(){
-    this.displayBasic = true
-  }
-
 
 }

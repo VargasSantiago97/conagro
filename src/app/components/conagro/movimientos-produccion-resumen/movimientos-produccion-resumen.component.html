@@ -32,42 +32,7 @@
 <br>
 <br>
 <br>
-<!-- TARJETA POR ESTABLECIMIENTO -->
-<div *ngFor="let registro of dataTabla">
-    <p-card [style]="{'margin-bottom': '2em'}">
-        <ng-template pTemplate="header">
-            <h4 [style]="{'margin': '15px', 'background-color': 'rgba(114, 189, 255, 0.15)', 'border-radius':'20px', 'text-align':'center'}" title="(Cód. Establecimiento: {{registro.cod_establecimiento}})">
-                EST. <strong>{{registro.nombre_establecimiento}}</strong>. - TOTAL KGS: <strong>{{transformarDatoMostrar(registro.total_kgs, 'kilos')}}</strong>
-            </h4>
-        </ng-template>
-
-        <!-- DIVISION POR LOTES -->
-        <div *ngFor="let lote of registro.datos" title="(Cód. Lote: {{lote.cod_lote}})">
-
-            <h4>(<strong>{{transformarDatoMostrar(lote.total_kgs, 'kilos')}}</strong> kgs) - LOTE: <strong>{{lote.nombre_lote}}</strong></h4>
-
-            <!-- DIVISION POR TIPO DESTINO -->
-            <div *ngFor="let tipo_dest of lote.datos" title="(Cód. Tipo Destino: {{tipo_dest.tipo_dest}})" [style]="{'margin': '0px 0px 0px 50px'}">
-                (<strong>{{transformarDatoMostrar(tipo_dest.total_kgs, 'kilos')}}</strong> kgs) - DESTINO A: <strong>{{tipo_dest.nombre_tipo_dest}} </strong>
-
-                <br>
-
-            </div>
-
-            <br>
-        </div>
-
-        <!-- DATOS DESDE SILOS -->
-        <div *ngFor="let silo of registro.silos" title="(Cód. Silo: {{silo}})">
-            <p><strong>(*)</strong> ({{silo}}) - <strong>{{transformarDatoMostrar(silo, 'nombreSilo')}}.</strong> - Silo cargado con: <strong>{{transformarDatoMostrar(silo, 'kilosCargaSilo')}}kgs</strong> y descargado <strong>{{transformarDatoMostrar(silo, 'kilosDescargaSilo')}}kgs. </strong> DIF: {{transformarDatoMostrar(silo, 'diferenciaSilo')}}</p>
-        </div>
-
-    </p-card>
-</div>
-<br>
-<br>
-<br>
-<p-table [columns]="selectedColumns" [value]="dataKilos" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+<p-table [columns]="selectedColumns" [value]="dataParaMostrarTabla" selectionMode="single" [tableStyle]="{'min-width': '50rem'}" styleClass="p-datatable-gridlines p-datatable-striped p-datatable-sm" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [rowsPerPageOptions]="[10,25,50,100,1000]">
     <ng-template pTemplate="caption">
         <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
@@ -82,7 +47,7 @@ currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registro
     </ng-template>
     <ng-template pTemplate="body" let-registro let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns" title="{{col.field == 'nombre_establecimiento' ? registro['numero'] : registro[col.field]}}">
+            <td *ngFor="let col of columns">
                 {{transformarDatoMostrar(registro[col.field], col.field)}}
             </td>
         </tr>

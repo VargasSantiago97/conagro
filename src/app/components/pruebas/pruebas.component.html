@@ -10,3 +10,20 @@
     <p-knob [(ngModel)]="value1"></p-knob>
 </div>
 
+
+<p-dock [model]="dockItems" position="top">
+    <ng-template pTemplate="item" let-item style="margin: 0cm;">
+        <img [src]="item.icon" [alt]="item.label" width="100%">
+    </ng-template>
+</p-dock>
+
+
+
+<button (click)="obtenerServidorExterno()">obtenerServidorExterno</button>
+
+<input type="text" name="idModificar" id="idModificar" [(ngModel)]="idModificar">
+<input type="text" name="nombreModificar" id="nombreModificar" [(ngModel)]="nombreModificar">
+
+<button (click)="modificarServidorExterno()">modificarServidorExterno</button>
+<button (click)="crearServidorExterno()">crearServidorExterno</button>
+

@@ -35,8 +35,8 @@ import {SplitterModule} from 'primeng/splitter';
 import {KnobModule} from 'primeng/knob';
 import {TreeModule} from 'primeng/tree';
 import {CardModule} from 'primeng/card';
-
-
+import {DockModule} from 'primeng/dock';
+import {ContextMenuModule} from 'primeng/contextmenu';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -68,6 +68,7 @@ import { CompararComponent } from './components/conagro/comparar/comparar.compon
 import { CorredoresSinSynagroComponent } from './components/conagro/corredores-sin-synagro/corredores-sin-synagro.component';
 import { MovimientosProduccionComponent } from './components/conagro/movimientos-produccion/movimientos-produccion.component';
 import { MovimientosProduccionResumenComponent } from './components/conagro/movimientos-produccion-resumen/movimientos-produccion-resumen.component';
+import { ArticulosComponent } from './components/articulos/articulos.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { MovimientosProduccionResumenComponent } from './components/conagro/movi
     CompararComponent,
     CorredoresSinSynagroComponent,
     MovimientosProduccionComponent,
-    MovimientosProduccionResumenComponent
+    MovimientosProduccionResumenComponent,
+    ArticulosComponent
   ],
   imports: [
     BrowserModule,
@@ -138,8 +140,9 @@ import { MovimientosProduccionResumenComponent } from './components/conagro/movi
     SplitterModule,
     KnobModule,
     TreeModule,
-    CardModule
-    
+    CardModule,
+    DockModule,
+    ContextMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
