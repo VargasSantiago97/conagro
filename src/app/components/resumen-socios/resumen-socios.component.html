@@ -1,0 +1,53 @@
+<br>
+<div style="text-align: center;" *ngIf="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos">
+    <p-progressSpinner></p-progressSpinner>
+</div>
+<br>
+
+<div class="row">
+    <div class="col">
+        <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="periodo">
+            <option value=3>Campaña 20/21</option>
+            <option value=4>Campaña 21/22</option>
+            <option value=5>Campaña 22/23</option>
+          </select>
+    </div>
+    <div class="col">
+        <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="cultivo">
+            <option value=1>Soja</option>
+            <option value=2>Maiz</option>
+            <option value=3>Trigo</option>
+            <option value=4>Girasol</option>
+            <option value=19>Sorgo</option>
+            <option value=10>Algodon</option>
+            <option value=11>Soja 2da</option>
+            <option value=24>Maiz 2da</option>
+          </select>
+    </div>
+    <div class="col">
+        <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="kilosSelecc">
+            <option value='kg_neto_dest'>Kilos Destino</option>
+            <option value='kg_neto_orig'>Kilos Origen</option>
+          </select>
+    </div>
+    <div class="col">
+        <button [disabled]="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos" pButton type="button" style="margin: 5px;" label="CALCULAR" (click)="comenzarTratamiento()" [disabled]="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos"></button>
+    </div>
+</div>
+
+
+<div *ngIf="mostrarDatos">
+    <br><br>
+    <div *ngFor="let socio of socios">
+        <p-card [style]="{'margin-bottom': '2em'}">
+            <ng-template pTemplate="header">
+                <h3 [style]="{'margin': '15px', 'background-color': 'rgba(114, 189, 255, 0.15)', 'border-radius':'20px', 'text-align':'center'}" title="(Cód. Socio: {{socio.id}})">
+                    Produc.: <strong>{{socio.alias}}</strong>
+                </h3>
+            </ng-template>  
+            <h4>Totales Kilos Origen:</h4>
+            <p>Establecimientos de producción "{{socio.alias}}". Se muestran la cantidad TOTAL de "KILOS NETOS ORIGEN" que salieron SOLO de los lotes.</p>
+            <p-chart type="bar" [data]="socio.grafico_origen" height="500px"></p-chart>
+        </p-card>
+    </div>
+</div>

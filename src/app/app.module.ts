@@ -69,6 +69,7 @@ import { CorredoresSinSynagroComponent } from './components/conagro/corredores-s
 import { MovimientosProduccionComponent } from './components/conagro/movimientos-produccion/movimientos-produccion.component';
 import { MovimientosProduccionResumenComponent } from './components/conagro/movimientos-produccion-resumen/movimientos-produccion-resumen.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
+import { ResumenSociosComponent } from './components/resumen-socios/resumen-socios.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { ArticulosComponent } from './components/articulos/articulos.component';
     CorredoresSinSynagroComponent,
     MovimientosProduccionComponent,
     MovimientosProduccionResumenComponent,
-    ArticulosComponent
+    ArticulosComponent,
+    ResumenSociosComponent
   ],
   imports: [
     BrowserModule,

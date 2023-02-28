@@ -70,6 +70,7 @@ export class AppComponent {
               {label: 'Ver Produccion', routerLink: 'verProduccion'},
               {label: 'Origen->Destino', routerLink: 'conagro/movimientosProduccion'},
               {label: 'Origen->Destino [RES]', routerLink: 'conagro/movimientosProduccionResumen'},
+              {label: 'Resumen x socios', routerLink: 'resumenSocios'},
               {separator:true},
               {label: "Actualizar CPE's (Excel)", routerLink: 'conagro/actualizarCP'},
               {label: "Ver CPE's (Excel)", routerLink: 'conagro/verListadoCP'},

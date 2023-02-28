@@ -26,6 +26,7 @@ import { ListaProduccionComponent } from './components/lista-produccion/lista-pr
 import { ListaProveedoresComponent } from './components/lista-proveedores/lista-proveedores.component';
 import { PatentesComponent } from './components/patentes/patentes.component';
 import { PruebasComponent } from './components/pruebas/pruebas.component';
+import { ResumenSociosComponent } from './components/resumen-socios/resumen-socios.component';
 import { VerCambiosComponent } from './components/ver-cambios/ver-cambios.component';
 import { VerXlsxCrearComponent } from './components/ver-xlsx-crear/ver-xlsx-crear.component';
 import { VerxlsxComponent } from './components/verxlsx/verxlsx.component';
@@ -78,6 +79,7 @@ const routes: Routes = [
 
 
   { path: 'articulos', component: ArticulosComponent },
+  { path: 'resumenSocios', component: ResumenSociosComponent },
 
 
 
