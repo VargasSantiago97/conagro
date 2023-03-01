@@ -37,6 +37,8 @@ import {TreeModule} from 'primeng/tree';
 import {CardModule} from 'primeng/card';
 import {DockModule} from 'primeng/dock';
 import {ContextMenuModule} from 'primeng/contextmenu';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -144,9 +146,10 @@ import { ResumenSociosComponent } from './components/resumen-socios/resumen-soci
     TreeModule,
     CardModule,
     DockModule,
-    ContextMenuModule
+    ContextMenuModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

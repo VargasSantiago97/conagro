@@ -1,4 +1,5 @@
-<br>
+<p-toast></p-toast>
+
 <div style="text-align: center;" *ngIf="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos">
     <p-progressSpinner></p-progressSpinner>
 </div>
@@ -35,9 +36,12 @@
     </div>
 </div>
 
-
+<br><br>
 <div *ngIf="mostrarDatos">
-    <br><br>
+    <h2 [style]="{'margin': '15px', 'background-color': 'rgba(114, 189, 255, 0.15)', 'border-radius':'20px', 'text-align':'center'}">
+        TOTALES DE KILOS <strong>PRODUCIDOS</strong>
+    </h2>
+
     <div *ngFor="let socio of socios">
         <p-card [style]="{'margin-bottom': '2em'}">
             <ng-template pTemplate="header">
@@ -45,9 +49,37 @@
                     Produc.: <strong>{{socio.alias}}</strong>
                 </h3>
             </ng-template>  
-            <h4>Totales Kilos Origen:</h4>
-            <p>Establecimientos de producción "{{socio.alias}}". Se muestran la cantidad TOTAL de "KILOS NETOS ORIGEN" que salieron SOLO de los lotes.</p>
-            <p-chart type="bar" [data]="socio.grafico_origen" height="500px"></p-chart>
+
+            <p>Establecimientos de producción "{{socio.alias}}". Se muestran la cantidad TOTAL de "KILOS NETOS" que salieron SOLO de los lotes. (Se tiene en cuenta lo que fue a bolsones, pero NO lo que salio de los bolsones)</p>
+            <p-chart type="bar" [data]="socio.grafico_origen" height="400px"></p-chart>
+            <br>
+            <h5 *ngFor="let est of socio.data">Totales Kilos {{DIC_establecimiento[est.establecimiento].nombre}} {{transformarDatoMostrar(est[kilosSelecc], 'total_kgs')}} kgs</h5>
+            <h4><strong>Totales Kilos GENERAL: {{transformarDatoMostrar(socio.total_general, 'total_kgs')}} kgs</strong></h4>
+            <br>
+            <p-chart type="doughnut" [data]="socio.grafico_tipo_destinos" height="250px"></p-chart>
+        </p-card>
+    </div>
+
+
+
+    <br><br><hr><br>
+    <h2 [style]="{'margin': '15px', 'background-color': 'rgba(114, 189, 255, 0.15)', 'border-radius':'20px', 'text-align':'center'}">
+        TOTALES DE KILOS <strong>RETIRADOS</strong>
+    </h2>
+    
+    <div *ngFor="let socio of socios">
+        <p-card [style]="{'margin-bottom': '2em'}">
+            <ng-template pTemplate="header">
+                <h3 [style]="{'margin': '15px', 'background-color': 'rgba(114, 189, 255, 0.15)', 'border-radius':'20px', 'text-align':'center'}" title="(Cód. Socio: {{socio.id}})">
+                    Produc.: <strong>{{socio.alias}}</strong>
+                </h3>
+            </ng-template>  
+
+            <p>Se muestran la cantidad TOTAL de "KILOS NETOS" que salieron de todos los establecimiento de "{{socio.alias}}" (Se tiene en cuenta lo que salió de Lotes y lo que salió de Silos)</p>
+            <p-chart type="bar" [data]="socio.grafico_retiros" height="400px"></p-chart>
+            <br>
+            <!--h5 *ngFor="let est of socio.data">Totales Kilos {{DIC_establecimiento[est.establecimiento].nombre}} {{transformarDatoMostrar(est[kilosSelecc], 'total_kgs')}} kgs</h5>
+            <h4><strong>Totales Kilos GENERAL: {{transformarDatoMostrar(socio.total_general, 'total_kgs')}} kgs</strong></h4 !-->
         </p-card>
     </div>
 </div>
