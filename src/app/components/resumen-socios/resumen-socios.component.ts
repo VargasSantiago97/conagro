@@ -15,7 +15,7 @@ export class ResumenSociosComponent implements OnInit {
     establecimientosProduce = [
         { codigo: '1', nombre: 'DON JUAN', ptoinicial: null, produce: 2 },
         { codigo: '2', nombre: 'PAOLETTI BERMEJO', produce: 2 },
-        { codigo: '3', nombre: 'MONTE DE AGUA', produce: 10 },
+        { codigo: '3', nombre: 'MONTE DE AGUA', produce: 2 },
         { codigo: '4', nombre: 'DORADO', ptoinicial: null, produce: 2 },
         { codigo: '5', nombre: 'EL TANITO viejo', ptoinicial: null, produce: 2 },
         { codigo: '6', nombre: 'PAOLETTI SILENCIO', produce: 2 },
@@ -50,9 +50,9 @@ export class ResumenSociosComponent implements OnInit {
         { codigo: '36', nombre: 'VICTOR', produce: 2 },
         { codigo: '37', nombre: 'VILCHEZ', produce: 2 },
         { codigo: '38', nombre: 'ANGELI', produce: 2 },
-        { codigo: '39', nombre: 'CISKA', produce: 2 },
+        { codigo: '39', nombre: 'CISKA', produce: 4 },
         { codigo: '40', nombre: 'LA NINA', produce: 2 },
-        { codigo: '41', nombre: 'ALLENDE', produce: 2 },
+        { codigo: '41', nombre: 'ALLENDE', produce: 4 },
         { codigo: '42', nombre: 'La Juanita', produce: 2 },
         { codigo: '43', nombre: 'CASTELO', produce: 10 },
         { codigo: '44', nombre: 'CISKA LEGUIZA', produce: 2 },
@@ -93,6 +93,51 @@ export class ResumenSociosComponent implements OnInit {
     periodo: any = 4;
     cultivo: any = 2;
     kilosSelecc: any = 'kg_neto_dest';
+
+    sociosFiltro:any = [
+        {
+            id: 1,
+            alias: 'PLANJAR',
+        },
+        {
+            id: 2,
+            alias: 'SOCIEDAD',
+        },
+        {
+            id: 3,
+            alias: 'TIJUANA',
+        },
+        {
+            id: 4,
+            alias: 'YAGUA',
+        },
+        {
+            id: 10,
+            alias: 'OTROS',
+        }
+    ];
+    sociosSeleccionados:any = [
+        {
+            id: 1,
+            alias: 'PLANJAR',
+        },
+        {
+            id: 2,
+            alias: 'SOCIEDAD',
+        },
+        {
+            id: 3,
+            alias: 'TIJUANA',
+        },
+        {
+            id: 4,
+            alias: 'YAGUA',
+        },
+        {
+            id: 10,
+            alias: 'OTROS',
+        }
+    ];
 
     //PARA OPERACIONES
     dataFiltrada: any = [];
@@ -376,7 +421,8 @@ export class ResumenSociosComponent implements OnInit {
         })
 
         //DIVIDIMOS POR PRODUCCION (SOCIO)
-        this.socios.map((socio: any) => {
+        this.sociosSeleccionados.map((socioSelecc: any) => {
+            var socio = this.socios.find((e:any) => {return e.id == socioSelecc.id})
             var produccionSocio = this.dataLotes.filter((e: any) => { return e.produce == socio.id })
 
             var dataSocio: any = []

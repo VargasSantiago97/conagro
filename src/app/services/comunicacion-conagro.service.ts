@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 declare var vars: any;
 
 @Injectable({
@@ -11,7 +13,10 @@ export class ComunicacionConagroService {
   PRUEBA = 15;
   PRUEBA_MODAL: any = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router : Router) { }
+  consultaPermiso(){
+    localStorage.getItem('activate') != 'true' ? this.router.navigate(['/error']) : null
+  }
 
   obtenerTodosSocios() {
     return this.http.get(`${this.API_URI}/index.php?tabla=socios&op=getAll`);

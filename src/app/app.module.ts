@@ -39,6 +39,10 @@ import {DockModule} from 'primeng/dock';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
+
+
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { CargarComponent } from './components/cargar/cargar.component';
@@ -72,6 +76,9 @@ import { MovimientosProduccionComponent } from './components/conagro/movimientos
 import { MovimientosProduccionResumenComponent } from './components/conagro/movimientos-produccion-resumen/movimientos-produccion-resumen.component';
 import { ArticulosComponent } from './components/articulos/articulos.component';
 import { ResumenSociosComponent } from './components/resumen-socios/resumen-socios.component';
+import { ResumenSociosExcelComponent } from './components/resumen-socios-excel/resumen-socios-excel.component';
+import { SinPermisoComponent } from './components/sin-permiso/sin-permiso.component';
+import { ImportarKilosComponent } from './components/importar-kilos/importar-kilos.component';
 
 
 @NgModule({
@@ -107,7 +114,10 @@ import { ResumenSociosComponent } from './components/resumen-socios/resumen-soci
     MovimientosProduccionComponent,
     MovimientosProduccionResumenComponent,
     ArticulosComponent,
-    ResumenSociosComponent
+    ResumenSociosComponent,
+    ResumenSociosExcelComponent,
+    SinPermisoComponent,
+    ImportarKilosComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,7 +157,8 @@ import { ResumenSociosComponent } from './components/resumen-socios/resumen-soci
     CardModule,
     DockModule,
     ContextMenuModule,
-    ToastModule
+    ToastModule,
+    InputTextareaModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

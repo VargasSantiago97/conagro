@@ -10,8 +10,11 @@ export class AppComponent {
   items: MenuItem[] = [];
   title = 'conagro';
 
-  ngOnInit() {
+  constructor(){
 
+  }
+
+  ngOnInit() {
     this.items = [
         {
             label: 'Inicio',
@@ -61,7 +64,9 @@ export class AppComponent {
               {label: 'Patentes/Transportistas', routerLink: 'patentes'},
               {label: 'Destinos/Clientes', routerLink: 'crearDestinos'},
               {separator:true},
-              {label: 'CREAR POR IMPORTACION', routerLink: 'crearRegistros'}
+              {label: 'CREAR POR IMPORTACION', routerLink: 'crearRegistros'},
+              {separator:true},
+              {label: 'Importar Kilos Origen / Destino / Dif / Obs', routerLink: 'importarKilos'}
             ]
         },
         {
@@ -71,6 +76,7 @@ export class AppComponent {
               {label: 'Origen->Destino', routerLink: 'conagro/movimientosProduccion'},
               {label: 'Origen->Destino [RES]', routerLink: 'conagro/movimientosProduccionResumen'},
               {label: 'Resumen x socios', routerLink: 'resumenSocios'},
+              {label: 'Resumen x socios [Tabla]', routerLink: 'resumenSociosExcel'},
               {separator:true},
               {label: "Actualizar CPE's (Excel)", routerLink: 'conagro/actualizarCP'},
               {label: "Ver CPE's (Excel)", routerLink: 'conagro/verListadoCP'},

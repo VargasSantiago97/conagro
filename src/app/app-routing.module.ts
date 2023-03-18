@@ -17,6 +17,7 @@ import { CorredoresComponent } from './components/corredores/corredores/corredor
 import { DescargasComponent } from './components/corredores/descargas/descargas.component';
 import { CrearDestinosComponent } from './components/crear-destinos/crear-destinos.component';
 import { CrearRegistrosComponent } from './components/crear-registros/crear-registros.component';
+import { ImportarKilosComponent } from './components/importar-kilos/importar-kilos.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { ListaDestinosComponent } from './components/lista-destinos/lista-destinos.component';
 import { ListaFleterosComponent } from './components/lista-fleteros/lista-fleteros.component';
@@ -26,7 +27,9 @@ import { ListaProduccionComponent } from './components/lista-produccion/lista-pr
 import { ListaProveedoresComponent } from './components/lista-proveedores/lista-proveedores.component';
 import { PatentesComponent } from './components/patentes/patentes.component';
 import { PruebasComponent } from './components/pruebas/pruebas.component';
+import { ResumenSociosExcelComponent } from './components/resumen-socios-excel/resumen-socios-excel.component';
 import { ResumenSociosComponent } from './components/resumen-socios/resumen-socios.component';
+import { SinPermisoComponent } from './components/sin-permiso/sin-permiso.component';
 import { VerCambiosComponent } from './components/ver-cambios/ver-cambios.component';
 import { VerXlsxCrearComponent } from './components/ver-xlsx-crear/ver-xlsx-crear.component';
 import { VerxlsxComponent } from './components/verxlsx/verxlsx.component';
@@ -71,15 +74,23 @@ const routes: Routes = [
   { path: 'conagro/corredores/cargar_descargas', component: CargarDescargasComponent },
   { path: 'conagro/corredoresSinSynagro', component: CorredoresSinSynagroComponent },
 
-  
   { path: 'conagro/comparar', component: CompararComponent },
 
   { path: 'conagro/movimientosProduccion', component: MovimientosProduccionComponent },
   { path: 'conagro/movimientosProduccionResumen', component: MovimientosProduccionResumenComponent },
 
 
-  { path: 'articulos', component: ArticulosComponent },
+  {
+    path: 'articulos',
+    component: ArticulosComponent,
+  },
+
   { path: 'resumenSocios', component: ResumenSociosComponent },
+  { path: 'resumenSociosExcel', component: ResumenSociosExcelComponent },
+
+  
+  { path: 'error', component: SinPermisoComponent },
+  { path: 'importarKilos', component: ImportarKilosComponent },
 
 
 

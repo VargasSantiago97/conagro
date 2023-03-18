@@ -43,6 +43,8 @@ export class ArticulosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.comunicacionConagroService.consultaPermiso();
+
     this.obtenerTodosArticulos();
     this.obtenerTodosStockCampo();
     this.obtenerTodosStockItem();

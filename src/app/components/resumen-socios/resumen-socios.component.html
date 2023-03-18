@@ -6,14 +6,14 @@
 <br>
 
 <div class="row">
-    <div class="col">
+    <div class="col-3">
         <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="periodo">
             <option value=3>Campaña 20/21</option>
             <option value=4>Campaña 21/22</option>
             <option value=5>Campaña 22/23</option>
           </select>
     </div>
-    <div class="col">
+    <div class="col-2">
         <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="cultivo">
             <option value=1>Soja</option>
             <option value=2>Maiz</option>
@@ -25,16 +25,20 @@
             <option value=24>Maiz 2da</option>
           </select>
     </div>
-    <div class="col">
+    <div class="col-3">
         <select style="margin: 5px;" class="form-select" aria-label="Default select example" [(ngModel)]="kilosSelecc">
             <option value='kg_neto_dest'>Kilos Destino</option>
             <option value='kg_neto_orig'>Kilos Origen</option>
           </select>
     </div>
-    <div class="col">
+    <div class="col-3">
+        <p-multiSelect [options]="sociosFiltro" [(ngModel)]="sociosSeleccionados" defaultLabel="Seleccionar Socios" optionLabel="alias" selectedItemsLabel="{0} socios seleccionados"></p-multiSelect>
+    </div>
+    <div class="col-1">
         <button [disabled]="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos" pButton type="button" style="margin: 5px;" label="CALCULAR" (click)="comenzarTratamiento()" [disabled]="spinnerProduccion || spinnerProduccionOrigen || spinnerEstablecimiento || spinnerLotes || spinnerLoteActividad || spinnerDestinos"></button>
     </div>
 </div>
+
 
 <br><br>
 <div *ngIf="mostrarDatos">

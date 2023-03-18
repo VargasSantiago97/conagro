@@ -26,6 +26,10 @@ export class ComunicacionService {
   editarProduccion(data : any){
     return this.http.post(`${this.API_URI}/index.php?tabla=produccion&op=update`, data);
   }
+
+  editarProduccionKilos(data : any){
+    return this.http.post(`${this.API_URI}/index.php?tabla=produccion_kilos&op=update`, data);
+  }
   
   crearProduccion(data : any){
     return this.http.post(`${this.API_URI}/index.php?tabla=produccion&op=create`, data);
